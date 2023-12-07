@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:vsmgmt="http://schemas.verisign.com/pkiservices/2009/07/management" xmlns:vswstep="http://www.verisign.com/2009/07/vswstep" elementFormDefault="qualified" targetNamespace="http://schemas.verisign.com/pkiservices/2009/07/management" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+			XML Schema for
+			certificateManagementService Web Services
+			version 1.0
+		</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="VersionType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,3}\.\d{0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionIDType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CommentType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="128" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="requestKeyRecoveryMessage" type="vsmgmt:RequestKeyRecoveryMessageType" />
+  <xs:complexType name="RequestKeyRecoveryMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element minOccurs="0" name="pKCS12Password" type="xs:string" />
+      <xs:element name="certificateSerialNumber" type="xs:string" />
+      <xs:element name="certificateIssuer" type="xs:string" />
+      <xs:element name="adminID" type="xs:string" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="requestKeyRecoveryResponseMessage" type="vsmgmt:RequestKeyRecoveryResponseMessageType" />
+  <xs:complexType name="RequestKeyRecoveryResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element minOccurs="0" name="adminApprovalPendingCount" type="xs:int" />
+      <xs:element minOccurs="0" name="pKCS12Password" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pKCS12Message" type="xs:string" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="updateCertificateStatusRequest" type="vsmgmt:UpdateCertificateStatusRequestType" />
+  <xs:complexType name="UpdateCertificateStatusRequestType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:element minOccurs="0" name="certificateIssuer" type="xs:string" />
+      <xs:element minOccurs="0" name="revocationReason" type="vsmgmt:RevokeReasonCodeEnum" />
+      <xs:element minOccurs="0" name="challenge" type="xs:string" />
+      <xs:element minOccurs="0" name="comment" type="vsmgmt:CommentType" />
+      <xs:choice>
+        <xs:element name="certificateSerialNumber" type="xs:string" />
+        <xs:element name="seatId" type="xs:string" />
+      </xs:choice>
+      <xs:element name="operationType" type="vsmgmt:OperationTypeEnum" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="updateCertificateStatusResponse" type="vsmgmt:UpdateCertificateStatusResponseType" />
+  <xs:complexType name="UpdateCertificateStatusResponseType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element minOccurs="0" name="serverTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:element name="successCode" type="xs:int" />
+      <xs:element name="successMsg" type="xs:string" />
+      <xs:element name="revocationCount" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="bulkUpdateCertificateStatusRequest" type="vsmgmt:BulkUpdateCertificateStatusRequestType" />
+  <xs:complexType name="BulkUpdateCertificateStatusRequestType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:element minOccurs="0" name="revocationReason" type="vsmgmt:RevokeReasonCodeEnum" />
+      <xs:element minOccurs="0" name="comment" type="vsmgmt:CommentType" />
+      <xs:choice>
+        <xs:element maxOccurs="100" name="certificateSerialNumber" type="xs:string" />
+        <xs:element maxOccurs="100" name="seatId" type="xs:string" />
+        <xs:element maxOccurs="100" name="profileOID" type="xs:string" />
+      </xs:choice>
+      <xs:element name="operationType" type="vsmgmt:OperationTypeEnum" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="bulkUpdateCertificateStatusResponse" type="vsmgmt:BulkUpdateCertificateStatusResponseType" />
+  <xs:complexType name="BulkUpdateCertificateStatusResponseType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element minOccurs="0" name="serverTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:element name="successCode" type="xs:int" />
+      <xs:element name="successMsg" type="xs:string" />
+      <xs:element name="revocationCount" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="OperationTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Revoke" />
+      <xs:enumeration value="Suspend" />
+      <xs:enumeration value="Resume" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RevokeReasonCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unspecified" />
+      <xs:enumeration value="KeyCompromise" />
+      <xs:enumeration value="CACompromise" />
+      <xs:enumeration value="AffiliationChanged" />
+      <xs:enumeration value="CessationOfOperation" />
+      <xs:enumeration value="PrivilegeWithdrawn" />
+      <xs:enumeration value="AACompromise" />
+      <xs:enumeration value="Superseded" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="searchCertificateRequest" type="vsmgmt:SearchCertificateRequestType" />
+  <xs:complexType name="SearchCertificateRequestType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element minOccurs="0" name="seatId" type="xs:string" />
+      <xs:element minOccurs="0" name="accountId" type="xs:string" />
+      <xs:element minOccurs="0" name="profileOID" type="xs:string" />
+      <xs:element minOccurs="0" name="commonName" type="xs:string" />
+      <xs:element minOccurs="0" name="status" type="vsmgmt:CertificateStatusEnum" />
+      <xs:element minOccurs="0" name="emailAddress" type="xs:string" />
+      <xs:element minOccurs="0" name="serialNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="issuingCA" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="validFrom" type="xs:long" />
+      <xs:element minOccurs="0" name="validTo" type="xs:long" />
+      <xs:element minOccurs="0" name="startIndex" type="xs:int" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="searchCertificateResponse" type="vsmgmt:SearchCertificateResponseType" />
+  <xs:complexType name="SearchCertificateResponseType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="vsmgmt:TransactionIDType" />
+      <xs:element name="certificateCount" type="xs:int" />
+      <xs:element minOccurs="0" name="certificateList" type="vsmgmt:CertificateListType" />
+      <xs:element minOccurs="0" name="moreCertificateAvailable" type="xs:boolean" />
+      <xs:element name="version" type="vsmgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CertificateSearchResultType">
+    <xs:sequence>
+      <xs:element name="certificate" type="xs:base64Binary" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element name="commonName" type="xs:string" />
+      <xs:element name="accountId" type="xs:string" />
+      <xs:element name="profileOID" type="xs:string" />
+      <xs:element name="emailAddress" nillable="true" type="xs:string" />
+      <xs:element name="status" type="vsmgmt:CertificateStatusEnum" />
+      <xs:element minOccurs="0" name="revokeAt" type="xs:long" />
+      <xs:element minOccurs="0" name="revokeReason" type="vsmgmt:RevokeReasonCodeEnum" />
+      <xs:element name="validFrom" type="xs:long" />
+      <xs:element name="validTo" type="xs:long" />
+      <xs:element name="serialNumber" type="xs:string" />
+      <xs:element name="isEscrowed" type="xs:boolean" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CertificateListType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="certificateInformation" type="vsmgmt:CertificateSearchResultType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CertificateStatusEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VALID" />
+      <xs:enumeration value="EXPIRED" />
+      <xs:enumeration value="REVOKED" />
+      <xs:enumeration value="SUSPENDED" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

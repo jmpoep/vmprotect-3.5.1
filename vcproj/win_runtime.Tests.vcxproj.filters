@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\runtime\crypto.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\hook_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\hwid.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\licensing_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\objects.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\resource_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\string_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\win_runtime.Tests\crypto_tests.cc" />
+    <ClCompile Include="..\win_runtime.Tests\core_tests.cc" />
+    <ClCompile Include="..\runtime\file_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\core.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\win_runtime.Tests\precompiled.cc" />
+    <ClCompile Include="..\win_runtime.Tests\main.cc" />
+    <ClCompile Include="..\runtime\registry_manager.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\utils.cc">
+      <Filter>Original</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\win_runtime.Tests\precompiled.h" />
+    <ClInclude Include="..\runtime\core.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\crypto.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\hook_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\hwid.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\licensing_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\objects.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\resource_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\string_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\file_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\registry_manager.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\utils.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Original">
+      <UniqueIdentifier>{2b23e91c-6b85-436e-9243-15501e2a8ded}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

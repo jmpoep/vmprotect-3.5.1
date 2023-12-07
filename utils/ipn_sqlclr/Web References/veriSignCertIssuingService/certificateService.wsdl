@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:vswstep="http://schemas.verisign.com/pkiservices/2009/07/enrollment" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="certificateService" targetNamespace="http://schemas.verisign.com/pkiservices/2009/07/enrollment" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+			XML WSDL for VeriSign
+			Certificate Web Services
+			version 1.0
+		</xsd:documentation>
+  </xsd:annotation>
+  <wsdl:import namespace="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" location="ws-trust-1.3-verisign.wsdl" />
+  <wsdl:types />
+  <wsdl:binding name="veriSignCertIssuingServiceSOAP" type="wst:SecurityTokenService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestSecurityToken">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/enrollment/requestSecurityToken" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestSecurityToken2">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/enrollment/requestSecurityToken2" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="veriSignCertIssuingService">
+    <wsdl:port name="veriSignCertServiceSOAP" binding="vswstep:veriSignCertIssuingServiceSOAP">
+      <soap:address location="https://pki-ws.symauth.com/pki-ws/enrollmentService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

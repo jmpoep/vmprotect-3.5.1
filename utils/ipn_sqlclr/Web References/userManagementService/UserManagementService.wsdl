@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:usermgmt="http://schemas.verisign.com/pkiservices/2011/08/usermanagement" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.verisign.com/pkiservices/2011/08/usermanagement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import schemaLocation="UserManagementService.xsd" namespace="http://schemas.verisign.com/pkiservices/2011/08/usermanagement" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="createOrUpdateUserRequest">
+    <wsdl:part name="request" element="usermgmt:createOrUpdateUserRequest" />
+  </wsdl:message>
+  <wsdl:message name="createOrUpdateUserResponse">
+    <wsdl:part name="response" element="usermgmt:createOrUpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="createOrUpdatePasscodeRequest">
+    <wsdl:part name="request" element="usermgmt:createOrUpdatePasscodeRequest" />
+  </wsdl:message>
+  <wsdl:message name="createOrUpdatePasscodeResponse">
+    <wsdl:part name="response" element="usermgmt:createOrUpdatePasscodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserRequest">
+    <wsdl:part name="request" element="usermgmt:deleteUserRequest" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserResponse">
+    <wsdl:part name="response" element="usermgmt:deleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="bulkDeleteUserRequest">
+    <wsdl:part name="request" element="usermgmt:bulkDeleteUserRequest" />
+  </wsdl:message>
+  <wsdl:message name="bulkDeleteUserResponse">
+    <wsdl:part name="response" element="usermgmt:bulkDeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPasscodeInformationRequest">
+    <wsdl:part name="request" element="usermgmt:getPasscodeInformationRequest" />
+  </wsdl:message>
+  <wsdl:message name="getPasscodeInformationResponse">
+    <wsdl:part name="response" element="usermgmt:getPasscodeInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserInformationRequest">
+    <wsdl:part name="request" element="usermgmt:getUserInformationRequest" />
+  </wsdl:message>
+  <wsdl:message name="getUserInformationResponse">
+    <wsdl:part name="response" element="usermgmt:getUserInformationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="userManagementOperations">
+    <wsdl:operation name="createOrUpdateUser">
+      <wsdl:input message="usermgmt:createOrUpdateUserRequest" />
+      <wsdl:output message="usermgmt:createOrUpdateUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createOrUpdatePasscode">
+      <wsdl:input message="usermgmt:createOrUpdatePasscodeRequest" />
+      <wsdl:output message="usermgmt:createOrUpdatePasscodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="usermgmt:deleteUserRequest" />
+      <wsdl:output message="usermgmt:deleteUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="bulkDeleteUser">
+      <wsdl:input message="usermgmt:bulkDeleteUserRequest" />
+      <wsdl:output message="usermgmt:bulkDeleteUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getPasscodeInformation">
+      <wsdl:input message="usermgmt:getPasscodeInformationRequest" />
+      <wsdl:output message="usermgmt:getPasscodeInformationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserInformation">
+      <wsdl:input message="usermgmt:getUserInformationRequest" />
+      <wsdl:output message="usermgmt:getUserInformationResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="userManagementServiceSOAP" type="usermgmt:userManagementOperations">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createOrUpdateUser">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createOrUpdatePasscode">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bulkDeleteUser">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPasscodeInformation">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserInformation">
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="userManagementService">
+    <wsdl:port name="userManagementServiceSOAP" binding="usermgmt:userManagementServiceSOAP">
+      <soap:address location="https://pki-ws.symauth.com/pki-ws/userManagementService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

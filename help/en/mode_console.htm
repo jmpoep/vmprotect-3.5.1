@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Console version</title>
+</head>
+
+<body>
+  <h1>Console version</h1>
+
+  <p>After you created a project in the <a href="main_window.htm">GUI
+  mode</a> you can use the console version 
+  (VMProtect_Con.exe). You can execute it as follows:</p>
+
+  <p><strong>VMProtect_Con File [Output File] [-pf Project File]
+  [-sf Script File] [-lf Licensing Parameters File] [-bd Build Date (yyyy-mm-dd)] [-wm Watermark Name]
+  [-we]</strong></p>
+
+  <ul>
+    <li><strong>File</strong> - the file name of the executable you want to protect (*.exe, *.dll and so on), or the file name of a (*.vmp) project. If a project file name is specified, the file name of the executable is taken from the project file.</li>
+
+    <li><strong>Output File</strong> - the file name and path to the protected file that should be created after processing the original file. If this parameter is not set, the value is taken from the project file.</li>
+
+    <li><strong>Project File</strong> - the file name and path to the project file created in the
+    <a href="main_window.htm">GUI mode</a>. If the parameter is not set, the program searches for a *.vmp file in the folder of the executable.</li>
+
+    <li><strong>Script file</strong> - the file name of the 
+    <a href="script.htm">script</a> the protected file is processed with. If the parameter is not set, the script from the current project file is used.</li>
+
+    <li><strong>Licensing Parameters File</strong> - the name of a file containing <a href="manager/licenses.htm">licensing parameters</a>.
+    If this parameter is not set, licensing parameters are taken from the current project file.</li>
+
+    <li><strong>Build Date</strong> - Application build date in the following format: "yyyy-mm-dd". If this parameter is not set, the current date is used. 
+    The build date is inscribed into the protected application and is used by the licensing system to check serial numbers against the "<a href="manager/licenses.htm#AddLicense">Maximum build date</a>" field.</li>
+
+    <li><strong>Watermark Name</strong> - the name of a 
+    <a href="watermarks.htm">watermark</a> inserted into the protected file. If the name of a watermark is not set, the watermark specified in the project settings is used.</li>
+
+    <li><strong>we</strong> - when this parameter is set, all warnings are displayed as errors.</li>
+  </ul><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 2.5: Locking the code to a serial number</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    p.c2 {color:red;}
+    span.c1 {background-color:yellow;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Step 2.5: Locking the code to a serial number</h1>
+
+  <p>One of the most common ways to crack programs is to locate the place where the serial number is checked and the nearby conditional jump that follows it. If the serial number is correct, the execution of the program goes one way, if not - the other way. A hacker locates this jump and replaces it with a jump to the "correct" way. Let's "crack" our test program using this technique. Directly in the source code, of course. Let's "switch off" our conditional jump:</p>
+  <pre class="code">char *serial = read_serial("serial.txt");
+int res = VMProtectSetSerialNumber(serial);
+delete [] serial;
+if (<span class="c1">false &amp;&amp;</span> res)
+{
+</pre>
+
+  <p>Now, our program accepts any serial number and works normally. Of course, if the file is protected with VMProtect, even an experienced hacker would spend months to locate and modify the conditional jump as we did it. And taking into account the program check the serial number multiple times and under different conditions, even such a simple check is quite secure. But let's go further.</p><strong>locking the code to a serial number</strong>
+
+  <p class="c2"><strong>Important!</strong> The demo-version of VMProtect has a limitation on the number of processed function: only one function is processed. So if you use the demo-version, you should only include the foo() function to the project, otherwise the demo-version of VMProtect can choose the main() function and locking to a serial number will not work.</p>
+
+  <p>The licensing system of VMProtect allows you to lock the code of one or more functions to a serial number so, that they will not work without the correct serial number provided. the body of the function is virtualized, then encrypted and can only be decrypted with the correct serial number. This means, even if a hacker finds and fixes the conditional jump in the serial number check, functions locked to the serial number still will not work. Let's try this. In the "Functions" section choose the <strong>foo()</strong> function and at the right panel change the "Lock to Serial Number" option to "Yes".</p>
+
+  <p><img src="../../images/lock_to_serial.png" /></p>
+
+  <p>Then, protect the application. Since, we already "hacked" it, put an arbitrary text into the serial.txt file and run the application. The following text appears in the console:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is correct, calling foo()
+</pre>
+
+  <p>This means, the hacker "fixed" the conditional jump, and the program runs on the "correct" way. But when the
+  <strong>foo()</strong> is invoked, the program displays a message:</p>
+
+  <p><img src="../../images/codelock_error.png" /></p>
+
+  <p>Since we locked the <strong>foo()</strong> function to the serial number, and the hacker does not have it, an attempt to decrypt the code of the function resulted in malfunction and inability to continue execution of the program. When "OK" is pressed, the program shuts down and the "done" message is never displayed in the console.
+  </p><strong>What should be locked to a serial number?</strong>
+
+  <p>It makes sense to lock to a serial number a function that should only run in the registered version of the program. Since locking requires virtualization, you should take into account some loss of performance. For instance, if a text editor does not allow saving result in a demo-version, you can lock the save document function to a serial number. If during its operation this function calls other functions, it is not necessary to lock them too, as they won't be of any use without the main function.</p>
+
+  <p>You should also remember that invoking the locked function without the serial number leads to program shut down, without a chance to save result of the work. that is why you should thoroughly test the application to make sure it doesn't calls such functions in the trial mode. In the above example, the text editor must disable the "Save" command in the demo mode and do not react on Ctrl+S shortcut as well. Of course, it also shouldn't ask to save the document on exit too. If you don't pay attention to this, a user may be disappointed with your "buggy" demo-version.</p><strong>Locking to a serial number and invalid serial numbers</strong>
+
+  <p>When the <strong>VMProtectSetSerialNumber()</strong> function is invoked, the licensing module checks the serial number passed to this function. Encrypted fragments of the code are only executed if the serial number was absolutely correct at the moment of check - not blacklisted, with the correct hardware identifier, not expired and so on. In this case all encrypted procedures are executed until the application is closed, or <strong>VMProtectSetSerialNumber()</strong> is invoked again.</p>
+
+  <p>Some limitations can "trigger" during execution of the program: for example, the operating time of the program may expire or the serial number expiration date comes. In this case the licensing module still encrypts and executes functions locked to the serial number. This is so, because it is hard for the protected application to detect the moment those limitations trigger and change the behaviour accordingly (block corresponding menu items and so on). If the licensing module suddenly stops execution of the code fragments that are locked to the serial number, this will very likely lead to malfunction of the application. That is why the decision is made when a serial number is set, and the corresponding execution mode is selected.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

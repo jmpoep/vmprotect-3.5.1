@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{bfb16074-2e47-4674-8901-66fa034c135c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pcre">
+      <UniqueIdentifier>{d1319b33-800d-4c97-a5a3-5b931e909d8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit-tests">
+      <UniqueIdentifier>{24db6ccc-2a4c-4799-8c76-bd54794f7fc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{daf0fd2a-636c-433b-93eb-b10aab212f02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\dprint.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\files.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\objects.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\streams.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\gtest\src\gtest-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\macfile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pefile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\demangle.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_chartables.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_compile.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_config.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_dfa_exec.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_exec.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_fullinfo.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_get.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_globals.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_info.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_maketables.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_newline.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_ord2utf8.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_refcount.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_scanner.cc">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_stringpiece.cc">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_study.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_tables.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_try_flipped.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_ucd.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_valid_utf8.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_version.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcre_xclass.c">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pcre\pcrecpp.cc">
+      <Filter>pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\processors.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\intel.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\arm.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\test1.cc">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\pugixml\pugixml.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\macfile_tests.cc">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\pefile_tests.cc">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\files_tests.cc">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\intel_tests.cc">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit-tests\arm_tests.cpp">
+      <Filter>unit-tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gcc-demangle.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\msvc-demangle.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osutils.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\dprint.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\files.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objects.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\streams.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\def.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mach-o.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\macfile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pefile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pe.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\demangle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\config.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcre.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcre_internal.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcre_scanner.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcre_stringpiece.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcrecpp.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcrecpp_internal.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\pcrecpparg.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pcre\ucp.h">
+      <Filter>pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\processors.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\intel.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\arm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\pugixml\pugixml.hpp">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit-tests\testfile.h">
+      <Filter>unit-tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gcc-demangle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\msvc-demangle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\osutils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" xmlns:vswstep="http://schemas.verisign.com/pkiservices/2009/07/enrollment" xmlns:auth="http://schemas.xmlsoap.org/ws/2006/12/authorization" elementFormDefault="qualified" targetNamespace="http://schemas.verisign.com/pkiservices/2009/07/enrollment" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/ws/2006/12/authorization/ws-authorization.xsd" namespace="http://schemas.xmlsoap.org/ws/2006/12/authorization" />
+  <xs:import schemaLocation="ws-trust-1.3-verisign.xsd" namespace="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" />
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+			XML Schema for veriSignCertIssuingService Web Services
+			version 1.0
+		</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="VersionType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,3}\.\d{0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionIDType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="NameValueType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TokenType">
+    <xs:restriction base="xs:anyURI">
+      <xs:enumeration value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" />
+      <xs:enumeration value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#PKCS7" />
+      <xs:enumeration value="http://schemas.verisign.com/pkiservices/2009/07/PKCS12" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RequestTypeEnum">
+    <xs:restriction base="xs:anyURI">
+      <xs:enumeration value="http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue" />
+      <xs:enumeration value="http://docs.oasis-open.org/ws-sx/ws-trust/200512/Renew" />
+      <xs:enumeration value="http://schemas.verisign.com/pkiservices/2009/07/QueryTokenStatus" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="requestVSSecurityToken" type="vswstep:RequestVSSecurityTokenEnrollmentType" />
+  <xs:complexType name="RequestVSSecurityTokenEnrollmentType">
+    <xs:sequence>
+      <xs:element name="certificateProfileID" type="xs:string" />
+      <xs:element minOccurs="0" name="clientTransactionID" type="vswstep:TransactionIDType" />
+      <xs:element minOccurs="0" name="tokenType" type="vswstep:TokenType" />
+      <xs:element name="requestType" type="vswstep:RequestTypeEnum" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="binarySecurityToken" type="wsse:BinarySecurityTokenType" />
+      <xs:element minOccurs="0" name="additionalContext" type="auth:AdditionalContextType" />
+      <xs:element minOccurs="0" name="pendingTokenReferenceID" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="nameValuePair" type="vswstep:NameValueType" />
+      <xs:element name="version" type="vswstep:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+    <xs:attribute name="preferredLanguage" type="xs:language" use="optional" />
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:element name="RequestVSSecurityTokenResponse" type="vswstep:RequestVSSecurityTokenResponseEnrollmentType" />
+  <xs:complexType name="RequestVSSecurityTokenResponseEnrollmentType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="vswstep:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="vswstep:TransactionIDType" />
+      <xs:element minOccurs="0" name="tokenType" type="vswstep:TokenType" />
+      <xs:element minOccurs="0" name="dispositionMessage" type="xs:string" />
+      <xs:element minOccurs="0" name="binarySecurityToken" type="wsse:BinarySecurityTokenType" />
+      <xs:element minOccurs="0" name="requestedVSSecurityToken" type="vswstep:RequestedVSSecurityTokenEnrollmentType" />
+      <xs:element name="version" type="vswstep:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##targetNamespace" processContents="lax" />
+    </xs:sequence>
+    <xs:attribute name="preferredLanguage" type="xs:language" use="optional" />
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:complexType name="RequestedVSSecurityTokenEnrollmentType">
+    <xs:choice>
+      <xs:sequence>
+        <xs:element name="binarySecurityToken" type="wsse:BinarySecurityTokenType" />
+        <xs:element minOccurs="0" name="pKCS12Password" type="xs:string" />
+      </xs:sequence>
+      <xs:element name="pendingTokenReferenceID" type="xs:string" />
+    </xs:choice>
+  </xs:complexType>
+</xs:schema>

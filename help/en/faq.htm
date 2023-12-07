@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Frequently Asked Questions</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Frequently Asked Questions</h1>
+
+  <h3>Ordering VMProtect</h3>
+
+  <p><strong>If I order VMProtect, will I be able to use it on different computers?</strong><br />
+  You can install and use VMProtect on any number of computers you want and need for your work.</p>
+
+  <p><strong>What is a difference between Personal and Company
+  licenses, and which license should I prefer?</strong><br />
+  The only difference between these license types is who owns them. If you are a private developer, choose the Personal license. 
+  If you represent a company or plan to use the product in your organization, select the Company license.</p>
+
+  <p><strong>How the full version of VMProtect is delivered upon purchase?</strong><br />
+  The full version (and all further updates of VMProtect within the one-year subscription) are delivered to your e-mail address.
+  A message contains a link to the archive containing installer of the full version of VMProtect. 
+  That is why we recommend turning off all spam filters in the settings of your mailbox before purchasing VMProtect.</p>
+
+  <p><strong>Will I receive new versions of VMProtect for free or they should be purchased individually?
+  </strong><br />
+  After purchase you are eligible for all new versions within one year after the date of purchase.
+  When this period expiresm you can <a href=
+  "http://www.vmpsoft.com/buy.php">renew your annual subscription</a>
+  or continue using the version of VMProtect you have without any restrictions.</p>
+
+  <p><strong>Can I pay for VMProtect with my credit card or PayPal?</strong><br />
+  You can purchase VMProtect with a credit card or 
+  PayPal. To do this, select the desired version of VMProtect at the <a href=
+  "http://www.vmpsoft.com/buy.php">order page</a> and then choose a credit card or PayPal as your payment method.</p>
+
+  <h3>General questions</h3>
+
+  <p><strong>Is there a way to encrypt strings and data arrays automatically?</strong><br />
+  In VMProtect you can hide <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">ANSI constants</a> and
+  <a href="sdk_functions.htm#VMProtectDecryptStringW">Unicode
+  constants</a>. All other data the code operates with remain intact. We recommend storing all confidential information
+  encrypted and decrypt it directly before use.
+  The unpacker itself can be <a href=
+  "project_functions.htm#CompilationTypes">virtualized</a>.</p>
+
+  <p><strong>Is there a way to protect procedures that I call from various threads in my application?</strong><br />
+  VMProtect is 100% multi-thread compatible and there are no any specific limitations for this type of protection.</p>
+
+  <p><strong>Can I use VMProtect along with another protector (packer)?</strong><br />
+  Using any other packers (protectors) after a file is processed by VMProtect can render the protected application non-functional.
+  </p>
+
+  <p><strong>Should I include
+  VMProtectSDK32.dll/VMProtectSDK64.dll into the setup package of the program?</strong><br />
+  These libraries are only used at the debug stage of the program (before protecting it). After you protect the application with VMProtect
+  all information about usage of these DLLs is removed completely, so you don't have to include them into the release package.</p>
+
+  <h3>Compiler messages</h3>
+
+  <p><strong>What does this error mean: VMProtectMarker
+  "ToolButton1Click.1".0044327D: Address is used by procedure
+  "TForm1.ToolButton1Click"?</strong><br />
+  This error means the same command at the address 
+  0044327D is used in two procedures that are included into the list of protected objects.
+  To solve this issue, you should exclude one of procedures (in this particular case these are 
+  VMProtectMarker "ToolButton1Click.1" and TForm1.ToolButton1Click)
+ from the list of protected objects.</p>
+
+  <p><strong>What does this error mean: [Error]
+  TForm1.Test.004433F4: Minimum procedure size for compilation is 5 bytes?</strong><br />
+  This error means the procedure TForm1.Test is too small and cannot be protected. To solve this issue, exclude this procedure from the list of protected objects.</p>
+
+  <p><strong>What does this warning mean:
+  TForm1.ToolButton1Click.00443368: Inner address jump:
+  00443337?</strong><br />
+  The following warning means a possible jump from the unprotected code fragment into the protected code fragment is detected. 
+  Such jump may cause malfunction of the protected program. To solve the issue, mark 
+  the 00443337 address as <a href=
+  "project_functions.htm#ExtAddress">external</a>.</p>
+
+  <p><strong>What does this error mean: The ".text" section allocates space required for the new section?</strong><br />
+  The following error usually take place when drivers are protected.
+  It means that free space between the first section of the file and service information in the 
+  header of the file is too small to create a new section
+  To solve this problem, increase the value of the section alignment parameter in driver's source codes and rebuild the driver completely.
+  (For example: if you compile the driver using WDK/DDK, you should add 
+  DRIVER_ALIGNMENT=0x200 into SOURCES).</p>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

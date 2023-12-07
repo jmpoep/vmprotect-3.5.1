@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.7: Ограничиваем бесплатные обновления</title>
+</head>
+
+<body>
+  <h1>Шаг 1.7: Ограничиваем бесплатные обновления</h1><strong>Схема
+  работы</strong>
+
+  <p>В момент защиты приложения VMProtect запоминает дату, когда это
+  происходило. Эта дата является для системы лицензирования датой
+  сборки приложения. В серийном номере можно прописать максимальную
+  дату сборки, для которой подойдет этот номер. Таким образом, если
+  при создании ключа Вы пропишете в него текущую дату + 1 год, то
+  ключ подойдет ко всем релизам Вашей программы, которые вы
+  выпустите в течение года. К релизу, выпущенному через год и 1
+  день ключ уже не подойдет и у пользователя будет выбор:
+  пользоваться более старой версией или купить новый ключ, который
+  будет работать еще год.</p><strong>Пробуем на деле</strong>
+
+  <p>Поместите в ini-файл строчку вида MaxBuildDate=YYYYMMDD -
+  например, такую:</p>
+  <pre class="code">MaxBuildDate=20000101
+</pre>
+
+  <p>В тестовом режиме система лицензирования считает датой сборки
+  сегодняшнее число, поэтому важно, чтобы дата, указанная в строке,
+  уже прошла. Т.е. максимум - вчера. Модифицируйте исходный код
+  функции <strong>main()</strong>, чтобы он выглядел так:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+
+        if (res)
+        {
+                VMProtectSerialNumberData sd = {0};
+                VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+                printf("max. build date: y = %d, m = %d, d = %d\n", sd.dtMaxBuild.wYear, sd.dtMaxBuild.bMonth, sd.dtMaxBuild.bDay);
+                printf("please register!\n");
+                return 0;
+        }
+
+        printf("I'm registered\n");
+
+        return 0;
+}
+</pre>
+
+  <p>Тогда при запуске программы вы увидите следующее:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED
+max. build date: y = 2000, m = 1, d = 1
+please register!
+</pre>
+
+  <p>Заменив в ini-файле дату на сегодняшнюю или завтрашнюю, мы
+  получим "рабочую" программу:</p>
+  <pre class="code">state = 0
+I'm registered
+</pre>
+
+  <p>Удалите из ini-файла строку MaxBuildDate=..., чтобы она не
+  мешала нам в дальнейшем.</p><br />
+  <a href="step18_blacklist.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

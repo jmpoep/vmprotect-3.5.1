@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>What is VMProtect?</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>What is VMProtect?</h1>
+
+  <p>VMProtect is a new generation of software protection utilities. VMProtect supports
+  Delphi, Borland C Builder, Visual C/C++, Visual Basic
+  (native), Virtual Pascal and XCode compilers. At the same time VMProtect has a built-in
+  disassembler that works with Windows and Mac OS X executables, 
+  and also can link a MAP-file created by the compiler to quickly select fragments of code for protection. 
+  For easy automation of application protection tasks, VMProtect implements a built-in script language.
+  VMProtect fully supports 32/64-bit operating systems of the Windows family starting from Windows 2000, and Mac OS X starting from version 10.6.
+  Importantly, regardless of the target platform, VMProtect supports all range of executables, that is, the Windows version can work with files from the Mac OS X version and vice versa.</p> 
+
+  <p>The cornerstone principle of VMProtect is to provide efficient protection of the application code from 
+  examination by making the application code and logic very complex for further analysis and cracking.
+  Main software code protection mechanisms VMProtect applies are: virtualization, mutation, and combined protection that 
+  involves mutation of the application code with subsequent virtualization.</p>
+
+  <p>The crucial advantage of the virtualization method used in VMProtect is
+  the fact that the virtual machine executing virtualized fragments of code is embedded into the resulting code of the protected application.
+  Therefore, the app protected with VMProtect needs no third-party libraries or modules to function.
+  VMProtect allows using several different virtual machines to protect different fragments of code of the same application resulting in even more complicated
+  cracking process, because a hacker now has to analyze architecture of multiple virtual machines.
+  </p>
+
+  <p>The method of application code mutation applied in VMProtect is based on obfuscation &mdash; a process that adds to the application code
+  various excessive, "garbage" commands, "dead" parts of the code, random conditional jumps. 
+  It also mutates original commands and transfers execution of certain operations to the stack.  
+  </p>
+
+  <p>The key difference of VMProtect from other software protectors is its ability to protect different parts of the code with different methods:
+  part of the code can be virtualized, the other part is obfuscated and critical fragments are protected using the combined method.</p>
+
+  <p>To prevent false positives from antiviruses the registered version of VMProtect uses the 
+  <a href="http://standards.ieee.org/develop/indconn/icsg/taggant.pdf">Taggant</a> library that signs the protected file with a certificate of the license owner.</p>
+
+  <p>Another unique feature of VMProtect is embedding of <a href=
+  "dictionary.htm#Watermarks">watermarks</a> to the code of the application. Watermarks allow to definitely identify the official 
+  owner of the hacked copy of the program, and therefore to take certain measures to him or her.</p>
+
+  <p>VMProtect is available in 3 editions:</p>
+
+  <ul>
+    <li>Lite;</li>
+    <li>Professional;</li>
+    <li>Ultimate;</li>
+  </ul>
+
+  <p>The below table lists differences in functionality of certain VMProtect editions:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr align="center">
+      <td rowspan="2" align="center">
+      <strong>Capabilities</strong></td>
+
+      <td colspan="3" align="center"><strong>
+      VMProtect edition</strong></td>
+    </tr>
+
+    <tr align="center">
+      <td width="12%" align="center">Lite</td>
+      <td width="12%" align="center">Professional</td>
+      <td width="12%" align="center">Ultimate</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4" class="c1"><strong>Protection methods</strong></td>
+    </tr>
+
+    <tr>
+      <td>Mutation</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Virtualization</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Ultra (mutation+virtualization)</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Console version</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4"><strong>Protection options</strong></td>
+    </tr>
+
+    <tr>
+      <td>Memory protection</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Import protection</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Resource protection</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Packing</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Debuger detection</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Virtual box detection</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4"><strong>Service functions</strong></td>
+    </tr>
+
+    <tr>
+      <td>Watermarks</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Script language</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Licensing system</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>License manager</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>File protection</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+  </table>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

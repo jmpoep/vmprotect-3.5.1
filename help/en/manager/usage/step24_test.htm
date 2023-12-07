@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 2.4: Testing the results</title>
+</head>
+
+<body>
+  <h1>Step 2.4: Testing the results</h1><strong>Serial number expiration date</strong>
+
+  <p>Let's create another serial number with a certain expiration date. For example, 2005. This date has already passed and therefore our serial number must be incorrect. Switch to the "Licenses" section and click the "Add license" button on the toolbar. In the "Add license" dialog window enable the "Expiration date" option and specify September 30, 2005.
+  Create the serial number, copy it and paste to serial.txt, then run the program:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is bad
+state = SERIAL_STATE_FLAG_DATE_EXPIRED
+</pre>
+
+  <p>the licensing module returned the "serial number is expired" flag. Now, put the working serial number back to the serial.txt file and make sure the licensing module accepts it perfectly.</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is correct, calling foo()
+I'm foo
+done
+</pre><strong>Adding a serial number to the black list</strong>
+
+  <p>Let's imagine our "good" serial number has leaked to the Internet and is compromised now. We need to block it so that it will not work in future versions of the program. To do this, select the serial number in the list and set the "Blocked" property in the main panel to "Yes". For now, the serial number is not yet blocked, but when you protect the file again, the application will not accept this number any more. Let's make sure this is really so. If we run our program now, it should accept the blocked serial number without any problems, because this is the old version that knows nothing about the blocked number:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is correct, calling foo()
+I'm foo
+done
+</pre>
+
+  <p>Now we make a copy of our program and name it as 
+  "dummy_app1.vmp.exe", then open VMProtect and protect the application again. Then run this new version:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is bad
+state = SERIAL_STATE_FLAG_BLACKLISTED
+</pre>
+
+  <p>And the old version again, for comparison:</p>
+  <pre class="code">C:\test&gt;dummy_app1.vmp.exe
+serial number is correct, calling foo()
+I'm foo
+done
+</pre>
+
+  <p>The older version doesn't know about the blocked serial number and works as before.</p><br />
+  <br /><p>On the <a href=
+  "step25_codelock.htm">next step</a> we will try to lock the code to a serial number. But before we proceed, unblock the serial number and reapply protection in VMProtect to the application to make it accept this serial number again. Or simply create a new license.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

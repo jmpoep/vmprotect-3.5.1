@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Preparing a project</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Preparing a project</h1>
+
+  <p>Let us take a look to a very simple application consisting of only one form (Form1), 
+  a text element (Edit1) and a button (Button1). The application works as follows: when the 
+  Button1 is clicked, the app checks if the password entered is correct and displays a corresponding message.</p><br />
+  <img src="images/delphi_project.png" />
+
+  <p>A password is checked using a very simple algorithm: on the first step we transform it to a numeric form, 
+  then we calculate the remainder on dividing it by 17. The password is correct if the remainder on dividing the numeric representation of the entered password by 17 is equal to 13.
+  The password check procedure implementation on Delphi looks as follows:</p>
+  <pre class="code">function TForm1.CheckPassword: Boolean;
+begin
+  Result:=(StrToIntDef(Edit1.Text, 0) mod 17=13);
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  if CheckPassword then
+   MessageDlg('Correct password', mtInformation, [mbOK], 0)
+  else
+   begin
+    MessageDlg('Incorrect password', mtError, [mbOK], 0);
+    Edit1.SetFocus;
+   end;
+end;
+</pre>
+
+  <p>Selection of procedures and functions to protect can be done in three ways:</p>
+
+  <ul>
+    <li><a href="use_map_file.htm">Using a MAP-file</a>
+    created by the compiler along with the executable of the program.
+    The MAP-file contains all necessary information about names and addresses of all procedures and functions of the app.
+    If the MAP-file is used, you can select procedures and functions to protect by their names.
+    With the MAP-file, every time the project is recompiled, VMProtect automatically determines new addresses of procedures and functions.</li>
+
+    <li><a href="use_markers.htm">Using markers</a>
+    inserted to the source code of the application. Markers are
+    special marks VMProtect uses to determine the boundaries of the protected fragment.
+	Also, VMProtect supports markers with a predefined compilation type.
+    Using markers makes sense when you only want to protect a part of a function or procedure. 
+	Using markers allows you to specify parts of the code where string constants to protect will be further placed.</li>
+
+    <li>By address of protected procedures in the executable file. In comparison with the above two ways, this one is less convenient for use. 
+	Every time the application is modified and recompiled, you have to specify all addresses again. This type of protection is recommended for applications without the source code available.
+    </li>
+  </ul>
+
+  <p>Using a MAP-file to define boundaries of the protected code has one more significant advantage. It is worth reviewing it a bit more. 
+  Almost any procedure or function that has local variables or that uses the stack to save registers and/or intermediate calculation results
+  has the so called prologue and epilogue located correspondingly in the beginning and in the end of the compiled procedure or function:</p>
+  <pre class="code">push ebp      \ 
+mov ebp, esp   \ prologue
+push 00        / 
+push ebx      /
+
+...
+
+pop ebx       \
+pop ecx        \ epilogue
+pop ebp        /
+ret           /
+</pre>
+
+  <p>Due to the way modern compilers work, code markers never incorporate the prologue and the epilogue of a function. 
+  Even if the entire code of the CheckPassword function between begin and end is enclosed to markers.
+  It would be enough for a hacker to modify the prologue of the function so that the virtualized code was never executed. 
+  For the CheckPassword function this can be done as follows:</p>
+  <pre class="code">mov eax, 1
+ret
+</pre>
+
+  <p><strong>Important:</strong><br />
+  If a MAP-file is used to choose code fragments for virtualization, the prologue and the epilogue are also virtualized
+  significantly boosting hack-proof capability of the protected program. Moreover, is one 
+  virtualized function is called from another virtualized function, control transfers between them without actually jumping to the address of the called function
+  (a call in this case is a simple jump to another address within the bytecode of the virtual machine interpreter). 
+  This also strengthens protection of the program as all modification of the entry point a hacker makes are rendered useless.
+  When working with virtualized functions, transfer of control to the entry point of a virtualized function only happens when the protected function is called from 
+  an unprotected or mutated fragment of code.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

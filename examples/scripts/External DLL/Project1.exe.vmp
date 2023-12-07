@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document>
+    <Protection InputFileName="Project1.exe" Options="32768" RunParameters="">
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress='VMProtectMarker &quot;Test marker&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Correct password&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Incorrect password&quot;' Options="1" />
+        </Procedures>
+        <Messages />
+    </Protection>
+    <DLLBox />
+    <Script>
+        <![CDATA[function OnBeforeCompilation()
+	MessageBox(0, 'OnBeforeCompilation', 'MessageBox from user32.dll', 0x40)
+end
+
+function OnAfterCompilation()
+	MessageBox(0, 'OnAfterCompilation', 'MessageBox from user32.dll', 0x40)
+end
+
+user32 = vmprotect.openLib('user32.dll')
+MessageBox = user32:getFunction('MessageBoxA', {ret = 'int', 'size_t', 'string', 'string', 'uint'})]]>
+</Script>
+    <LicenseManager />
+</Document>

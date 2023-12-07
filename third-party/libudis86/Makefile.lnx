@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# for quick linux building as static library
+SRCS = decode.c input.c itab.c mnem.c syn.c syn-intel.c udis86.c
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+
+libudis86.a: $(OBJS)
+	ar cr $@ $^
+	ranlib $@
+	
+%.o: %.c
+	$(CC) -I. -Wall -fpic -c -o $@ $<
+	
+clean:
+	rm -f libudis86.a $(OBJS)

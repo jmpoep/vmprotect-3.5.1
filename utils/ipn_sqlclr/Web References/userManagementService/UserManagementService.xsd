@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:usermgmt="http://schemas.verisign.com/pkiservices/2011/08/usermanagement" elementFormDefault="qualified" targetNamespace="http://schemas.verisign.com/pkiservices/2011/08/usermanagement" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="VersionType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,3}\.\d{0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionIDType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="createOrUpdateUserRequest" type="usermgmt:CreateOrUpdateUserRequestMessageType" />
+  <xs:complexType name="CreateOrUpdateUserRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="unbounded" name="userInformation" type="usermgmt:UserInformationType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserInformationType">
+    <xs:sequence>
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" type="xs:string" />
+      <xs:element minOccurs="0" name="emailAddress" type="xs:string" />
+      <xs:element minOccurs="0" name="deskPhoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="mobilePhoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="userAttribute" type="usermgmt:NameValueType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameValueType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="createOrUpdateUserResponse" type="usermgmt:CreateOrUpdateUserResponseMessageType" />
+  <xs:complexType name="CreateOrUpdateUserResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="unbounded" name="userCreationStatus" type="usermgmt:UserCreationStatusType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserCreationStatusType">
+    <xs:sequence>
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element name="statusCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="createOrUpdatePasscodeRequest" type="usermgmt:CreateOrUpdatePasscodeRequestMessageType" />
+  <xs:complexType name="CreateOrUpdatePasscodeRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="unbounded" name="passcodeInformation" type="usermgmt:PasscodeInformationType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PasscodeInformationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="passcode" type="xs:string" />
+      <xs:element minOccurs="0" name="numberOfBadAttempts" type="xs:int" />
+      <xs:element minOccurs="0" name="passcodeStatus" type="xs:string" />
+      <xs:element minOccurs="0" name="expiryDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="creationDateTime" type="xs:dateTime" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element name="certificateProfileOid" type="xs:string" />
+      <xs:element minOccurs="0" name="enrollmentURL" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="createOrUpdatePasscodeResponse" type="usermgmt:CreateOrUpdatePasscodeResponseMessageType" />
+  <xs:complexType name="CreateOrUpdatePasscodeResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="unbounded" name="passcodeCreationStatus" type="usermgmt:PasscodeCreationStatusType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PasscodeCreationStatusType">
+    <xs:sequence>
+      <xs:element name="passcodeInformation" type="usermgmt:PasscodeInformationType" />
+      <xs:element name="statusCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="RevokeReasonCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unspecified" />
+      <xs:enumeration value="KeyCompromise" />
+      <xs:enumeration value="CACompromise" />
+      <xs:enumeration value="AffiliationChanged" />
+      <xs:enumeration value="CessationOfOperation" />
+      <xs:enumeration value="PrivilegeWithdrawn" />
+      <xs:enumeration value="AACompromise" />
+      <xs:enumeration value="Superseded" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="deleteUserRequest" type="usermgmt:DeleteUserRequestMessageType" />
+  <xs:complexType name="DeleteUserRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element minOccurs="0" name="revocationReason" type="usermgmt:RevokeReasonCodeEnum" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeleteUserStatusType">
+    <xs:sequence>
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="errorCode" type="xs:string" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element name="revocationCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="deleteUserResponse" type="usermgmt:DeleteUserResponseMessageType" />
+  <xs:complexType name="DeleteUserResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="deleteUserStatus" type="usermgmt:DeleteUserStatusType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="bulkDeleteUserRequest" type="usermgmt:BulkDeleteUserRequestMessageType" />
+  <xs:complexType name="BulkDeleteUserRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="25" name="seatId" type="xs:string" />
+      <xs:element minOccurs="0" name="revocationReason" type="usermgmt:RevokeReasonCodeEnum" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="bulkDeleteUserResponse" type="usermgmt:BulkDeleteUserResponseMessageType" />
+  <xs:complexType name="BulkDeleteUserResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element maxOccurs="25" name="deleteUserStatus" type="usermgmt:DeleteUserStatusType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPasscodeInformationRequest" type="usermgmt:GetPasscodeInformationRequestMessageType" />
+  <xs:complexType name="GetPasscodeInformationRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element name="certificateProfileOid" type="xs:string" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPasscodeInformationResponse" type="usermgmt:GetPasscodeInformationResponseMessageType" />
+  <xs:complexType name="GetPasscodeInformationResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="passcodeInformation" type="usermgmt:PasscodeInformationType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getUserInformationRequest" type="usermgmt:GetUserInformationRequestMessageType" />
+  <xs:complexType name="GetUserInformationRequestMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="seatId" type="xs:string" />
+      <xs:element minOccurs="0" name="getUserCertificate" type="xs:boolean" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserValidCertificatesType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="userCertificate" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getUserInformationResponse" type="usermgmt:GetUserInformationResponseMessageType" />
+  <xs:complexType name="GetUserInformationResponseMessageType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="serverTransactionID" type="usermgmt:TransactionIDType" />
+      <xs:element name="userInformation" type="usermgmt:UserInformationType" />
+      <xs:element minOccurs="0" name="userValidCertificates" type="usermgmt:UserValidCertificatesType" />
+      <xs:element name="version" type="usermgmt:VersionType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

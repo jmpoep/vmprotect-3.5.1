@@ -1,0 +1,1185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Classes</title>
+</head>
+
+<body>
+  <h1>Classes</h1>
+
+  <p>The script language <a href="http://www.lua.org/about.html">LUA</a> built into VMProtect is object-oriented: it is very similar to JavaScript in its syntax, ideology and implementation.
+  The script language includes standard classes providing basic functionality and specialized classes giving access to application protection functionality.
+  </p>
+
+<h3>Class hierarchy</h3>
+<ul>
+<li><a href="#Core">Core</a><ul>
+	<li><a href="#Watermarks">Watermarks</a><ul>
+		<li><a href="#Watermark">Watermark</a></li>
+	</ul></li>
+	<li><a href="#Licenses">Licenses</a><ul>
+		<li><a href="#License">License</a></li>
+	</ul></li>
+	<li><a href="#Files">Files</a><ul>
+		<li><a href="#File">File</a></li>
+	</ul></li>
+	<li><a href="#Folders">Folders</a><ul>
+		<li><a href="#Folder">Folder</a></li>
+	</ul></li>
+
+	<li><a href="#PEFile">PEFile</a><ul>
+		<li><a href="#PEFormat">PEFormat</a><ul>
+		</ul></li>
+		<li><a href="#PEArchitecture">PEArchitecture</a><ul>
+	    		<li><a href="#PESegments">PESegments</a><ul>
+				<li><a href="#PESegment">PESegment</a></li>
+			</ul></li>
+			<li><a href="#PESections">PESections</a><ul>
+				<li><a href="#PESection">PESection</a></li>
+			</ul></li>
+			<li><a href="#PEDirectories">PEDirectories</a><ul>
+				<li><a href="#PEDirectory">PEDirectory</a></li>
+			</ul></li>
+			<li><a href="#PEImports">PEImports</a><ul>
+				<li><a href="#PEImport">PEImport</a></li>
+			</ul></li>
+			<li><a href="#PEExports">PEExports</a><ul>
+				<li><a href="#PEExport">PEExport</a></li>
+			</ul></li>
+			<li><a href="#PEResources">PEResources</a><ul>
+				<li><a href="#PEResource">PEResource</a></li>
+			</ul></li>
+			<li><a href="#PEFixups">PEFixups</a><ul>
+				<li><a href="#PEFixup">PEFixup</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#MacFile">MacFile</a><ul>
+		<li><a href="#MacFormat">MacFormat</a><ul>
+		</ul></li>
+		<li><a href="#MacArchitecture">MacArchitecture</a><ul>
+			<li><a href="#MacSegments">MacSegments</a><ul>
+				<li><a href="#MacSegment">MacSegment</a></li>
+			</ul></li>
+			<li><a href="#MacSections">MacSections</a><ul>
+				<li><a href="#MacSection">MacSection</a></li>
+			</ul></li>
+			<li><a href="#MacCommands">MacCommands</a><ul>
+				<li><a href="#MacCommand">MacCommand</a></li>
+			</ul></li>
+			<li><a href="#MacSymbols">MacSymbols</a><ul>
+				<li><a href="#MacSymbol">MacSymbol</a></li>
+			</ul></li>
+			<li><a href="#MacImports">MacImports</a><ul>
+				<li><a href="#MacImport">MacImport</a></li>
+			</ul></li>
+			<li><a href="#MacExports">MacExports</a><ul>
+				<li><a href="#MacExport">MacExport</a></li>
+			</ul></li>
+			<li><a href="#MacFixups">MacFixups</a><ul>
+				<li><a href="#MacFixup">MacFixup</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#MapFunctions">MapFunctions</a><ul>
+		<li><a href="#MapFunction">MapFunction</a><ul>
+			<li><a href="#References">References</a><ul>
+				<li><a href="#Reference">Reference</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#IntelFunctions">IntelFunctions</a><ul>
+		<li><a href="#IntelFunction">IntelFunction</a><ul>
+			<li><a href="#IntelSegment">IntelSegment</a><ul>
+				<li><a href="#IntelRegistr">IntelRegistr</a></li>
+				<li><a href="#IntelCommandType">IntelCommandType</a></li>
+				<li><a href="#IntelFlag">IntelFlag</a></li>
+				<li><a href="#IntelCommand">IntelCommand</a><ul>
+					<li><a href="#OperandType">OperandType</a><ul>
+						<li><a href="#IntelOperand">IntelOperand</a></li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li><a href="#CommandLinks">CommandLinks</a><ul>
+				<li><a href="#LinkType">LinkType</a><ul>
+					<li><a href="#CommandLink">CommandLink</a></li>
+				</ul></li>
+			</ul></li>
+		</ul></li> 
+	</ul></li> 
+</ul></li>
+<li><a href="#FFILibrary">FFILibrary</a><ul>
+	<li><a href="#FFIFunction">FFIFunction</a></li>
+</ul></li>
+</ul>
+
+<h3>Core</h3>
+
+<p id="ProjectOption">Project options:</p>
+<pre class="code">
+enum ProjectOption {
+	None,
+	Pack,
+	ImportProtection,
+	MemoryProtection,
+	ResourceProtection,
+	CheckDebugger,
+	CheckKernelDebugger,
+	CheckVirtualMachine,
+	StripFixups,
+	StripDebugInfo,
+	DebugMode
+}
+</pre>
+
+<p id="Core">A class to work with the VMProtect core:</p>
+<pre class="code" id="Core">
+class Core {
+public:
+	string projectFileName(); // returns the name of the project
+	void saveProject(); // saves the project
+	string inputFileName(); // returns the name of the source file for the current project
+	string outputFileName(); // returns the name of the output file for the current project
+	void setOutputFileName(string name); // sets the name of the output file for the current project
+	string watermarkName(); // returns the name of the watermark of the current project
+	void setWatermarkName(string name); // sets the name of the watermark for the current project
+	int options(); // returns <a href="#ProjectOption">options</a> of the current project                                                            
+	void setOptions(int options); // sets options of the current project
+	string vmSectionName(); // returns VM segment name for the current project
+	void setVMSectionName(); // sets VM segment name for the current project
+	<a href="#Licenses">Licenses</a> licenses(); // returns the list of licenses for the current project
+	<a href="#Files">Files</a> files(); // returns the list of files for the current project
+	<a href="#Watermarks">Watermarks</a> watermarks(); // returns the list of watermarks
+	<a href="#PEFile">PEFile</a>/<a href="#MacFile">MacFile</a> inputFile(); // returns source file
+	<a href="#PEFile">PEFile</a>/<a href="#MacFile">MacFile</a> outputFile(); // returns output file
+	<a href="#PEArchitecture">PEArchitecture</a>/<a href="#MacArchitecture">MacArchitecture</a> inputArchitecture(); // returns source architecture
+	<a href="#PEArchitecture">PEArchitecture</a>/<a href="#MacArchitecture">MacArchitecture</a> outputArchitecture(); // returns output architecture
+};
+</pre>
+
+<h3>Watermarks</h3>
+
+<p id="Watermarks">A class to work with the list of <a href="watermarks.htm">watermarks</a>:</p>
+<pre class="code">
+class Watermarks {
+public:
+	<a href="#Watermark">Watermark</a> item(int index); // returns a watermark with the given index
+	int count(); // returns a number of watermarks in the list
+	<a href="#Watermark">Watermark</a> itemByName(string name); // returns a watermark with the given name
+	<a href="#Watermark">Watermark</a> add(string name, string value); // adds a watermark with the given name and value
+}
+</pre>
+
+<p id="Watermark">A class to work with a watermark:</p>
+<pre class="code">
+class Watermark {
+public:
+	string name(); // returns the name of the watermark
+	string value(); // returns the value of the watermarks
+	bool blocked(); // returns the "Blocked" property
+	void setBlocked(bool value); // sets the "Blocked" property
+}
+</pre>
+
+<h3>Licenses</h3>
+
+<p id="Licenses">A class to work with the list of <a href="manager/licenses.htm">licenses</a>:</p>
+<pre class="code">
+class Licenses {
+public:
+	int keyLength(); // returns the length of the key
+	string publicExp(); // returns the public exponent
+	string privateExp(); // returns the private exponent
+	string modulus(); // returns modulus
+	<a href="#License">License</a> item(int index); // returns a license with the given index
+	int count(); // returns the number of licenses in the list
+}
+</pre>
+
+<p id="License">A class to work with a license:</p>
+<pre class="code">
+class License {
+public:
+	string date(string format = "%c"); // returns the date of the license
+	string customerName(); // returns the name of the license owner
+	string customerEmail(); // returns an e-mail of the license owner
+	string orderRef(); // returns the order id the license was purchased
+	string comments(); // returns comments to the license
+	string serialNumber(); // returns the serial number of the license
+	bool blocked(); // returns the "Blocked" property
+	void setBlocked(bool value); // sets the "Blocked" property
+}
+</pre>
+
+<h3>Files</h3>
+
+<p id="Files">A class to work with the list of <a href="project_files.htm">files</a>:</p>
+<pre class="code">
+class Files {
+public:
+	<a href="#File">File</a> item(int index); // returns a file with the given index
+	int count(); // returns the number of files in the list
+}
+</pre>
+
+<p id="File">A class to work with a <a href="project_files.htm">file</a>:</p>
+<pre class="code">
+class File {
+public:
+	string name(); // returns the name of the file
+	string fileName(); // returns the filename
+	int options(); // returns options
+	void setName(string name); // sets the name of the file
+	void setFileName(string name); // sets the filename of the file
+	void setOptions(); // sets options
+}
+</pre>
+
+<h3>Folders</h3>
+
+<p id="Folders">A class to work with custom folders:</p>
+<pre class="code">
+class Folders {
+public:
+	int count(); // returns the number of folders in the list
+	<a href="#Folder">Folder</a> item(int index); // returns a folder with the given index
+	<a href="#Folder">Folder</a> add(string name); // adds a new folder
+	void clear(); // clears the list
+};
+</pre>
+
+<p id="Folder">A class to work with a custom folder:</p>
+<pre class="code" id="Folder">
+class Folder {
+public:
+	int count(); // returns the number of subfolders
+	<a href="#Folder">Folder</a> item(int index); // returns a subfolder with the given index
+	<a href="#Folder">Folder</a> add(string name); // adds a new subfolder
+	string name(); // returns the name of the folder
+	void clear(); // clears the list of subfolders
+	void destroy(); // destroys the folder an all child subfolders
+};
+</pre>
+
+<h3>PE files</h3>
+
+<p id="PEFormat">Constants to work with the PE format:</p>
+<pre class="code">
+enum PEFormat {
+	// Directory Entries
+	IMAGE_DIRECTORY_ENTRY_EXPORT,
+	IMAGE_DIRECTORY_ENTRY_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_RESOURCE,
+	IMAGE_DIRECTORY_ENTRY_EXCEPTION,
+	IMAGE_DIRECTORY_ENTRY_SECURITY,
+	IMAGE_DIRECTORY_ENTRY_BASERELOC,
+	IMAGE_DIRECTORY_ENTRY_DEBUG,
+	IMAGE_DIRECTORY_ENTRY_ARCHITECTURE,
+	IMAGE_DIRECTORY_ENTRY_TLS,
+	IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG,
+	IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_IAT,
+	IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR,
+	// Section characteristics
+	IMAGE_SCN_CNT_CODE,
+	IMAGE_SCN_CNT_INITIALIZED_DATA,
+	IMAGE_SCN_CNT_UNINITIALIZED_DATA,
+	IMAGE_SCN_MEM_DISCARDABLE,
+	IMAGE_SCN_MEM_NOT_CACHED,
+	IMAGE_SCN_MEM_NOT_PAGED,
+	IMAGE_SCN_MEM_SHARED,
+	IMAGE_SCN_MEM_EXECUTE,
+	IMAGE_SCN_MEM_READ,
+	IMAGE_SCN_MEM_WRITE,
+	// Resource types
+	RT_CURSOR,
+	RT_BITMAP,
+	RT_ICON,
+	RT_MENU,
+	RT_DIALOG,
+	RT_STRING,
+	RT_FONTDIR,
+	RT_FONT,
+	RT_ACCELERATOR,
+	RT_RCDATA,
+	RT_MESSAGETABLE,
+	RT_GROUP_CURSOR,
+	RT_GROUP_ICON,
+	RT_VERSION,
+	RT_DLGINCLUDE,
+	RT_PLUGPLAY,
+	RT_VXD,
+	RT_ANICURSOR,
+	RT_ANIICON,
+	RT_HTML,
+	RT_MANIFEST,
+	RT_DLGINIT,
+	RT_TOOLBAR
+};
+</pre>
+
+<p id="PEFile">A class to work with a PE file:</p>
+<pre class="code">
+class PEFile {
+public:
+	string name(); // returns the filename
+	string format(); // returns the "PE" format name
+	uint64 size(); // returns the size of the file
+	int count(); // returns the number of architectures in the list
+	<a href="#PEArchitecture">PEArchitecture</a> item(int index); // returns an architecture with the given index
+	uint64 seek(uint64 offset); // sets a file position
+	uint64 tell(); // returns a file position
+	int write(string buffer); // records a buffer to the file
+};
+</pre>
+
+<p id="PEArchitecture">A class to work with the PE architecture:</p>
+<pre class="code">
+class PEArchitecture {
+public:
+	string name(); // returns the name of the architecture
+	<a href="#PEFile">PEFile</a> file(); // returns the parent file
+	uint64 entryPoint(); // returns the starting address
+	uint64 imageBase(); // returns the base offset
+	<a href="#OperandSize">OperandSize</a> cpuAddressSize(); // returns bit count of the architecture
+	uint64 size(); // returns the size of the architecture
+	<a href="#PESegments">PESegments</a> segments(); // returns the list of segments
+	<a href="#PESections">PESections</a> sections(); // returns the list of sections
+	<a href="#PEDirectories">PEDirectories</a> directories(); // returns the list of directories
+	<a href="#PEImports">PEImports</a> imports(); // returns the list of imported libraries
+	<a href="#PEExports">PEExports</a> exports(); // returns the list of exported functions
+	<a href="#PEResources">PEResources</a> resources(); // returns the list of resources
+	<a href="#PEFixups">PEFixups</a> fixups(); // returns the list of relocations (fixups);
+	<a href="#MapFunctions">MapFunctions</a> mapFunctions(); // returns the list of functions available for protection
+	<a href="#IntelFunctions">IntelFunctions</a> functions(); // returns the list of protected functions
+	bool addressSeek(uint64 address); // sets a file position
+	uint64 seek(uint64 offset); // sets a file position
+	uint64 tell(); // returns a file position
+	int write(string buffer); // writes a buffer to a file
+};
+</pre>
+
+<p id="PESegments">A class to work with the list of segments for the PE architecture:</p>
+<pre class="code">
+class PESegments {
+public:
+	<a href="#PESegment">PESegment</a> item(int index); // returns a segment with the given index
+	int count(); // returns the number of segments in the list
+	<a href="#PESegment">PESegment</a> itemByAddress(uint64 address); // returns the segment at the given address
+};
+</pre>
+
+<p id="PESegment">A class to work with a PE architecture segment:</p>
+<pre class="code">
+class PESegment {
+public:
+	uint64 address(); // returns the address of the segment
+	string name(); // returns the name of the segment
+	uint64 size(); // returns the size of the segment
+	int physicalOffset(); // returns the file position (offset) of the segment
+	int physicalSize(); // returns the file size of the segment
+	int flags(); // returns flags of the segment
+	bool excludedFromPacking(); // returns the "Excluded from packing" property
+	void setName(string name); // sets the name of the segment
+};
+</pre>
+
+<p id="PESections">A class to work with the list of PE architecture sections:</p>
+<pre class="code">
+class PESections {
+public:
+	<a href="#PESection">PESection</a> item(int index); // returns a section with the given index
+	int count(); // returns the number of sections in the list
+	<a href="#PESection">PESection</a> itemByAddress(uint64 address); // returns a section at the given address
+};
+</pre>
+
+<p id="PESection">A class to work with a PE architecture section:</p>
+<pre class="code">
+class PESection {
+public:
+	uint64 address(); // returns the address of the section
+	string name(); // returns the name of the section
+	uint64 size(); // returns the size of the section
+	int offset(); // returns the file positions of the section
+	<a href="#PESegment">PESegment</a> segment(); // returns the parent segment
+};
+</pre>
+
+<p id="PEDirectories">A class to work with PE architecture directories:</p>
+<pre class="code">
+class PEDirectories {
+public:
+	<a href="#PEDirectory">PEDirectory</a> item(int index); // returns a directory with the given index
+	int count(); // returns the number of directories in the list
+	<a href="#PEDirectory">PEDirectory</a> itemByType(int type); // returns a directory of the given type
+};
+</pre>
+
+<p id="PEDirectory">A class to work with a PE architecture directory:</p>
+<pre class="code">
+class PEDirectory {
+public:
+	uint64 address(); // returns the address of the directory
+	string name(); // returns the name of the directory
+	uint64 size(); // returns the size of the directory
+	int type(); // returns the type of the directory
+	void setAddress(uint64 address); // sets the address of the directory
+	void setSize(int size); // sets the size of the directory
+	void clear(); // clears the address and the size of the directory
+};
+</pre>
+
+<p id="PEImports">A class to work with the list of imported libraries for the PE architecture:</p>
+<pre class="code">
+class PEImports {
+public:
+	<a href="#PEImport">PEImport</a> item(int index); // returns a library with the given index
+	int count(); // returns the number of libraries in the list
+	<a href="#PEImport">PEImport</a> itemByName(string name); // returns a library with the given name
+};
+</pre>
+
+<p id="PEImport">A class to work with an imported library for the PE architecture :</p>
+<pre class="code">
+class PEImport {
+public:
+	string name(); // returns the name of the library
+	<a href="#PEImportFunction">PEImportFunction</a> item(int index); // returns an imported function with the given index
+	int count(); // returns the number of imported functions
+	void setName(string name); // sets the name of the library
+};
+</pre>
+
+<p id="PEImportFunction">A class to work with a PE architecture imported function:</p>
+<pre class="code">
+class PEImportFunction {
+public:
+	uint64 address(); // returns a memory address where the imported function address is stored
+	string name();  // returns the name of the imported function
+};
+</pre>
+
+<p id="PEExports">A class to work with the list of exported functions for the PE architecture :</p>
+<pre class="code">
+class PEExports {
+public:
+	string name(); // returns the name of the library
+	void setName(string name); // sets the name of the library
+	<a href="#PEExport">PEExport</a> item(int index); // returns an exported function with the given index
+	int count(); // returns the number of exported functions in the list
+	void clear(); // clears the list
+	<a href="#PEExport">PEExport</a> itemByAddress(uint64 address); // returns an exported function at the given address
+	<a href="#PEExport">PEExport</a> itemByName(string name); // returns an exported function with the given name
+};
+</pre>
+
+<p id="PEExport">A class to wotk with a PE architecture exported function:</p>
+<pre class="code">
+class PEExport {
+public:
+	uint64 address(); // returns the address of the exported function
+	string name(); // returns the name of the exported function
+	void setName(string name); // sets the name of the exported function
+	int ordinal();  // returns the ordinal of the exported function
+	string forwardedName(); // returns the name of the function the exported function forwards to
+	void destroy(); // destroys the exported function
+};
+</pre>
+
+<p id="PEResources">A class to work with the list of PE architecture resources:</p>
+<pre class="code">
+class PEResources {
+public:
+	<a href="#PEResource">PEResource</a> item(int index); // returns a resources with the given index
+	int count(); // returns the number of resources in the list
+	void clear(); // clears the list
+	<a href="#PEResource">PEResource</a> itemByType(int type); // returns a resource of the given type
+	<a href="#PEResource">PEResource</a> itemByName(string name); // returns a resource with the given name
+};
+</pre>
+
+<p id="PEResource">A class to work with a PE architecture resource:</p>
+<pre class="code">
+class PEResource {
+public:
+	<a href="#PEResource">PEResource</a> item(int index); // returns a resource with the given index
+	int count(); // returns the number of resources in the list
+	void clear(); // clears the list
+	uint64 address(); // returns the address of the resource
+	int size(); // returns the size of the resource
+	string name(); // returns the name of the resource
+	int type(); // returns the type of the resource
+	bool isDirectory(); // returns the "Directory" property
+	void destroy(); // destroys the resource
+	<a href="#PEResource">PEResource</a> itemByName(string name); // returns a resource with the given name
+	bool excludedFromPacking(); // returns the "Excluded from packing" property
+};
+</pre>
+
+<p id="PEFixups">A class to work with the list of PE architecture fixups (relocations):</p>
+<pre class="code">
+class PEFixups {
+public:
+	<a href="#PEFixup">PEFixup</a> item(int index); // returns an element with the given index
+	int count(); // returns the number of elements in the list
+	<a href="#PEFixup">PEFixup</a> itemByAddress(uint64 address); // returns an element at the given address
+};
+</pre>
+
+<p id="PEFixup">A class to work with a PE architecture fixup (relocation):</p>
+<pre class="code">
+class PEFixup {
+public:
+	uint64 address(); // returns the address of the element
+};
+</pre>
+
+<h3>Mach-O files</h3>
+
+<p id="MacFormat">Constants to work with the Mach-O format:</p>
+<pre class="code">
+enum MacFormat {
+	// Load Command Types
+	LC_SEGMENT,
+	LC_SYMTAB,
+	LC_SYMSEG,
+	LC_THREAD,
+	LC_UNIXTHREAD,
+	LC_LOADFVMLIB,
+	LC_IDFVMLIB,
+	LC_IDENT,
+	LC_FVMFILE,
+	LC_PREPAGE,
+	LC_DYSYMTAB,
+	LC_LOAD_DYLIB,
+	LC_ID_DYLIB,
+	LC_LOAD_DYLINKER,
+	LC_PREBOUND_DYLIB,
+	LC_ROUTINES,
+	LC_SUB_FRAMEWORK,
+	LC_SUB_UMBRELLA,
+	LC_SUB_CLIENT,
+	LC_SUB_LIBRARY,
+	LC_TWOLEVEL_HINTS,
+	LC_PREBIND_CKSUM,
+	LC_LOAD_WEAK_DYLIB,
+	LC_SEGMENT_64,
+	LC_ROUTINES_64,
+	LC_UUID,
+	LC_RPATH,
+	LC_CODE_SIGNATURE,
+	LC_SEGMENT_SPLIT_INFO,
+	LC_REEXPORT_DYLIB,
+	LC_LAZY_LOAD_DYLIB,
+	LC_ENCRYPTION_INFO,
+	LC_DYLD_INFO,
+	LC_DYLD_INFO_ONLY,
+	LC_LOAD_UPWARD_DYLIB,
+	LC_VERSION_MIN_MACOSX,
+	// Section Types	
+	SECTION_TYPE,
+	SECTION_ATTRIBUTES,
+	S_REGULAR,
+	S_ZEROFILL,
+	S_CSTRING_LITERALS,
+	S_4BYTE_LITERALS,
+	S_8BYTE_LITERALS,
+	S_LITERAL_POINTERS,
+	S_NON_LAZY_SYMBOL_POINTERS,
+	S_LAZY_SYMBOL_POINTERS,
+	S_SYMBOL_STUBS,
+	S_MOD_INIT_FUNC_POINTERS,
+	S_MOD_TERM_FUNC_POINTERS,
+	S_COALESCED,
+	S_GB_ZEROFILL,
+	S_INTERPOSING,
+	S_16BYTE_LITERALS,
+	S_DTRACE_DOF,
+	S_LAZY_DYLIB_SYMBOL_POINTERS,
+	SECTION_ATTRIBUTES_USR,
+	S_ATTR_PURE_INSTRUCTIONS,
+	S_ATTR_NO_TOC,
+	S_ATTR_STRIP_STATIC_SYMS,
+	S_ATTR_NO_DEAD_STRIP,
+	S_ATTR_LIVE_SUPPORT,
+	S_ATTR_SELF_MODIFYING_CODE,
+	S_ATTR_DEBUG,
+	SECTION_ATTRIBUTES_SYS,
+	S_ATTR_SOME_INSTRUCTIONS,
+	S_ATTR_EXT_RELOC,
+	S_ATTR_LOC_RELOC
+};
+</pre>
+
+<p id="MacFile">A class to work with a Mach-O file:</p>
+<pre class="code">
+class MacFile {
+public:
+	string name(); // returns the name of the file
+	string format(); // returns the name of the "Mach-O" format
+	uint64 size(); // returns the size of the file
+	int count(); // returns the number of architectures in the list
+	<a href="#MacArchitecture">MacArchitecture</a> item(int index); // returns an architecture with the given index
+	uint64 seek(uint64 offset); // sets the file position
+	uint64 tell(); // returns the file position
+	int write(string buffer); // writes a buffer to the file
+};
+</pre>
+
+<p id="MacArchitecture">A class to work with the Mach-O architecture:</p>
+<pre class="code">
+class MacArchitecture {
+public:
+	string name(); // returns the name of the architecture
+	<a href="#MacFile">MacFile</a> file(); // returns the parent file
+	uint64 entryPoint(); // returns the starting address
+	<a href="#OperandSize">OperandSize</a> cpuAddressSize(); // returns bit count of the architecture
+	uint64 size(); // returns the size of the architecture
+	<a href="#MacSegments">MacSegments</a> segments(); // returns the list of segments
+	<a href="#MacSections">MacSections</a> sections(); // returns the list of sections
+	<a href="#MacCommands">MacCommands</a> commands(); // returns the list of load commands
+	<a href="#MacSymbols">MacSymbols</a> symbols(); // returns the list of symbols
+	<a href="#MacImports">MacImports</a> imports(); // returns the list of imported libraries
+	<a href="#MacExports">MacExports</a> exports(); // returns the list of exported functions
+	<a href="#MacFixups">MacFixups</a> fixups(); // returns the list of fixups (relocations)
+	<a href="#MapFunctions">MapFunctions</a> mapFunctions(); // returns the list of functions available for protection
+	<a href="#IntelFunctions">IntelFunctions</a> functions(); // returns the list of protected functions
+	bool addressSeek(uint64 address); // sets the file position
+	uint64 seek(uint64 offset); // sets the file position
+	uint64 tell(); // returns the file position
+	int write(string buffer); // writes a buffer to the file
+};
+</pre>
+
+<p id="MacSegments">A class to work with the list of Mach-O architecture segments:</p>
+<pre class="code">
+class MacSegments {
+public:
+	<a href="#MacSegment">MacSegment</a> item(int index); // returns a segment with the given index
+	int count(); // returns the number of segments in the list
+	<a href="#MacSegment">MacSegment</a> itemByAddress(); // returns a segment at the given address
+};
+</pre>
+
+<p id="MacSegment">A class to work with a Mach-O architecture segment:</p>
+<pre class="code" id="MacSegment">
+class MacSegment {
+public:
+	uint64 address(); // returns the address of the segment
+	string name(); // returns the name of the segment
+	uint64 size(); // returns the size of the segment
+	int physicalOffset(); // returns the file position of the segment
+	int physicalSize(); // returns the file size of the segment
+	int flags(); // returns flags of the segment
+	bool excludedFromPacking(); // returns the "Excluded from packing" property
+};
+</pre>
+
+<p id="MacSections">A class to work with the list of Mach-O architecture sections:</p>
+<pre class="code">
+class MacSections {
+public:
+	<a href="#MacSection">MacSection</a> item(int index); // returns a section with the given index
+	int count(); // returns the number of sections in the list
+	<a href="#MacSection">MacSection</a> itemByAddress(uint64 address); // returns a section at the given address
+};
+</pre>
+
+<p id="MacSection">A class to work with a Mach-O architecture section:</p>
+<pre class="code">
+class MacSection {
+public:
+	uint64 address(); // returns the address of the section
+	string name(); // returns the name of the section
+	uint64 size(); // returns the size of the section
+	int offset(); // returns the file position of the section
+	<a href="#MacSegment">MacSegment</a> segment(); // returns the parent segment
+};
+</pre>
+
+<p id="MacCommands">A class to work with the list of Mach-O architecture load commands:</p>
+<pre class="code">
+class MacCommands {
+public:
+	<a href="#MacCommand">MacCommand</a> item(int index); // returns a command with the given index
+	int count(); // returns the number of command in the list
+	<a href="#MacCommand">MacCommand</a> itemByType(int type); // returns a command of the given type
+};
+</pre>
+
+<p id="MacCommand">A class to work with a Mach-O architecture load command:</p>
+<pre class="code">
+class MacCommand {
+public:
+	uint64 address(); // returns the address of the command
+	int type(); // returns the type of the command
+	string name(); // returns the name of the command
+	int size(); // returns the size of the command
+};
+</pre>
+
+<p id="MacSymbols">A class to work with the list of Mach-O architecture symbols:</p>
+<pre class="code">
+class MacSymbols {
+public:
+	<a href="#MacSymbol">MacSymbol</a> item(int index); // returns a symbol with the given index
+	int count(); // returns the number of symbols in the list
+};
+</pre>
+
+<p id="MacSymbol">A class to work with a Mach-O architecture symbol:</p>
+<pre class="code">
+class MacSymbol {
+public:
+	uint64 value(); // returns the value of the symbol
+	string name(); // returns the name of the symbol
+};
+</pre>
+
+<p id="MacImports">A class to work with the list of imported libraries for the Mach-O architecture:</p>
+<pre class="code">
+class MacImports {
+public:
+	<a href="#MacImport">MacImport</a> item(int index); // returns an imported library with the given index
+	int count(); // returns the number of imported libraries in the list
+	<a href="#MacImport">MacImport</a> itemByName(string name); // returns an imported library with the given name
+};
+</pre>
+
+<p id="MacImport">A class to work with a Mach-O architecture imported library:</p>
+<pre class="code">
+class MacImport {
+public:
+	string name(); // returns the name of the imported library
+	<a href="#MacImportFunction">MacImportFunction</a> item(int index); // returns an imported function with the given index
+	int count(); // returns the number of imported functions in the list
+	void setName(string name); // sets the name of the imported library
+};
+</pre>
+
+<p id="MacImportFunction">A class to work with a Mach-O architecture imported function:</p>
+<pre class="code">
+class MacImportFunction {
+public:
+	uint64 address(); // returns the memory address where the address of the imported function is stored
+	string name(); // returns the name of the imported function
+};
+</pre>
+
+<p id="MacExports">A class to work with the list of exported functions for the Mach-O architecture:</p>
+<pre class="code">
+class MacExports {
+public:
+	string name(); // returns the name of the library
+	<a href="#MacExport">MacExport</a> item(); // returns an exported function with the given index
+	int count(); // returns the number of exported functions in the list
+	void clear(); // clears the list
+	<a href="#MacExport">MacExport</a> itemByAddress(uint64 address); // returns an exported function at the given address
+	<a href="#MacExport">MacExport</a> itemByName(string name); // returns an exported function with the given name
+};
+</pre>
+
+<p id="MacExport">A class to work with a Mach-O architecture exported function:</p>
+<pre class="code">
+class MacExport {
+public:
+	uint64 address(); // returns the address of the exported function
+	string name(); // returns the name of the exported function
+	string forwardedName(); // returns the name of the function the exported function is forwarded to
+	void destroy(); // destroys the exported function
+};
+</pre>
+
+<p id="MacFixups">A class to work with the list of fixups (relocations) for the Mach-O architecture:</p>
+<pre class="code">
+class MacFixups {
+public:
+	<a href="#MacFixup">MacFixup</a> item(int index); // returns an element with the given index
+	int count(); // returns the number of elements in the list
+	<a href="#MacFixup">MacFixup</a> itemByAddress(uint64 address); // returns an element at the given address
+};
+</pre>
+
+<p id="MacFixup">A class to work with a Mach-O architecture fixup:</p>
+<pre class="code">
+class MacFixup {
+public:
+	uint64 address(); // returns the address of the element
+};
+</pre>
+
+<h3>Functions</h3>
+
+<p id="MapFunctions">A class to work with the list of functions:</p>
+<pre class="code">
+class MapFunctions {
+public:
+	<a href="#MapFunction">MapFunction</a> item(int index); // returns a function with the given index
+	int count(); // returns the number of functions in the list
+	<a href="#MapFunction">MapFunction</a> itemByAddress(uint64 address); // returns a function at the given address
+	<a href="#MapFunction">MapFunction</a> itemByName(string name); // returns a function with the given name
+};
+</pre>
+
+<p id="ObjectType">Types of functions:</p>
+<pre class="code">
+enum ObjectType {
+	Unknown,
+	Code,
+	Data,
+	Export,
+	Marker,
+	APIMarker,
+	Import,
+	String
+};
+</pre>
+
+<p id="MapFunction">A class to work with a function:</p>
+<pre class="code">
+class MapFunction {
+public:
+	uint64 address(); // returns the address of the function
+	string name(); // returns the name of the function
+	<a href="#ObjectType">ObjectType</a> type(); // returns the type of the function
+	<a href="#References">References</a> references(); // returns the list of references
+};
+</pre>
+
+<p id="References">A class to work with the list of references:</p>
+<pre class="code">
+class References {
+public:
+	<a href="#Reference">Reference</a> item(int index); // returns a reference with the given index
+	int count(); // returns the number of references in the list
+};
+</pre>
+
+<p id="Reference">A class to work with a reference:</p>
+<pre class="code">
+class Reference {
+public:
+	uint64 address(); // returns the address of the command
+	uint64 operandAddress(); // returns the address of the references
+};
+</pre>
+
+<h3>Intel functions</h3>
+
+<p id="IntelFunctions">A class to work with the list of Intel functions:</p>
+<pre class="code">
+class IntelFunctions {
+public:
+	<a href="#IntelFunction">IntelFunction</a> item(int index); // returns a function with the given index
+	int count(); // returns the number of functions in the list
+	void clear(); // clears the list
+	<a href="#IntelFunction">IntelFunction</a> itemByAddress(uint64 address); // returns a function at the given address
+	<a href="#IntelFunction">IntelFunction</a> itemByName(string name); // returns a function with the given name
+	<a href="#IntelFunction">IntelFunction</a> addByAddress(uint64 address, <a href="#CompilationType">CompilationType</a> type = ctVirtualization); 
+		// Adds a new function with the given address and compilation type
+};
+</pre>
+
+<p id="CompilationType">Compilation types:</p>
+<pre class="code">
+enum CompilationType {
+	None,
+	Virtualization,
+	Mutation,
+	Ultra
+};
+</pre>
+
+<p id="IntelFunction">A class to work with an Intel function:</p>
+<pre class="code">
+class IntelFunction {
+public:
+	uint64 address(); // returns the address of the function
+	string name(); // returns the name of the function
+	<a href="#ObjectType">ObjectType</a> type(); // returns the type of the function
+	<a href="#IntelCommand">IntelCommand</a> item(int index); // returns a command with the given index
+	int count(); // returns the number of commands in the list
+	<a href="#CompilationType">CompilationType</a> compilationType(); // returns the compilation type
+	void setCompilationType(<a href="#CompilationType">CompilationType</a> value); // sets the compilation type
+	<a href="#CommandLinks">CommandLinks</a> links(); // returns the list of links
+	<a href="#IntelCommand">IntelCommand</a> itemByAddress(uint64 address); // returns a command at the given address
+	void destroy(); // destroys the function
+	<a href="#Folder">Folder</a> folder(); // returns the custom folder
+	void setFolder(<a href="#Folder">Folder</a> folder); // sets the custom folder
+};
+</pre>
+
+<p id="IntelCommandType">Types of Intel commands:</p>
+<pre class="code">
+enum IntelCommandType {
+	Unknown, Push, Pop, Mov, Add, Xor, Test, Lea, Ud0, Ret, Ssh, Crc, Call, Jmp, 
+	Fstsw, Fsqrt, Fchs, Fstcw, Fldcw, Fild, Fist, Fistp, Fld, Fstp, Fst, Fadd, 
+	Fsub, Fsubr, Fisub, Fisubr, Fdiv, Fcomp, Fmul, Repe, Repne, Rep, DB, DW, DD, DQ,
+	Movs, Cmps, Scas, Movzx, Movsx, Inc, Dec, Les, Lds, Lfs, Lgs, Lss, Xadd, Bswap,
+	Jxx, And, Sub, Stos, Lods, Nop, Xchg, Pushf, Popf, Sahf, Lahf, Shl, Shr, Sal, 
+	Sar, Rcl, Rcr, Rol, Ror, Shld, Shrd, Loope, Loopne, Loop, Jcxz, In, Ins, Out, 
+	Outs, Wait, Cbw, Cwde, Cdqe, Cwd, Cdq, Cqo, Clc, Stc, Cli, Sti, Cld, Std, Not,
+	Neg, Div, Imul, Idiv, Mul, Or, Adc, Cmp, Sbb, Pusha, Popa, Clflush, Pause, 
+	Bound, Arpl, Daa, Das, Aaa, Aam, Aad, Aas, Enter, Leave, Int, Into, Iret, Set, 
+	Cmov, Addpd, Addps, Addsd, Addss, Andpd, Andps, Andnpd, Andnps, Cmppd, Cmpps, 
+	Cmpsd, Cmpss, Comisd, Comiss, Cvtdq2ps, Cvtpd2dq, Cvtdq2pd, Cvtpd2pi, Cvtps2pi,
+	Cvtpd2ps, Cvtps2pd, Cvtpi2pd, Cvtpi2ps, Cvtps2dq, Cvtsd2si, Cvtss2si, Cvtsd2ss,
+	Cvtss2sd, Cvttpd2pi, Cvttps2pi, Cvttpd2dq, Cvttps2dq, Cvttsd2si, Cvttss2si, 
+	Divpd, Divps, Divsd, Divss, Maxpd, Maxps, Maxsd, Maxss, Minpd, Minps, Minsd, 
+	Minss, Mulpd, Mulps, Mulsd, Mulss, Orpd, Orps, Movd, Movq, Movntq, Movapd, Movaps,
+	Movdqa, Movdqu, Movdq2q, Movq2dq, Movhlps, Movhpd, Movhps, Movlhps, Movlpd, 
+	Movlps, Movmskpd, Movmskps, Movnti, Movntpd, Movntps, Movsd, Movss, Movupd, 
+	Movups, Pmovmskb, Psadbw, Pshufw, Pshufd, Pshuflw, Pshufhw, Psubb, Psubw, Psubd, 
+	Psubq, Psubsb, Psubsw, Psubusb, Psubusw, Paddb, Paddw, Paddd, Paddq, Paddsb, 
+	Paddsw, Paddusb, Paddusw, Pavgb, Pavgw, Pinsrw, Pextrw, Pmaxsw, Pmaxub, Pminsw, 
+	Pminub, Pmulhuw, Pmulhw, Pmullw, Pmuludq, Psllw, Pslld, Psllq, Pslldq, Psraw, 
+	Psrad, Psrlw, Psrld, Psrlq, Psrldq, Punpcklbw, Punpcklwd, Punpckldq, Punpcklqdq, 
+	Punpckhqdq, Packusdw, Pcmpgtb, Pcmpgtw, Pcmpgtd, Pcmpeqb, Pcmpeqw, Pcmpeqd, 
+	Emms, Packsswb, Packuswb, Punpckhbw, Punpckhwd, Punpckhdq, Packssdw, Pand, 
+	Pandn, Por, Pxor, Pmaddwd, Rcpps, Rcpss, Rsqrtss, Movsxd, Shufps, Shufpd, Sqrtpd, 
+	Sqrtps, Sqrtsd, Sqrtss, Subpd, Subps, Subsd, Subss, Ucomisd, Ucomiss, Unpckhpd, 
+	Unpckhps, Unpcklpd, Unpcklps, Xorpd, Xorps, Bt, Bts, Btr, Btc, Xlat, Cpuid, 
+	Rsm, Bsf, Bsr, Cmpxchg, Cmpxchg8b, Hlt, Cmc, Lgdt, Sgdt, Lidt, Sidt, Smsw, Lmsw, 
+	Invlpg, Lar, Lsl, Clts, Invd, Wbinvd, Ud2, Wrmsr, Rdtsc, Rdmsr, Rdpmc, Fcom, 
+	Fdivr, Fiadd, Fimul, Ficom, Ficomp, Fidiv, Fidivr, Faddp, Fmulp, Fsubp, Fsubrp, 
+	Fdivp, Fdivrp, Fbld, Fbstp, Ffree, Frstor, Fsave, Fucom, Fucomp, Fldenv, Fstenvm,
+	Fxch, Fabs, Fxam, Fld1, Fldl2t, Fldl2e, Fldpi, Fldlg2, Fldln2, Fldz, Fyl2x, 
+	Fptan, Fpatan, Fxtract, Fprem1, Fdecstp, Fincstp, Fprem, Fyl2xp1, Fsincos, Frndint, 
+	Fscale, Fsin, Fcos, Ftst, Fstenv, F2xm1, Fnop, Finit, Fclex, Fcompp, Sysenter, 
+	Sysexit, Sldt, Str, Lldt, Ltr, Verr, Verw, Sfence, Lfence, Mfence, Prefetchnta, 
+	Prefetcht0, Prefetcht1, Prefetcht2, Prefetch, Prefetchw, Fxrstor, Fxsave, Ldmxcsr, 
+	Stmxcsr, Fcmovb, Fcmove, Fcmovbe, Fcmovu, Fcmovnb, Fcmovne, Fcmovnbe, Fcmovnu,
+	Fucomi, Fcomi, Fucomip, Fcomip, Fucompp, Vmcall, Vmlaunch, Vmresume, Vmxoff, 
+	Monitor, Mwait, Xgetbv, Xsetbv, Vmrun, Vmmcall, Vmload, Vmsave, Stgi, Clgi, 
+	Skinit, Invlpga, Swapgs, Rdtscp, Syscall, Sysret, Femms, Getsec, Pshufb, Phaddw, 
+	Phaddd, Phaddsw, Pmaddubsw, Phsubw, Phsubd, Phsubsw, Psignb, Psignw, Psignd, 
+	Pmulhrsw, Pabsb, Pabsw, Pabsd, Movbe, Palignr, Rsqrtps, Vmread, Vmwrite, Svldt, 
+	Rsldt, Svts, Rsts, Xsave, Xrstor, Vmptrld, Vmptrst, Maskmovq, Fnstenv, Fnstcw, 
+	Fstp1, Fneni, Fndisi, Fnclex, Fninit, Fsetpm, Fisttp, Fnsave, Fnstsw, Fxch4, 
+	Fcomp5, Ffreep, Fxch7, Fstp8, Fstp9, Haddpd, Hsubpd, Addsubpd, Addsubps, Movntdq, 
+	Fcom2, Fcomp3, Haddps, Hsubps, Movddup, Movsldup, Cvtsi2sd, Cvtsi2ss, Movntsd, 
+	Movntss, Lddqu, Movshdup, Popcnt, Tzcnt, Lzcnt, Pblendvb, Pblendps, Pblendpd, 
+	Ptest, Movsxbw, Movsxbd, Movsxbq, Movsxwd, Movsxwq, Movsxdq, Muldq, Pcmpeqq, 
+	Movntdqa, Xsaveopt, Maskmovdqu, Ud1, Pcmpgtq, Movzxbw, Movzxbd, Movzxbq, Movzxwd, 
+	Movzxwq, Movzxdq
+};
+</pre>
+
+<p id="IntelSegment">Intel segments:</p>
+<pre class="code">
+enum IntelSegment {
+	None,
+	es,
+	cs,
+	ss,
+	ds,
+	fs,
+	gs
+};
+</pre>
+
+<p id="IntelFlag">Intel flags:</p>
+<pre class="code">
+enum IntelFlag {
+	C,
+	P,
+	A,
+	Z,
+	S,
+	T,
+	I,
+	D,
+	O
+};
+</pre>
+
+<p id="IntelRegistr">Intel registers:</p>
+<pre class="code">
+enum IntelRegistr {
+	eax,
+	ecx,
+	edx,
+	ebx,
+	esp,
+	ebp,
+	esi,
+	edi,
+	r8,
+	r9,
+	r10,
+	r11,
+	r12,
+	r13,
+	r14,
+	r15
+};
+</pre>
+
+<p id="IntelCommand">A class to work with an Intel command:</p>
+<pre class="code">
+class IntelCommand {
+public:
+	uint64 address(); // returns the address of the command
+	<a href="#IntelCommandType">IntelCommandType</a> type(); // returns the type of the command
+	string text(); // returns the text representation
+	int size(); // returns the size of the command
+	int dump(int index); // returns data of the command with the given index
+	<a href="#CommandLink">CommandLink</a> link(); // returns the command link
+	int flags(); // returns command flags
+	<a href="#IntelSegment">IntelSegment</a> baseSegment(); // returns the base segment
+	<a href="#IntelCommandType">IntelCommandType</a> preffix(); // returns the type of the prefix command
+	<a href="#IntelOperand">IntelOperand</a> operand(int index); // returns an operand with the given index
+};
+</pre>
+
+<p id="OperandType">Operand types:</p>
+<pre class="code">
+enum OperandType {
+	None,
+	Value,
+	Registr,
+	Memory,
+	SegmentRegistr,
+	ControlRegistr,
+	DebugRegistr,
+	FPURegistr,
+	HiPartRegistr,
+	BaseRegistr,
+	MMXRegistr,
+	XMMRegistr
+};
+</pre>
+
+<p id="OperandSize">Operand sizes:</p>
+<pre class="code">
+enum OperandSize {
+	Byte,
+	Word,
+	DWord,
+	QWord,
+	TByte,
+	OWord,
+	FWord
+};
+</pre>
+
+<p id="IntelOperand">A class to work with an operand of the Intel command:</p>
+<pre class="code">
+class IntelOperand {
+public:
+	int type(); // returns the type of the operand
+	<a href="#OperandSize">OperandSize</a> size(); // returns the size of the operand
+	int registr(); // returns the register
+	int baseRegistr(); // returns the base register
+	int scale(); // returns the scale
+	uint64 value(); // returns the value
+};
+</pre>
+
+<p id="CommandLinks">A class to work with the list of command links:</p>
+<pre class="code" id="CommandLinks">
+class CommandLinks {
+public:
+	<a href="#CommandLink">CommandLink</a> item(int index); // returns a link with the given index
+	int count(); // returns the number of links in the list
+};
+</pre>
+
+<p id="LinkType">Link types:</p>
+<pre class="code">
+enum LinkType {
+	None,
+	SEHBlock,
+	FinallyBlock,
+	DualSEHBlock,
+	FilterSEHBlock,
+	Jmp,
+	JmpWithFlag,
+	JmpWithFlagNSFS,
+	JmpWithFlagNSNA,
+	JmpWithFlagNSNS,
+	Call,
+	Case,
+	Switch,
+	Native,
+	Offset,
+	GateOffset,
+	ExtSEHBlock,
+	MemSEHBlock,
+	ExtSEHHandler,
+	VBMemSEHBlock
+};
+</pre>
+
+<p id="CommandLink">A class to work with a command link:</p>
+<pre class="code">
+class CommandLink {
+public:
+	uint64 toAddress(); // returns the address the link refers
+	<a href="#LinkType">LinkType</a> type(); // returns the type of the link
+	<a href="#IntelCommand">IntelCommand</a> from(); // returns the parent command
+};
+</pre>
+
+<p id="FFILibrary">A class to work with a library:</p>
+<pre class="code">
+enum ParamType {
+	"void",
+	"byte",
+	"char",
+	"short",
+	"ushort",
+	"int",
+	"uint",
+	"long",
+	"ulong",
+	"size_t",
+	"float",
+	"double",
+	"string",
+	"pointer"
+};
+
+enum CallType {
+	"default", 
+	"cdecl", 
+	"stdcall"
+};
+
+class FFILibrary {
+public:
+	string name(); // returns the name 
+	uint64 address(); // returns the address in the memory
+	void close();
+	FFIFunction getFunction(string name, ParamType ret, ParamType param1, ...); // returns a function
+	FFIFunction getFunction(string name, table (ParamType ret, CallType abi, ParamType, ...)); // returns a function
+};
+</pre>
+
+<p id="FFIFunction">A class to work with a foreign function:</p>
+<pre class="code">
+class FFIFunction {
+	string name(); // returns the name
+	uint64 address(); // returns the address in the memory
+};
+</pre>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

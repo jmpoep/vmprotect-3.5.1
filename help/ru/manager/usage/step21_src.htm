@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 2.1: Создаем новое защищенное приложение</title>
+</head>
+
+<body>
+  <h1>Шаг 2.1: Создаем новое защищенное приложение</h1>
+
+  <p>Если на первом этапе мы создавали несколько разных тестовых
+  приложений для изучения API системы лицензирования, то на втором этапе
+  приложение будет одно. Оно также будет консольным и в нем будет
+  функция <strong>foo()</strong>, которая может работать только в
+  зарегистрированной версии. Вот код нашего тестового
+  приложения:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+
+#define PRINT_HELPER(state, flag) if (state &amp; flag) printf("%s ", #flag)
+void print_state(INT state)
+{
+        if (state == 0)
+        {
+                printf("state = 0\n");
+                return;
+        }
+
+        printf("state = ");
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_CORRUPTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_INVALID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BLACKLISTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_DATE_EXPIRED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_RUNNING_TIME_OVER);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BAD_HWID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED);
+        printf("\n");
+}
+
+char *read_serial(const char *fname)
+{
+        FILE *f;
+        if (0 != fopen_s(&amp;f, fname, "rb")) return NULL;
+        fseek(f, 0, SEEK_END);
+        int s = ftell(f);
+        fseek(f, 0, SEEK_SET);
+        char *buf = new char[s + 1];
+        fread(buf, s, 1, f);
+        buf[s] = 0;
+        fclose(f);
+        return buf;
+}
+
+// метод foo() очень короткий, но он нам нужен в виде отдельной функции
+// поэтому мы попросим компилятор не делать его inline
+__declspec(noinline) void foo()
+{
+        printf("I'm foo!\n");
+}
+
+int main(int argc, char **argv)
+{
+        char *serial = read_serial("serial.txt");
+        int res = VMProtectSetSerialNumber(serial);
+        delete [] serial;
+        if (res)
+        {
+                printf("serial number is bad\n");
+                print_state(res);
+                return 0;
+        }
+        printf("serial number is correct, calling foo()\n");
+        foo();
+        printf("done\n");
+        return 0;
+}
+</pre>
+
+  <p>Скомпилируем программу без отладочной информации, но в
+  настройках линкера попросим создать MAP-файл, который потребуется
+  для работы VMProtect. При запуске программы мы должны увидеть
+  следующий текст:</p>
+  <pre class="code">serial number is bad
+state = SERIAL_STATE_FLAG_INVALID
+</pre>
+
+  <p>В настоящий момент система лицензирования все еще работает в
+  тестовом режиме, т.к. файл еще не был обработан VMProtect'ом и в
+  него не был внедрен модуль лицензирования. На <a href=
+  "step22_vmp.htm">следующем шаге</a> мы создадим проект VMProtect
+  и попробуем защитить нашу программу.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

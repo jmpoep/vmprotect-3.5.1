@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Glossary</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Glossary</h1>
+
+  <p>You can't use a tool effectively if you don't know the terminology specific to the corresponding subject.
+  The following glossary explains terminology used in VMProtect.
+  The glossary is not intended to be exhaustive, so some terms may provide meanings that differ from classic ones.
+  </p>
+
+  <p><a name="ByteCode" id="ByteCode"><strong>Bytecode</strong></a> - the code received after transcoding commands of the real processor to commands of the virtual machine.
+  </p>
+
+  <p><a name="Virtualization" id="Virtualization"><strong>Virtualization</strong></a> - a process that transforms a part of the executable code of the application
+  to commands of the virtual machine featuring command system, architecture and operational logic that are unknown to a potential hacker.
+  Virtualized fragments of code are executed by the interpreter of the virtual machine without transforming them to machine language code of the physical processor.
+  Generally, reverse engineering of virtualized fragments comes down to building a disassembler with the same architecture as the processor the virtual machine imitates and analyzing of the resulting disassembled code.
+  </p>
+
+  <p><a name="VirtualMachine" id="VirtualMachine"><strong>Virtual machine</strong></a> - a program code directly executing bytecode in the protected application.</p>
+
+  <p><a name="Watermarks" id="Watermarks"><strong>Watermarks
+  </strong></a> - a unique for each user array of bytes that allows to definitely identify a legal owner of the hacked copy of the program.</p>
+
+  <p><a name="Mutation" id="Mutation"><strong>Mutation</strong></a> - replacing an original command with an analogue or with a certain set of commands producing the same result
+  </p>
+
+  <p><a name="Obfuscation" id="Obfuscation"><strong>Obfuscation</strong></a> - a group of methods and techniques
+  intended to complicate analysis of a program code. Depending on the programming language a protected program is written on, different obfuscation types are used.
+  Obfuscation of applications written on interpreting languages (Perl, PHP and others) is made through modifying the source code:
+  comments are removed, variables are given senseless names, string constants are encrypted and so on.
+  Obfuscation of Java / .NET applications is performed through transforming the bytecode processed by the virtual machine. 
+  Obfuscation of compiled programs relies on modifying machine language codes: the obfuscator adds various "garbage" commands, "dead code", random jumps.
+  Also, original commands mutate, a part of operations is moved to the stack, and a number of structural (or less frequently mathematical) transformations is made.
+  Reverse engineering of obfuscated fragments of code attempts to bring the fragments back to their original state, and that is a time-consuming task as long as obfuscation is done properly.
+  </p>
+
+  <p><a name="Protector" id="Protector"><strong>Protector</strong></a> - software intended to protect other programs from being hacked.
+  The majority of today's protectors do not modify the source code of an application, packing or encrypting the app instead. The main focus
+  is put to protecting the unpacking/decrypting program or procedure.
+  </p>
+
+  <p><a name="EntryPoint" id="EntryPoint"><strong>Entry point</strong></a> - the initial address execution of the application loaded into the memory starts from.</p>
+
+  <p><a name="Pack" id="Pack"><strong>Packing</strong></a> - a way to protect the program code by compressing the executable file of the program and/or libraries
+  using non-typical algorithms. The protected fragments of code are compressed by the packer, and unpacked completely or partially at user's side when the application is executed.
+  </p>
+
+  <p><a name="Crypt" id="Crypt"><strong>Encryption</strong></a> protects a part of the application's code with strong cryptographic algorithms.
+  Software protected by encryption requires an end-user to enter the activation code to remove limitations set by the developer for the unregistered version of the program.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.2: Добавляем код проверки лицензии</title>
+</head>
+
+<body>
+  <h1>Шаг 1.2: Добавляем код проверки лицензии</h1><strong>Подключаем
+  VMProtect SDK</strong>
+
+  <p>Если вы этого еще не сделали, то сейчас самое время подключить
+  к проекту VMProtect SDK. SDK это три файла: заголовочный файл
+  (VMProtectSDK.h), файл библиотеки (VMProtectSDK32.lib) и dll-файл
+  с реализацией (VMProtectSDK32.dll). Для 64-битной платформы есть
+  отдельные реализации библиотеки и dll-файла.</p>
+
+  <p>Помещаем dll-файл в рабочий каталог нашего приложения, 
+  файл заголовков и библиотечный файл - рядом с исходниками, включаем
+  файл заголовков в основной файл:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+</pre>
+
+  <p>Собираем проект и убеждаемся, что он компилируется, запускается
+  и работает, как и раньше. Система лицензирования пока еще не
+  активна.</p><strong>Подаем серийный номер в систему
+  лицензирования</strong>
+
+  <p>Теперь непосредственно после строки с серийным номером добавим
+  вызов функции SDK системы лицензирования:</p>
+  <pre class="code">char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+int res = VMProtectSetSerialNumber(serial);
+printf("res = 0x%08X\n", res);
+</pre>
+
+  <p>Если после этого программа будет завершаться с ошибкой об
+  отсутствии dll-файла, убедитесь, что вы положили соответствующий
+  DLL-файл в рабочий каталог нашего приложения. В случае успешного
+  запуска, вы должны увидеть сообщение:</p>
+  <pre class="code">res = 0x00000002
+</pre>
+
+  <p>Число 2 соответствует флагу SERIAL_STATE_FLAG_INVALID,
+  <a href="api.htm">описанному в API</a>. Т.е. система
+  лицензирования посчитала наш ключ некорректным, что вполне
+  логично, т.к. мы до сих пор не "объяснили" системе лицензирования,
+  какие ключи считать правильными, а какие - нет.</p><strong>Задаем
+  "правильный" серийный номер</strong>
+
+  <p>В тестовом режиме система лицензирования анализирует файл
+  VMProtectLicense.ini, и реагирует на вызовы функций согласно
+  указанным там настройкам. Подробно файл разбирается в следующих
+  шагах, а здесь мы просто создадим такой файл и поместим туда
+  следующий текст:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber 
+</pre>
+
+  <p>Запустим нашу программу еще раз. Если вы снова получили код
+  ошибки "2", то убедитесь, что ini-файл находится в рабочем
+  каталоге приложения. В этот раз вы должны получить результат "0".
+  Признак того, что система лицензирования приняла и одобрила
+  серийный номер. Теперь мы можем убрать функцию
+  <strong>is_registered()</strong> - проверкой серийного номера
+  займется система лицензирования:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+
+int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+
+        int res = VMProtectSetSerialNumber(serial);
+        printf("res = 0x%08X\n", res);
+
+        if (res)
+        {
+                printf("please register!\n");
+                return 0;
+        }
+        printf("We are registered.\n");
+        return 0;
+}
+</pre><br />
+  <a href="step13_flags.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

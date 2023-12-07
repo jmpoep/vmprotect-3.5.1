@@ -1,0 +1,10 @@
+This is slightly modified libudis86 1.7 (from http://udis86.sourceforge.net/)
+I changed declaration of all tables to be const
+Also ssse3 & sse4 was added
+
+You can build it
+1) under windows - with Visual Studion 2008 via libudis86.vcproj
+2) as static library for drivers - with WDK via Makefile & Sources
+3) as static Linux library with gcc - via Makefile.lnx
+
+24 aug 2011: add support for lzcnt, movntsd & movntss

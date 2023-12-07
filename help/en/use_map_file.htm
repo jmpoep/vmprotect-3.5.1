@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Using a MAP-file</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Using a MAP-file</h1>
+
+  <p>To create a MAP-file you should enable the corresponding option in the compiler settings.</p>
+
+  <h3>Visual Studio</h3>
+
+  <p>If you develop your application in Visual Studio, this can be done as follows: in the main menu of the IDE, open the project properties (Project - Properties), then on the "Linker - Debugging" tab set the 
+  "Generate MAP File" option to "Yes (/MAP)":</p>
+  <p><img src="images/visual_studio_map.png" /></p>
+
+  <h3>Borland Delphi</h3>
+
+  <p>If you develop the application using Borland Delphi,
+  the same can be done as follows: in the main menu of the Delphi IDE open the project options(Project - Options) and on the "Linker" tab set the  "MAP file" section option to "Detailed":</p>
+  <p><img src="images/delphi_map.png" /></p>
+
+  <p>After you enabled MAP-file generation, the project must be rebuilt.</p>
+
+  <p>Upon loading of a MAP-file VMProtect compares modification date and time of the MAP-file and those of the protected file. If they are different, the MAP-file is not loaded.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

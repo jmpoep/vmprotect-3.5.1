@@ -1,0 +1,55 @@
+body,td,th
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif; 
+	font-size: 1em;
+}
+
+tt
+{
+	font-family: "Courier new";
+	font-size: 1.1em;
+}
+
+tr
+{
+	vertical-align: top;
+}
+
+pre 
+{
+	font-family: "Courier new", monospace;
+	font-size: 1.1em;
+}
+
+.indent 
+{
+	margin-left: 2em;
+}
+
+.code
+{
+	font-family: "Courier new";
+	background: #f8f8f8;
+	color: black;
+	padding: 4px;
+	border-style: solid;
+	border-color: #e0e0e0;
+	overflow: auto;
+	border-width: 1px;
+}
+
+td, th 
+{
+	border-style: solid;
+	border-color: black;
+}
+
+table 
+{
+	border-collapse: collapse;
+}
+
+div.unhide_if_no_site
+{
+ visibility: visible !important;
+}

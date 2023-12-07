@@ -1,0 +1,1021 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>История изменений</title>
+</head>
+
+<body>
+  <h1>История изменений</h1>
+
+  <h3>Версия 3.5</h3>
+  <p>[!] .NET: Исправлено множество ошибок<br />
+  [!] ELF: Исправлена ошибка, возникающая в VMProtectGetCurrentHWID при получении информацуии о HDD<br />
+  [+] .NET: Добавлена поддержка .NET Core (3.0+) и .NET Standard (2.1+)<br />
+  [+] .NET: Добавлена защита импорта<br />
+  [+] .NET: Добавлена защита ресурсов<br />
+  [+] .NET: Добавлена поддержка mixed assemblies<br />
+  [*] Mach-O: Улучшена поддержка секций с типом S_THREAD_LOCAL_VARIABLES и S_THREAD_LOCAL_REGULAR<br />
+  [*] Mach-O: Улучшена поддержка Objective-C<br />
+  [*] ELF: Улучшена поддержка релокейшенов с типом R_386_PC32<br />
+  [*] PE: Улучшена антиотладка<br />
+  </p>
+
+  <h3>Версия 3.4</h3>
+  <p>[!] Исправлена ошибка возникающая при виртуализации команд BT [m16], POP [m64]<br />
+  [+] Добавлена поддержка .NET приложений<br />
+  [+] Добавлено дизассемблирование команды PMULLD<br />
+  [+] PE: Добавлена поддержка COFF символом<br />
+  [*] ELF: Улучшено дизассемблирование of SWITCH<br />
+  [*] ELF: Улучшена поддержка настраиваемых элементов с типом R_386_PC32<br />
+  [*] PE: Улучшена обработка исключений<br />
+  [*] PE: Улучшена поддержка Windows Server 2016 Datacenter<br />
+  </p>
+
+  <h3>Версия 3.3</h3>
+  <p>[+] PE: Added support of "Control Flow Guard"<br />
+  [+] PE: Added support of PDB files for loading symbols<br />
+  [+] Mach-O: Added support of OS X 10.13 and later<br />
+  [+] ELF: Added support of statically linked libstdc++.so<br />
+  [+] ELF: Added support of CentOS 5 and CentOS 6<br />
+  [+] ELF: Added support of TLS segments<br />
+  [+] ELF: Added support of HTTPS for VMProtectActivateLicense<br />
+  [*] PE: Improved exception handling for x64 applications<br />
+  [*] PE: Improved detection of virtualization tools under the Hyper-V role<br />
+  [*] PE: Improved demagling of MSVC symbols<br />
+  [*] Mach-O: Improved exception handling<br />
+  [*] Mach-O: Improved support of Objective-C<br />
+  [*] ELF: Fixed a bug that occurred when the "Pack the Output File" option was used<br />
+  </p>
+
+  <h3>Версия 3.2</h3>
+  <p>[!] PE: Исправлена ошибка возникающая при вызове VMProtectIsValidImageCRC внутри защищенного драйвера<br />
+  [!] Исправлена ошибка возникающая при виртуализации команд XOR, имеющей настраиваемые элементы<br />
+  [*] PE: Добавлена упаковка секций, содержащих TLS директорию<br />
+  [*] PE: Улучшено обнаружение отладчиков<br />
+  [*] PE: Taggant System больше не поддерживается<br />
+  [*] Значительно ускорена распаковка при использовании опции "<a href=
+  "project_options.htm#PackOutputFile">Упаковать файл</a>"<br />
+  [+] Добавлена поддержка ELF формата<br />
+  [+] Добавлено дизассемблирование AVX команд<br />
+  </p>
+
+  <h3>Версия 3.1</h3>
+
+  <p>[!] Исправлена ошибка возникающая при дизассемлировании команды MOVUPS с REX префиксом 0x41<br />
+  [!] Исправлена ошибка возникающая при виртуализации команд XLAT, FSIN и POPAD<br />
+  [*] Улучшена поддержка исключений<br />
+  [*] Улучшена архитектура ВМ<br />
+  [*] Улучшена проверка целостности файла на диске при использовании опции "<a href=
+  "project_options.htm#MemoryProtection">Защита памяти</a>"<br />
+  [*] Улучшена виртуализация команд FSTENV, FSTCW, FSAVE и FSTSW<br />
+  [*] PE: VMProtectActivateLicense теперь работает через WinHTTP и использует настройки прокси из IE<br />
+  [*] PE: Улучшена работа VMProtectGetCurrentHWID для драйверов<br />
+  [*] PE: Улучшена поддержка Delphi 6 при использовании опции "<a href=
+  "project_options.htm#ImportProtection">Защита импорта</a>"<br />
+  [*] PE: Улучшено обнаружение отладчиков<br />
+  [+] Добавлена виртуализация команд ADD, AND, SUB, XOR, OR с префиксом LOCK<br />
+  [+] Добавлена виртуализация команды CQO<br />
+  [+] Добавлено дизассемблирование команд PINSRB, PINSRD, PINSRQ, PMINSD, PMINUW, PMINUD, PMAXSB, PMAXSD, PMAXUW и PMAXUD<br />
+  [+] Mach-O: Добавлена поддержка секции "__unwind_info"<br />
+  [+] Mach-O: Добавлена поддержка LC_LOAD_WEAK_DYLIB<br />
+  [+] Mach-O: Добавлена поддержка Delphi Berlin<br />
+  [+] PE: Для драйверов добавлена поддержка Windows 10<br />
+  [+] PE: При использовании опции "<a href=
+  "project_options.htm#Additional">Удалять отладочную информацию</a>" теперь затирается "Rich Header"<br />
+  [+] Ultimate: В секции "<a href="project_files.htm">Файлы</a>" теперь можно создавать папки и использовать символы ".." для перехода в вышестоящий каталог<br />
+  [+] GUI: При отображении защищаемых ANSI строк теперь используется кодовая страница из настроек Windows<br />
+  [+] LUA: Добавлена возможность вызова функций из DLL<br />
+  </p>
+
+  <h3>Версия 3.0</h3>
+
+  <p>[*] PE: Добавлена поддержка исключений в x64 коде<br />
+  [*] Mach-O: Добавлена поддержка <a href="sdk_functions.htm">функций SDK</a><br />
+  [*] Ultimate: Добавлена поддержка <a href="manager/usage/api.htm">функции лицензирования</a> для драйверов и приложений на VB6<br />
+  [*] Ultimate: Улучшена функциональность <a href="project_files.htm">DLL Box</a> - теперь в защищаемое приложение можно включать любые файлы, в том числе и ActiveX серверы с опцией их автоматической регистрации в виртуальном реестре<br />
+  [*] Улучшено обнаружение Virtual Box<br />
+  [*] Скриптовый движок заменен на LUA<br />
+  [*] Новая архитектура ВМ<br />
+  [+] В SDK добавлена новая функция <a href="sdk_functions.htm#VMProtectIsProtected">VMProtectIsProtected</a><br />
+  </p>
+
+  <h3>Версия 2.13</h3>
+
+  <p>[!] PE: Добавлена поддержка Delay Import<br />
+  [!] PE: Улучшена совместимость с VS2012<br />
+  [!] PE: Улучшена совместимость с Embarcadero RAD Studio XE3<br />
+  [!] PE: Улучшена совместимость с MinGW<br />
+  [!] Ultimate: Улучшена совместимость DLL Box с Windows 8<br />
+  [+] WebLM: Добавлена поддержка mbstring.func_overload = 2<br />
+  [+] WebLM: В коде активации добавлено поле "Дата окончания"
+  (VMProtectActivateLicense теперь может возвращать
+  ACTIVATION_EXPIRED если текущая дата больше даты окончания)<br />
+  [+] WebLM: В моде для полей "Дата окончания" и "Максимальная дата
+  сборки" добавлено значение "дней с даты покупки"<br /></p>
+
+  <h3>Версия 2.12</h3>
+
+  <p>[!] PE: Исправлены ошибки, возникающие в x64 приложениях<br />
+  [!] PE: Исправлена ошибка, возникающая при наличии у приложения
+  флага IMAGE_DLLCHARACTERISTICS_NX_COMPAT<br />
+  [+] PE: Добавлена поддержка Windows 8<br />
+  [+] WebLM: Добавлен русский и китайский язык<br /></p>
+
+  <h3>Версия 2.11</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при использовании <a href=
+  "project_options.htm#PackOutputFile">упаковки</a> в х64
+  приложениях<br />
+  [!] PE: Исправлена ошибка, возникающая при использовании опции
+  "<a href="project_options.htm#ImportProtection">Защита
+  импорта</a>"<br />
+  [!] PE: Исправлена ошибка, возникающая при обработке TLS секции,
+  имеющей релоки<br />
+  [+] Ultimate: Добавлена <a href=
+  "manager/activation.htm">активация/деактивация</a><br />
+  [+] Mach-O: Добавлена <a href=
+  "project_options.htm#PackOutputFile">упаковка</a><br />
+  [*] PE: Поддержка DriverVerifier<br />
+  [*] PE: Улучшена поддержка SEH для MSVC<br />
+  [*] Mach-O: Улучшена поддержка IndirectSymbols<br /></p>
+
+  <h3>Версия 2.10</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при использовании опции
+  "<a href="project_options.htm#ResourceProtection">Защита
+  ресурсов</a>"<br />
+  [!] Исправлена ошибка, возникающая при использовании опции
+  "<a href="project_options.htm#ImportProtection">Защита
+  импорта</a>"<br />
+  [!] Исправлена ошибка, возникающая при защите x64 драйверов, не
+  имеющих релоков<br />
+  [+] Добавлена поддержка исполняемых файлов от Mac OS X (Mach-O
+  формат)<br />
+  [+] Добавлена поддержка команды HLT<br />
+  [+] В SDK добавлено новое API - <a href=
+  "sdk_functions.htm#VMProtectFreeString">VMProtectFreeString</a><br />
+  [*] Улучшено опеределение имен маркеров и строк, помеченных с
+  помощью <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>/<a href="sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+  [*] В имени выходного файла и параметрах лицензирования теперь
+  можно использовать относительные пути<br />
+  [*] Улучшена поддержка SEH для Delphi<br />
+  [*] SenseLock Edition: Добавлена опция "<a href=
+  "project_options.htm#ResourceProtection">Защита
+  ресурсов</a>"<br />
+  [*] SenseLock Edition: В GUI версии добавлен <a href=
+  "manager/licenses.htm">менеджер лицензий</a><br />
+  [*] SenseLock Edition: В GUI версии добавлено программирование ключей<br />
+  [*] Лицензии в менеджере лицензий теперь можно копировать и
+  вставлять из буфера обмена<br /></p>
+
+  <h3>Версия 2.09</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при <a href=
+  "project_options.htm#DebuggerDetection">обнаружении отладчика</a>
+  под Windows 2000<br />
+  [!] Исправлена ошибка, возникающая при дизассемблировании команд
+  PMULHUW и LDMXCSR<br />
+  [!] Исправлена ошибка, возникающая при использовании <a href=
+  "project_options.htm#MemoryProtection">защиты памяти</a> (не
+  проверялась целостность файла на диске)<br />
+  [!] Ultimate: Исправлена ошибка, возникающая при запуске
+  защищенных файлов под Windows 2000 (требовалось наличие
+  EncodePointer/DecodePointer из kernel32.dll)<br />
+  [*] Улучшена виртуализация обработчиков исключений для Visual
+  C<br />
+  [*] <a href="project_options.htm#ResourceProtection">Защита
+  ресурсов</a> теперь доступна в Lite и Professional версиях<br />
+  [*] При использовании <a href=
+  "project_options.htm#ResourceProtection">защиты ресурсов</a>
+  добавлена поддержка EnumResourceTypes, EnumResourceNames и
+  EnumResourceLanguages (доступно только при вызове из главного
+  модуля)<br />
+  [+] Добавлена поддержка исключений для Borland C Builder<br />
+  [+] Ultimate: Ускорена работа <a href=
+  "manager/usage/api.htm#VMProtectGetSerialNumberState">VMProtectGetSerialNumberState</a>
+  и <a href=
+  "manager/usage/api.htm#VMProtectGetSerialNumberData">VMProtectGetSerialNumberData</a><br />
+
+  [+] В скрипт для <a href=
+  "script_classes.htm#TLicenseManager">TLicenseManager</a> добавлен
+  метод <a href=
+  "script_classes.htm#TLicenseManager.Save">Save</a><br />
+  [-] Убрана опция "Перемещать ресурсы в конец файла" - теперь
+  секция ресурсов всегда размещается последней<br /></p>
+
+  <h3>Версия 2.08</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при ассемблировании команды
+  TEST [XXXX], REG<br />
+  [!] Исправлена ошибка, возникающая при диассемблировании х64
+  команд с префиксом 0x67<br />
+  [*] Улучшена поддержка файлов, имеющих небольшие занчения для
+  SectionAlignment<br />
+  [*] Улучшено опеределение имен маркеров и строк для Intel
+  Compiler 12 и Lazarus<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a><br />
+  [*] Ultimate: Теперь можно загружать файлы проекта с параметрами
+  лицензирования<br />
+  [+] Ultimate: Добавлена <a href=
+  "project_options.htm#ResourceProtection">защита ресурсов</a><br />
+  [+] Ultimate: В скрипт добавлены классы <a href=
+  "script_classes.htm#TLicense">TLicense</a> и <a href=
+  "script_classes.htm#TLicenseManager">TLicenseManager</a><br /></p>
+
+  <h3>Версия 2.07</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при работе с <a href=
+  "manager/licenses.htm">менеджером лицензий</a> если в настройках
+  Windows установлен язык отличный от английского<br />
+  [+] В режиме эксперта в опциях теперь можно изменять стандартные
+  сообщения "Обнаружен отладчик", "Обнаружены инструменты
+  виртуализации", "Файл поврежден" и "Необходим серийный
+  номер"<br />
+  [+] В скрипт для <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> добавлено
+  свойство <a href=
+  "script_classes.htm#TVMProtector.Messages">Messages</a><br />
+  [*] Улучшена совместимость <a href=
+  "project_options.htm#MemoryProtection">защиты памяти</a> с
+  некоторыми антивирусами<br /></p>
+
+  <h3>Версия 2.06</h3>
+
+  <p>[!] Исправлена ошибка с определением имен маркеров для
+  MinGW<br />
+  [!] Исправлена ошибка, возникающая при <a href=
+  "project_options.htm#ImportProtection">защите импорта</a> в х64
+  файлах<br />
+  [!] Исправлена ошибка, возникающая при виртуализации FILD WORD
+  PTR [XXXX]<br />
+  [!] Исправлена ошибка, возникающая при дизассемблировании
+  PSRLW<br />
+  [!] Исправлена ошибка, возникающая в <a href=
+  "project_files.htm">DLL Box</a> при активном антивирусе<br />
+  [*] Файл проекта теперь сохраняется в XML формате<br />
+  [*] Скрипт теперь хранится в файле проекта<br />
+  [*] Ultimate: <a href="manager/licenses.htm">Менеджер
+  лицензий</a> теперь находится в GUI версии<br />
+  [*] Ultimate: Значительно ускорено выполнение кода, <a href=
+  "project_functions.htm#LockToKey">привязанного к серийному
+  номеру</a><br />
+  [+] Добавлена поддержка МАР файлов для MinGW<br />
+  [+] Добавлена поддержка JCLDEBUG<br />
+  [+] В скрипт для <a href=
+  "script_classes.htm#TPEDirectory">TPEDirectory</a> добавлен метод
+  Clear<br />
+  [+] В скрипт для <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> добавлены
+  свойства <a href=
+  "script_classes.htm#TVMProcedure.InputSize">InputSize</a> и
+  <a href=
+  "script_classes.htm#TVMProcedure.OutputSize">OutputSize</a><br />
+  [+] Ultimate: В SDK добавлены новые API - <a href=
+  "sdk_functions.htm#VMProtectBeginVirtualizationLockByKey">VMProtectBeginVirtualizationLockByKey</a>
+  и <a href=
+  "sdk_functions.htm#VMProtectBeginUltraLockByKey">VMProtectBeginUltraLockByKey</a><br />
+  </p>
+
+  <h3>Версия 2.05</h3>
+
+  <p>[!] Исправлены ошибки с определением строк для программ на
+  MinGW<br />
+  [!] Исправлены ошибка "Out of system resources", возникающая при
+  добавлении большого количества процедур в проект<br />
+  [!] Исправлены ошибка, возникающая при выводе строк в консольной
+  версии<br />
+  [*] Дата MAP файла теперь берется из содержимого файла<br />
+  [+] Ultimate: Добавлены примеры по работе с <a href=
+  "manager/index.htm">системой лицензирования</a> (на MSVC и
+  Delphi)<br />
+  [+] Ultimate: Добавлены исходные коды <a href=
+  "manager/keygen/keygen_dll.htm">генератора серийных номеров</a>
+  на MSVC<br />
+  [+] Ultimate: Добавлен <a href="project_files.htm">DLL Box</a>
+  (доступен только для EXE файлов)<br />
+  [+] Ultimate: В скрипт добавлен класс <a href=
+  "script_classes.htm#TInternalDLLs">TInternalDLLs</a><br />
+  [+] Ultimate: В скрипт для класса <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> добавлено
+  свойство <a href=
+  "script_classes.htm#TVMProtector.InternalDlls">InternalDlls</a><br />
+
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TMapRecord">TMapRecord</a> добавлено свойство
+  <a href=
+  "script_classes.htm#TMapRecord.SegmentName">SegmentName</a><br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TIntelRecord">TIntelRecord</a> добавлено
+  свойство <a href=
+  "script_classes.htm#TIntelRecord.Operands">Operands</a><br />
+  [+] Добавлен чешский язык<br /></p>
+
+  <h3>Версия 2.04</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при обфускации FDIVR
+  [ESP+XXXX]<br />
+  [!] Исправлена ошибка, возникающая при обфускации SWITCH в x64
+  приложениях<br />
+  [*] При использовании опции "<a href=
+  "project_options.htm#MemoryProtection">Защита памяти</a>" теперь
+  проверяется целостность файла на диске<br />
+  [*] Ultimate: Улучшена интеграция модуля лицензирования с
+  защищаемой программой<br />
+  [+] Добавлена поддержка файлов, имеющих оверлей<br />
+  [+] Ultimate: Добавлен <a href=
+  "manager/keygen/keygen_net.htm">пример генератора серийных
+  номеров на C#</a><br />
+  [+] Ultimate: В <a href="manager/licenses.htm">менеджере
+  лицензий</a> добавлен экспорт параметров продукта для генератора
+  на C#<br />
+  [+] Ultimate: В <a href="mode_console.htm">консольную версию</a>
+  добавлен параметр "-lf", с помощью которого можно указать имя
+  файла с параметрами лицензирования<br />
+  [+] Добавлен французский файл помощи<br /></p>
+
+  <h3>Версия 2.03</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при использовании <a href=
+  "project_options.htm#ImportProtection">защиты импорта</a> в SYS
+  файлах (под Windows 7 не определялся базовый адрес hal.dll)<br />
+  [!] Исправлена ошибка, возникающая при обфускации команд с
+  использованием CRx регистров в SYS файлах<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Улучшения в <a href="manager/index.htm">системе
+  лицензирования</a> Ultimate версии<br />
+  [+] Добавлен французский язык<br /></p>
+
+  <h3>Версия 2.02</h3>
+
+  <p>[!] В SenseLock Edition исправлена ошибка, возникающая при
+  одновременной работе нескольких программ, которые используют
+  разные лицензии в ключе (пользователям SenseLock Edition
+  необходимо обновить прошивку в мастер ключе)<br />
+  [!] Исправлена ошибка при дизассемблировани EntryPoint у программ
+  на Delphi<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Важные улучшения в <a href="manager/index.htm">системе
+  лицензирования</a> Ultimate версии<br />
+  [*] SenseLock Edition теперь использует систему лицензирования
+  Ultimate версии (пользователям SenseLock Edition необходимо
+  обновить лицензию в мастер ключе)<br />
+  [*] Улучшено определение строк, помеченных с помощью <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>/<a href="sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+
+  [+] В GUI добавлена поддержка Unicode<br />
+  [+] Добавлен традиционный китайский язык<br /></p>
+
+  <h3>Версия 2.01</h3>
+
+  <p>[!] Исправлены мелкие ошибки в инсталляторе, <a href=
+  "manager/licenses.htm">менеджере лицензий</a> и <a href=
+  "sdk_functions.htm">SDK</a><br />
+  [*] Для регистрации VMProtect сейчас используется собственная
+  <a href="manager/index.htm">система лицензирования</a><br />
+  [+] Добавлен упрощенный китайский язык<br /></p>
+
+  <h3>Версия 2.0</h3>
+
+  <p>[!] Исправлены ошибки при дизассемблировании и виртуализации
+  команд CALL FWORD PTR [XXXX] и JMP FWORD PTR [XXXX]<br />
+  [!] В версии SenseLock Edition исправлена ошибка, возникающая при
+  запрое серийного номер ключа после смены стандартного PIN
+  пользователя<br />
+  [!] Исправлена ошибка, возникающая при виртуализации SWITCH в х64
+  приложениях<br />
+  [!] Исправлена ошибка, возникающая при дизассемблировании команд
+  ROL, ROR, RCL, RCR, SHL, SHR, SAL и SAR, имеющих REX преффикс в
+  х64 приложениях<br />
+  [!] Исправлена ошибка, возникающая при виртуализации команды
+  CMOVxx<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Обновлен файл помощи на русском<br />
+  [*] Обновлен файл помощи на английском<br />
+  [+] Добавлена <a href="manager/index.htm">система
+  лицензирования</a> (доступна только в Ultimate версии)<br />
+  [+] В SDK добавлены новые API - <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>
+  и <a href=
+  "sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> добавлено
+  свойство <a href=
+  "script_classes.htm#TVMProcedure.CompilationOptions">CompilationOptions</a><br />
+
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> добавлены
+  свойства <a href=
+  "script_classes.htm#TVMProcedure.SELicense">SELicense</a> и
+  <a href="script_classes.htm#TVMProcedure.SEVersion">SEVersion</a>
+  (доступны только в SenseLock Edition)<br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> добавлены
+  свойства <a href=
+  "script_classes.htm#TVMProtector.VMSectionName">VMSectionName</a>
+  и <a href=
+  "script_classes.htm#TVMProtector.VMExecutorCount">VMExecutorCount</a><br />
+
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> добавлены
+  свойства <a href=
+  "script_classes.htm#TVMProtector.SEMasterPassword">SEMasterPassword</a>,
+  <a href=
+  "script_classes.htm#TVMProtector.SEUserPIN">SEUserPIN</a>,
+  <a href="script_classes.htm#TVMProtector.SEKeyID">SEKeyID</a>,
+  <a href="script_classes.htm#TVMProtector.SELicense">SELicense</a>
+  и <a href=
+  "script_classes.htm#TVMProtector.SEVersion">SEVersion</a>
+  (доступны только в SenseLock Edition)<br />
+  [-] Убрана опция "Динамическое создание онлайн команд"<br /></p>
+
+  <h3>Версия 1.81</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при исполнении
+  промутированного кода на процессорах Pentium 4<br />
+  [!] Исправлена ошибка, возникающая при исполнении
+  завиртуализированного кода на некоторых процессорах Athlon<br />
+  [!] Исправлены ошибки, возникающие при дизассемблировании и
+  виртуализации структур, описывающих обработчики исключений с
+  фильтром на класс исключения (для программ на Delphi и Borland
+  C++ Builder)<br />
+  [!] Исправленa ошибкa, возникающая при использовании <a href=
+  "project_options.htm#VirtualMachines">нескольких ВМ</a> в
+  64-битных файлах<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Улучшено определение имен <a href=
+  "use_markers.htm">маркеров</a> (для программ на Visual C)<br />
+  [*] Значительно снижено потребление памяти в процессе
+  компиляции<br />
+  [*] Ресурс "HTML" теперь не упаковывается<br />
+  [*] Обновлен файл помощи на русском<br />
+  [+] В режиме "Мастер" добавлен
+  поиск процедур по маске<br />
+  [+] Добавлен <a href="project_options.htm#PackOutputFile">новый
+  режим упаковки</a> с более высокой степенью сжатия<br />
+  [+] Добавлена поддержка файлов, имеющих TLS-калбеки<br />
+  [+] В SDK добавлено новое API - <a href=
+  "sdk_functions.htm#VMProtectIsValidImageCRC">VMProtectIsValidImageCRC</a><br />
+  </p>
+
+  <h3>Версия 1.8</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при <a href=
+  "project_options.htm#ImportProtection">защите импорта</a> в
+  SYS-файлах<br />
+  [!] Исправлены ошибки, возникающие при <a href=
+  "project_options.htm#MemoryProtection">защите памяти</a> в
+  DLL/SYS-файлах<br />
+  [!] Исправлены ошибки, возникающие при использовании <a href=
+  "project_options.htm#VirtualMachines">нескольких ВМ</a> в
+  DLL/SYS-файлах<br />
+  [!] Исправлена ошибка, возникающая при мутации кода, имеющего
+  обработчики исключений<br />
+  [!] Исправлена ошибка, возникающая при одновременном
+  использовании <a href=
+  "project_options.htm#MemoryProtection">защиты памяти</a> и
+  <a href="project_options.htm#Watermarks">водяных знаков</a><br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Улучшено определение ссылок на строки, помеченных <a href=
+  "use_markers.htm">маркерами</a> (теперь не нужно помечать
+  маркерами все ссылки на защищаемую строку)<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a><br />
+  [*] Улучшено <a href=
+  "project_options.htm#DebuggerDetection">определение
+  отладчика</a><br />
+  [*] Обновлен файл помощи на русском<br />
+  [+] В GUI-версии теперь можно сохранять файлы проекта под
+  разными именами<br />
+  [+] Теперь можно открывать файлы
+  проекта<br />
+  [+] Добавлено <a href=
+  "project_options.htm#VirtualizationToolsDetection">обнаружение
+  Sandboxie</a><br />
+  [+] Добавлена поддержка файлов, скомпилированных с ключем
+  /SAFESEH<br />
+  [+] Добавлена поддержка CodeGear 2009<br />
+  [+] Теперь можно задавать имена маркерам (при использовании
+  <a href=
+  "sdk_functions.htm#VMProtectBegin">VMProtectBegin</a>/<a href=
+  "sdk_functions.htm#VMProtectBeginMutation">VMProtectBeginMutation</a>/<a href="sdk_functions.htm#VMProtectBeginVirtualization">VMProtectBeginVirtualization</a>/<a href="sdk_functions.htm#VMProtectBeginUltra">VMProtectBeginUltra</a>
+  из VMProtectSDKxx.dll/VMProtectDDKxx.sys)<br />
+  [+] В SDK добавлены новые API (<a href=
+  "sdk_functions.htm#VMProtectIsDebuggerPresent">VMProtectIsDebuggerPresent</a>
+  и <a href=
+  "sdk_functions.htm#VMProtectIsVirtualMachinePresent">VMProtectIsVirtualMachinePresent</a>)<br />
+
+  [+] Для версии SenseLock Edition добавлена утилита "Система
+  удаленного обновления и лицензирования"<br />
+  [+] Для версии SenseLock Edition добавлена привязка к
+  идентификатору ключа<br /></p>
+
+  <h3>Версия 1.7</h3>
+
+  <p>[!] Секции, имеющие флаги SHAREABLE+WRITABLE, теперь не
+  упаковываются<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a> для SYS-файлов<br />
+  [*] Улучшена <a href=
+  "project_options.htm#PackOutputFile">упаковка</a> SYS-файлов
+  (упакованным секциям больше не устанавливается флаг
+  WRITABLE)<br />
+  [*] Улучшено <a href=
+  "project_options.htm#DebuggerDetection">определение
+  отладчика</a><br />
+  [+] Добавлена опция "<a href=
+  "project_options.htm#MemoryProtection">Защита памяти</a>" (данная
+  опция защищает память от изменений во время работы
+  приложения)<br />
+  [+] Добавлена опция "<a href=
+  "project_options.htm#VirtualizationToolsDetection">Определение
+  инструментов виртуализации (VMware/Virtual PC)</a>"<br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлено свойство
+  <a href=
+  "script_classes.htm#TPEFile.EntryPoint">EntryPoint</a><br /></p>
+
+  <h3>Версия 1.65</h3>
+
+  <p>[!] Исправлены мелкие ошибки<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a><br />
+  [*] Улучшено <a href=
+  "project_options.htm#DebuggerDetection">определение
+  отладчика</a><br />
+  [+] Добавлено определение непарных <a href=
+  "use_markers.htm">маркеров</a> (непарные маркеры доступны в общем
+  списке объектов)<br />
+  [+] Добавлены маркеры с предустановленным типом компиляции:
+  VMProtectBeginVirtualization, VMProtectBeginMutation и
+  VMProtectBeginUltra<br />
+  [+] Добавлен традиционный китайский язык<br /></p>
+
+  <h3>Версия 1.64</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при работе <a href=
+  "project_options.htm#PackOutputFile">упакованного файла</a>,
+  имеющего ресурсы "TYPELIB", "REGISTRY" и "MUI"<br />
+  [!] Исправлена ошибка R6002, возникающая при работе упакованного
+  файла (для программ на Visual C)<br />
+  [!] Исправлены ошибка, возникающая при использовании опции
+  "<a href="project_options.htm#ImportProtection">Защита
+  импорта</a>" в 64-битных SYS-файлах<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Файл настроек теперь сохраняется в каталог
+  %APPDATA%/PolyTech/VMProtect<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a><br />
+  [+] Добавлена опция "<a href=
+  "project_options.htm#VirtualMachines">Виртуальные Машины</a>"
+  (разные завиртуализированные участки кода будут выполняться на
+  разных виртуальных машинах с разной архитектурой)<br />
+  [+] Добавлена опция "<a href=
+  "project_options.htm#DebuggerDetection">Определение отладчика</a>"
+  (при обнаружении отладчика защищенное приложение будет показывать
+  соответствующее сообщение и закрываться)<br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPESection">TPESection</a> добавлено свойство
+  <a href=
+  "script_classes.htm#TPESection.IncludedInPacking">IncludedInPacking</a><br />
+
+  [+] Добавлена поддержка команды IRETD<br />
+  [+] Добавлен пример c использованием маркеров в Lazarus<br /></p>
+
+  <h3>Версия 1.63</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при использовании опции
+  "<a href="project_options.htm#ImportProtection">Защита
+  импорта</a>"<br />
+  [!] Исправлены мелкие ошибки<br />
+  [+] В скрипт добавлено событие <a href=
+  "script_events.htm#OnBeforePackFile">OnBeforePackFile</a><br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлено свойство
+  <a href="script_classes.htm#TPEFile.Handle">Handle</a><br />
+  [+] Добавлен пример c использованием <a href=
+  "use_markers.htm">маркеров</a> в Free Pascal<br />
+  [*] Улучшен контроль целостности ВМ объектов<br /></p>
+
+  <h3>Версия 1.62</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при использовании опции
+  "<a href="project_options.htm#ImportProtection">Защита
+  импорта</a>"<br />
+  [!] Исправлена ошибка, возникающая при обработке исключения в
+  TRY/EXCEPT/END блоке в режиме "Ультра" (для программ на Delphi и
+  Borland C++ Builder)<br />
+  [*] Улучшена <a href="project_options.htm#ImportProtection">защита
+  импорта</a> для SYS-файлов<br />
+  [+] Каждый объект из проекта теперь может иметь свои опции
+  компиляции для более тонкой настройки быстродействия
+  (индивидуальные опции настраиваются в дереве проекта)<br />
+  [+] Добавлена опция "Перемещать ресурсы в конец файла"<br />
+  [+] Добавлен пример использования расширенных маркеров (папка
+  Examples\Scripts\UseExtMarkers)<br /></p>
+
+  <h3>Версия 1.61</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при запуске упакованных
+  файлов под управлением Windows 95/98<br />
+  [!] Исправлены мелкие ошибки<br />
+  [+] В Lite-версии добавлена возможность передачи имени файла
+  через командную строку<br />
+  [+] В режиме "Мастер" добавлена
+  история<br />
+  [+] В режиме "Мастер" добавлен
+  выбор языка<br />
+  [+] Добавлена опция "<a href=
+  "project_options.htm#ImportProtection">Защита импорта</a>"
+  (рекомендуется использовать совместно с упаковкой выходного
+  файла)<br />
+  [+] В <a href="mode_console.htm">консольной версии</a> добавлен
+  параметр "-we" (при использовании этого параметра все
+  предупреждения будут отображаться как ошибки)<br />
+  [+] В скрипт добавлен класс <a href=
+  "script_classes.htm#TPEResourceRecords">TPEResourceRecords</a><br />
+
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлено свойство
+  <a href=
+  "script_classes.htm#TPEFile.ResourceRecords">ResourceRecords</a><br />
+  </p>
+
+  <h3>Версия 1.6</h3>
+
+  <p>[!] Исправлены мелкие ошибки<br />
+  [*] Улучшена работа с одинаковыми строками (теперь одинаковые
+  строки отображаются как один объект, содержащий несколько
+  записей)<br />
+  [+] Добавлена возможность упаковки выходного файла<br />
+  [+] В скрипт добавлен класс <a href=
+  "script_classes.htm#TPEExportRecords">TPEExportRecords</a><br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлено свойство
+  <a href=
+  "script_classes.htm#TPEFile.ExportRecords">ExportRecords</a><br />
+
+  [+] В скрипт добавлено событие <a href=
+  "script_events.htm#OnBeforeSaveFile">OnBeforeSaveFile</a><br />
+  [+] Добавлен файл помощи на китайском языке (перевод Wang
+  Xiaopeng)<br />
+  [+] При загрузке MAP-файла добавлена проверка даты и времени
+  модификации (если дата и время модификации MAP-файла отличается
+  от даты и времени модификации защищаемого файла, то MAP-файл не
+  будет загружен)<br /></p>
+
+  <h3>Версия 1.56</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при виртуализации команд
+  BT, BTC, BTR и BTS<br />
+  [!] Исправлены мелкие ошибки<br />
+  [*] Список опций защиты отсортирован в порядке убывания
+  приоритета<br />
+  [*] Улучшена поддержка SEH для VC8<br />
+  [*] Улучшено динамическое создание онлайн-команд<br />
+  [*] Улучшен контроль целостности объектов ВМ<br />
+  [+] Добавлена поддержка команд PREFETCH и PREFETCHW<br />
+  [+] В скрипт добавлены функции CompareText и
+  AnsiCompareText<br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлено свойство
+  <a href="script_classes.htm#TPEFile.Size">Size</a><br />
+  [+] Добавлен пример c использованием <a href=
+  "use_markers.htm">маркеров</a> в MinGW<br />
+  [+] Добавлен китайский язык (перевод Wang Xiaopeng)<br />
+  [+] В окне добавления процедуры добавлен <a href=
+  "project_functions.htm#Search">поиск по маске</a> с
+  использованием символов "*" и "?"<br />
+  [+] В сообщения компилятора теперь выводится информация о размере
+  выходного файла<br /></p>
+
+  <h3>Версия 1.55</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при работе с файлом,
+  имеющим "невыровненное" значение ImageSize<br />
+  [!] Исправлена ошибка, возникающая при определении начала блока
+  TRY для программ на Delphi<br />
+  [!] Исправлена ошибка, возникающая при обработке "смешанного"
+  кода из Discardable и NonDiscardable секций в SYS-файлах<br />
+  [!] Исправлена ошибка, возникающая при виртуализации 64-битных
+  DLL/SYS-файлов<br />
+  [*] Восстановлена опция "Шифрация регистров при выходе из
+  ВМ"<br />
+  [+] В скрипт добавлен класс <a href=
+  "script_classes.htm#TIniFile">TIniFile</a><br />
+  [+] В скрипт для класса <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> добавлены дополнительные
+  свойства и методы<br />
+  [+] В GUI-версию добавлен калькулятор для расчета смещений в
+  файле по адресам<br />
+  [+] Добавлен итальянский язык (перевод Gabriele Lanza)<br /></p>
+
+  <h3>Версия 1.54</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при мутации команды PUSH
+  ESP<br />
+  [!] Исправлена ошибка, возникающая при виртуализации команды
+  FLDCW [ESP+xxxx]<br />
+  [!] Исправлена ошибка, возникающая при обфускации байт-кода<br />
+  [*] Улучшения в GUI<br />
+  [+] Добавлены немецкий и испанский языки<br />
+  [+] Добавлена поддержка <a href="script.htm">скриптов</a><br />
+  [+] В <a href="mode_console.htm">консольной версии</a> добавлен
+  параметр, с помощью которого можно указать имя файла со
+  скриптом<br /></p>
+
+  <h3>Версия 1.53</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при виртуализации кода в
+  DLL/SYS-файлах<br />
+  [*] Улучшения в виртуализации кода<br />
+  [*] В <a href="mode_console.htm">консольной версии</a> при
+  перенаправлении вывода текста в файл убраны бегущие
+  проценты<br />
+  [+] Добавлена возможность вставки маркеров для x86-64<br />
+  [+] Добавлена возможность создавать папки в проекте<br />
+  [+] В <a href="mode_console.htm">консольной версии</a> добавлен
+  параметр, с помощью которого можно указать имя файла
+  проекта<br /></p>
+
+  <h3>Версия 1.52</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при мутации команд CMOVxx,
+  CMPXCHG и CMPXCHG8B<br />
+  [!] Исправлена ошибка, возникающая при мутации команды LEA
+  ESP,[ESP+xxxx]<br />
+  [*] Команды RCL и RCR добавлены в базовую логику ВМ<br />
+  [+] Добавлена поддержка x86-64<br />
+  [+] В GUI-версии на закладке "<a href=
+  "project_options.htm">Опции</a>" теперь можно указать имя
+  выходного файла<br />
+  [+] Добавлена справка на русском и английском языках<br /></p>
+
+  <h3>Версия 1.51</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при создании "Relocation
+  Table" нулевой длины<br />
+  [!] Исправлена ошибка, возникающая при мутации команды CALL
+  [xxxx] в режиме "Мутация" в DLL/SYS-файлах<br />
+  [!] В примере на Delphi в определение VMProtectBegin добавлена
+  команда, препятствующая оптимизации VMProtectBegin (оптимизация
+  VMProtectBegin могла приводить к неработоспособности защищенного
+  файла)<br />
+  [+] Добавлена опция "Автосохранение проекта после
+  компиляции"<br /></p>
+
+  <h3>Версия 1.5</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при перетаскивании файлов в
+  главное окно<br />
+  [!] Исправлена ошибка, возникающая при работе с файлами, имеющими
+  атрибут "Read only"<br />
+  [!] Исправлены мелкие недочеты при компиляции в режиме
+  "Ультра"<br />
+  [*] Защищенный файл теперь имеет точно такие же атрибуты как
+  оригинальный файл<br />
+  [+] В список защищаемых процедур теперь можно включать строки
+  (присвоение строк необходимо отмечать маркерами)<br />
+  [+] В дистрибутив добавлены примеры c использованием маркеров в
+  Borland C++ Builder, Delphi, MASM, Visual Basic и Visual
+  C++<br />
+  [+] Добавлена опция "Интегрировать в оболочку"<br /></p>
+
+  <h3>Версия 1.4</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при мутации команд IMUL,
+  MUL, IDIV, DIV<br />
+  [!] Исправлена ошибка, возникающая при виртуализации нескольких
+  CASE таблиц, идущих друг за другом<br />
+  [!] Исправлена ошибка, возникающая при виртуализации команд POP
+  word/dword ptr [esp+xxxx] и IMUL reg8<br />
+  [!] Исправлена ошибка, возникающая при дизассемблировании команд
+  MOVNTPS и MOVNTPD<br />
+  [+] Добавлен новый тип компиляции "Ультра (мутация +
+  виртуализация)"<br />
+  [+] Добавлен выбор типа компиляции в окне добавления/изменения
+  процедуры<br />
+  [+] Добавлен поиск водяных знаков в процессах (используется для
+  поиска водяных знаков в упакованных файлах)<br />
+  [*] Улучшена совместимость с ASM компиляторами (TASM, MASM и
+  т.п.)<br /></p>
+
+  <h3>Версия 1.3</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при эмуляции команды FILD
+  word ptr [xxxx]<br />
+  [+] Для каждой процедуры можно указать тип компиляции ("Мутация"
+  или "Виртуализация")<br /></p>
+
+  <h3>Версия 1.25</h3>
+
+  <p>[+] Добавлена поддержка SEH для VC7-8<br />
+  [+] Добавлена поддержка маркеров в Visual Basic (начало и конец
+  участка маркируются вставками на бейсике - Call VarPtr("VMProtect
+  begin") и Call VarPtr("VMProtect end"))<br />
+  [*] В зарегистрированной версии программы исполнитель ВМ теперь
+  полностью видоизменяется (препятствует автоматическому
+  определению защиты сигнатурными сканерами PEiD, RDG Packer
+  Detector и т.п.)<br /></p>
+
+  <h3>Версия 1.24</h3>
+
+  <p>[+] Добавлена возможность вставлять в защищаемый файл водяные
+  знаки<br />
+  [*] Исполнитель ВМ теперь полностью поддерживает многопоточные
+  приложения (теперь нет необходимости создавать процедуру
+  выделения памяти для нужд исполнителя)<br />
+  [-] Убрана опция с выбором функции выделения памяти для нужд
+  исполнителя<br /></p>
+
+  <h3>Версия 1.23</h3>
+
+  <p>[!] Исправлены мелкие недочеты [+] Добавлен режим работы
+  "Мастер" [+] В дереве процедур добавлен показ ссылок [*] Опции
+  "Скрывать константы", "Динамическое создание онлайн-команд",
+  "Шифрация регистров при переходах", "Контроль целостности
+  объектов ВМ" и многое другое теперь доступны только для
+  зарегистрированных пользователей</p>
+
+  <h3>Версия 1.22.2</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при компиляции проектов с
+  включенной опцией "Выделение памяти в исполнителе"<br /></p>
+
+  <h3>Версия 1.22</h3>
+
+  <p>[!] Исправлены мелкие ошибки<br />
+  [+] Добавлена возможность контроля целостности байт-кода (при
+  включенной опции "Контроль целостности объектов ВМ")<br /></p>
+
+  <h3>Версия 1.21</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при эмуляции CMPXCHG8b,
+  если в операндах участвуют регистры EAX и EDX<br />
+  [+] В исполнителе присутствуют только те команды, которые будут
+  участвовать при исполнении байт-кода<br />
+  [-] Из базовой логики ВМ убраны некоторые команды (затрудняет
+  анализ и декомпиляцию байт-кода)<br /></p>
+
+  <h3>Версия 1.2</h3>
+
+  <p>[!] Исправлена ошибка, возникающая при перемещении директории
+  Bound Import<br />
+  [+] Добавлена возможность включения в проект участков кода,
+  помеченных маркерами (начало и конец участка маркируются
+  вставками на ассемблере - "db $EB,$10,'VMProtect begin',0" и "db
+  $EB,$0E,'VMProtect end',0")<br />
+  [+] Добавлена возможность включать в проект экспортируемые
+  функции<br />
+  [-] Убрана опция "Шифрация байт-кода" (шифрация байт-кода теперь
+  всегда включена)<br /></p>
+
+  <h3>Версия 1.1</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при: эмуляции SBB
+  (неправильное состояние некоторых флагов); эмуляции CMOVxx,
+  CMPXCHG и CMPXCHG8b (в случаях, когда в качестве второго
+  аргумента использовалась адресация с применением регистра ESP или
+  DWORD значения)<br />
+  [+] Добавлена поддержка SEH в VB6 (native)<br />
+  [+] Добавлена поддержка MAP-файлов, генерируемых IDA<br />
+  [+] Добавлена возможность пакетного добавления процедур<br />
+  [+] Добавлен показ ссылок на команды прямо в листинге
+  процедур<br />
+  [+] Добавлена новая опция "Шифрация регистров при
+  переходах"<br /></p>
+
+  <h3>Версия 1.09</h3>
+
+  <p>[*] Доработан процесс определения конца процедуры при
+  дизассемблировании циклов<br />
+  [+] Для совместимости с UPX добавлена очистка флага Sharable у
+  Writable-секций (в случаях, когда старая таблица релоков
+  используется для нужд ВМ)<br /></p>
+
+  <h3>Версия 1.08</h3>
+
+  <p>[*] Ускорен процесс дизассемблирования больших участков
+  кода<br />
+  [*] Доработан механизм метаморфизма исполнителя
+  байт-кода<br /></p>
+
+  <h3>Версия 1.07</h3>
+
+  <p>[!] Исправлены ошибки, возникающие при работе с PE файлами (в
+  случаях, когда виртуальный размер секций кода равен нулю);
+  обфускации FPU команд (ошибки приводили к неправильному
+  результату); дизассемблировании (вместо CWDE распознавалась
+  команда CWD); эмуляции команд ROL и ROR (если аргумент имел
+  размер в 1 байт)<br />
+  [+] Добавлена поддержка группы команд SSE2<br /></p>
+
+  <h3>Версия 1.06</h3>
+
+  <p>[!] Исправлены ошибки, приводящие к неправильному состоянию A
+  флага после эмуляции команд SUB, CMP, DEC, NEG, CMPXCHG, SCAS и
+  CMPS.<br />
+  [!] Исправлена ошибка, возникающая при работе с "невыровненным"
+  файлом<br />
+  [+] Добавлена поддержка инструкций BSF, BSR и CMPXCHG8b<br />
+  [+] Для многопоточных приложений теперь можно указать процедуру
+  выделения памяти для исполнителя ВМ (процедура выделения памяти
+  должна быть определена как fastcall)<br /></p>
+
+  <h3>Версия 1.05</h3>
+
+  <p>[+] Добавлена поддержка инструкций FUCOMPP и FCMOVxx<br />
+  [+] При просмотре участков кода добавлен показ типов строк
+  (ANSI/Unicode/Pascal) и комментарии для полей структур,
+  создаваемых компиляторами<br />
+  [+] Добавлена процедура метаморфизма исполнителя байт-кода<br />
+  [+] Добавлены новые опции компиляции: "Шифрация байт-кода" и
+  "Удаление настраиваемых элементов (только для EXE файлов)"<br />
+  [-] Убрана опция "Обфускация байт-кода" (обфускация байт-кода
+  теперь всегда включена)<br /></p>
+
+  <h3>Версия 1.04</h3>
+
+  <p>[!] Исправлена ошибка при определении обработчиков SEH для
+  С++<br />
+  [*] Полностью переработан обфускатор байт-кода<br />
+  [+] Добавлена подцветка настраиваемых элементов при просмотре
+  участков кода<br /></p>
+
+  <h3>Версия 1.03</h3>
+
+  <p>[+] Использование "свободного места" из-под оригинальных
+  участков кода для хранения байт-кода<br />
+  [+] Добавлено распознавание "коротких" строк в pascal-формате
+  (первый байт - длина строки)<br /></p>
+
+  <h3>Версия 1.02</h3>
+
+  <p>[!] Исправлены ошибки с выполнением онлайн-команд в
+  DLL/SYS<br />
+  [*] Изменён алгоритм подсчёта контрольной суммы байт-кода<br />
+  [+] Добавлена опция "Контроль целостности исполнителя ВМ" (также
+  работает как противоотладочный приём при отладке исполнителя если
+  отладчик использует в качестве точек остановки INT 03).<br />
+  [+] Использование "старой" таблицы настраиваемых элементов для
+  хранения байт-кода<br /></p>
+
+  <h3>Версия 1.01</h3>
+
+  <p>[!] Исправлена ошибка при создании файлов с настраиваемыми
+  элементами (ошибка возникала при работе DLL/SYS-файлов в
+  операционных системах Windows 95/98/Me)<br />
+  [!] Исправлены мелкие ошибки в дизассемблере<br />
+  [+] Добавлена поддержка инструкций F2XM1, FABS, FCLEX, FCOS,
+  FDECSTP, FINCSTP, FINIT, FLDCW, FLDLN2, FLDLG2, FPREM, FREM1,
+  FPTAN, FRNDINT, FSIN, FSTCW, FTST, FYL2X, FPATAN, FLDZ,
+  FISTP<br />
+  [+] Добавлена поддержка MAP-файлов от Borland C Builder<br />
+  [+] В настройках программы теперь можно выбирать язык интерфейса
+  и сообщений (доступны русский и английский языки)<br /></p>
+
+  <h3>Версия 1.0</h3>
+
+  <p>[!] Исправлены мелкие ошибки, связанные с интерфейсом<br />
+  [+] Добавлена поддержка инструкций CMOV и CMPXCHG<br /></p>
+
+  <h3>Версия 0.97</h3>
+
+  <p>[!] Исправлены мелкие ошибки, связанные с интерфейсом<br />
+  [+] Добавлена поддержка Virtual Pascal<br /></p>
+
+  <h3>Версия 0.96</h3>
+
+  <p>[!] Исправлены ошибки в компиляторе (некорректная работа с C
+  флагом при компиляции инструкций NEG и SBB; более корректная
+  обработка POPF; неправильная проверка CRC байт-кода при обработке
+  внешних условных переходов)<br />
+  [!] Исправлены ошибки в исполнителе ВМ, связанные с обфускацией
+  байт-кода<br />
+  [+] Улучшена обработка MAP-файла, генерируемого C/C++
+  компиляторами (имена процедур содержат информацию об
+  аргументах)<br /></p>
+
+  <h3>Версия 0.94</h3>
+
+  <p>[!] Исправлено множество ошибок<br /></p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

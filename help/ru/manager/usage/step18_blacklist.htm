@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.8: Номера из "черного списка"</title>
+</head>
+
+<body>
+  <h1>Шаг 1.8: Номера из "черного списка"</h1>
+
+  <p>Номер, помеченный в VMProtect как "заблокированный", больше не
+  должен приниматься системой лицензирования. При очередной защите
+  приложения VMProtect запишет в защищаемый файл хеш от номеров
+  черного списка, вследствие чего система лицензирования в этом приложении откажет при попытке
+  установить такой номер.</p>
+
+  <p>Сократим до минимума код функции <strong>main()</strong>:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+
+        return 0;
+}
+</pre>
+
+  <p>Запустим программу и убедимся, что система лицензирования
+  принимает наш серийный номер:</p>
+  <pre class="code">state = 0
+</pre>
+
+  <p>Теперь занесем наш номер в черный список с точки зрения
+  системы лицензирования. Для этого в ini-файл добавим строку:</p>
+  <pre class="code">BlackListedSerialNumber=Xserialnumber
+</pre>
+
+  <p>И снова запускаем программу:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_BLACKLISTED
+</pre>
+
+  <p>Сообщать ли пользователю о занесении его номера в черный список,
+  или просто сообщить, что номер неверный - оставлено на усмотрение
+  разработчика. Система лицензирования лишь сообщает программе о
+  факте использования заблокированного номера.</p><br />
+  <a href="step19_hwid.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+TARGETTYPE=DRIVER_LIBRARY
+TARGETNAME=udis
+
+C_DEFINES = $(C_DEFINES) /D__UD_STANDALONE__
+
+SOURCES=input.c itab.c udis86.c decode.c

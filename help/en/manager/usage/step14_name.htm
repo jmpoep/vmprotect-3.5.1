@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.4: Retrieving the name and the e-mail of a user</title>
+</head>
+
+<body>
+  <h1>Step 1.4: Retrieving the name and the e-mail of a user</h1>
+
+  <p>Let's start with simple things. We want to get the name and the e-mail of a user from a serial number to show them in the About window (or anywhere else). To do this, we have to add two more lines to our ini-file:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber
+UserName=John Doe
+EMail=john@doe.com
+</pre>
+
+  <p>And in the program, if the registration is successful, we obtain these data and output them to the screen:</p>
+  <pre class="code">VMProtectSerialNumberData sd = {0};
+VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+printf("name = %ls,\ne-mail = %ls\n", sd.wUserName, sd.wEMail);
+</pre>
+
+  <p>The structure contains UNICODE data, so <strong>printf()</strong> uses %ls specifiers instead of %s.
+  The program should print the following text on the screen:</p>
+  <pre class="code">state = 0
+We are registered.
+name = John Doe,
+e-mail = john@doe.com
+</pre><br />
+  <a href="step15_exp.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

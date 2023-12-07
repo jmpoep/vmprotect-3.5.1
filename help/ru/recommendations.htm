@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Рекомендации по защите</title>
+</head>
+
+<body>
+  <h1>Рекомендации по защите</h1>
+
+  <p>Программа VMProtect представляет собой надежный инструмент
+  защиты кода приложения от изучения и взлома. Однако его
+  эффективное использование возможно лишь в том случае, если
+  встроенные в приложение защитные механизмы спроектированы по
+  определенным правилам и не содержат типичных ошибок. Рассмотрим
+  некоторые моменты, связанные с созданием защитных механизмов
+  приложения.</p>
+
+  <h3>Процедура регистрации</h3>
+
+  <p>Типичной ошибкой программистов, разрабатывающих собственную
+  схему регистрации экземпляра приложения, является вынос процедуры
+  проверки корректности введенного регистрационного ключа в
+   отдельную функцию c понятным возвращаемым значением:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber='123' then
+   Result:=True
+  else
+   Result:=False;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not CheckRegistration(RegNumber) then
+   exit;
+  Application.CreateForm(TForm2, Form2);
+  Form2.ShowModal;
+  ...
+end;
+</pre>
+
+  <p>При подобном подходе к проверке регистрационного кода
+  взломщику нет необходимости вникать в алгоритм проверки ключа, а
+  будет достаточно изменить код в начале процедуры проверки таким
+  образом, чтобы она всегда возвращала значение,
+  соответствующее корректному регистрационному ключу:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  Result:=True;
+  exit;
+  ...
+end;
+</pre>
+
+  <p>Гораздо более эффективным способом является встраивание
+  проверки корректности регистрационного кода в логику работы
+  программы таким образом, чтобы невозможно было отделить алгоритм
+  проверки регистрационного кода от алгоритма работы вызывающей эту
+  проверку процедуры. Также рекомендуется "примешивать" логику
+  работы программы в процедуру проверки регистрационного кода так,
+  чтобы "обход" регистрационной процедуры приводил к ошибкам в
+  работе приложения. Для примера, приведенного выше, это можно
+  сделать следующим образом:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber='123' then
+   begin
+    Application.CreateForm(TForm2, Form2);
+    Result:=True
+   end
+  else
+    Result:=False;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  Form2:=nil;
+  if not CheckRegistration(RegNumber) then
+   exit;
+  Form2.ShowModal;
+  ...
+end;
+</pre>
+
+  <p>При подобной реализации функции CheckRegistration для "обхода"
+  проверки регистрационного ключа взломщику будет необходимо
+  досконально разбирать работу всей функции проверки ключа. При
+  защите данного приложения с помощью VMProtect рекомендуется
+  выполнить виртуализацию не только функции CheckRegistration, но и
+  процедуры TForm1.Button1Click. Для еще большего усложнения
+  процесса взлома приложения можно воспользоваться <a href="project_functions.htm#CompilationTypes">режимом защиты
+  "Ультра"</a>, сочетающим мутацию кода приложения с его последующей
+  виртуализацией.</p>
+
+  <h3>Проверка регистрационных ключей</h3>
+
+  <p>Очень часто программисты допускают грубейшие ошибки при
+  реализации самой проверки правильности регистрационного ключа,
+  производя сравнение введенного ключа с его корректным значением.
+  При подобной реализации взломщик легко сможет подобрать
+  корректное значение ключа, просмотрев в процессе трассировки
+  аргументы, с которыми вызывается функция сравнения строк:</p>
+  <pre class="indent code">var ValidRegNumber: String;
+...
+function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber=ValidRegNumber then
+   Result:=True
+  else
+   Result:=False;
+end;
+</pre>
+
+  <p>Для исключения подобной ситуации при сравнении введенного
+  значения ключа с его допустимым значением рекомендуется
+  использовать их хеши, а не реальные значения. По своей сути
+  хеш-функция необратима, а значит, по результатам проверки хешей
+  невозможно определить значение допустимого ключа. При взломе
+  приложения будет необходимо потратить гораздо больше времени на
+  изучение программы, так как придется исследовать гораздо больше
+  участков кода, а не только процедуру проверки корректности
+  введенного ключа:</p>
+  <pre class="indent code">var
+  HashOfValidRegNumber: Longint;
+...
+// Пример использования обобщенного алгоритма хеширования Питера Вейнбергера (PJW)
+function HashPJW(const Value: String): Longint;
+var I:Integer;
+    G:Longint;
+begin
+  Result:=0;
+  for I:=1 to Length(Value) do
+   begin
+    Result:=(Result shl 4)+Ord(Value[I]);
+    G:=Result and $F0000000;
+    if G&lt;&amp;gt0 then
+     Result:=(Result xor (G shr 24)) xor G;
+   end;
+end;
+
+function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if HashPJW(RegNumber)=HashOfValidRegNumber then
+   Result:=True
+  else
+   Result:=False;
+end;
+...
+initialization
+  HashOfValidRegNumber:=HashPJW(ValidRegNumber);
+
+end.
+</pre>
+
+  <p>При защите программы с помощью VMProtect целесообразно
+  защитить функции HashPJW и CheckRegistration для усложнения
+  работы взломщика.</p>
+
+  <h3>Хранение результата проверки регистрации</h3>
+
+  <p>Как правило, программисты, затратившие много времени на
+  реализацию самой процедуры регистрации, не уделяют достаточного
+  внимания защите самого результата регистрации программы. В
+  приведенном ниже примере перед вызовом функции проверки
+  корректности регистрационного номера контролируется состояние
+  глобальной переменной, хранящей результат проверки регистрации.
+  Для взломщика поиск глобальной переменной не представляет
+  трудностей - достаточно будет сравнить сегменты данных ДО и ПОСЛЕ
+  регистрации. Кстати, аналогичный принцип лежит в основе работы
+  известной программы ArtMoney.</p>
+  <pre class="indent code">var IsRegistered: Boolean;
+...
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not IsRegistered then
+   IsRegistered:=CheckRegistration(RegNumber);
+  if  not IsRegistered then
+   exit;
+  ...
+end;
+</pre>
+
+  <p>Для исключения подобной ситуации рекомендуется результаты всех
+  проверок, отвечающих за регистрацию программы, хранить в
+  динамической памяти, так как в этом случае сканирование секций
+  данных на предмет изменения ячеек памяти ДО и ПОСЛЕ регистрации
+  окажется бесполезным. Простейший пример, демонстрирующий хранение
+  результата в динамически выделяемой памяти, приведен ниже.</p>
+  <pre class="indent code">type PBoolean = ^Boolean;
+
+var IsRegistered: PBoolean;
+...
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not IsRegistered^ then
+   IsRegistered^:=CheckRegistration(RegNumber);
+  if  not IsRegistered^ then
+   exit;
+  ...
+end;
+...
+initialization
+  New(IsRegistered);
+</pre>
+
+  <p>Выше приведены простейшие примеры реализации встроенных в
+  приложение механизмов защиты. Варианты реальной реализации
+  процедуры регистрации, функции проверки регистрационного ключа
+  или организации хранения результата проверки регистрационного
+  ключа ограничены только фантазией разработчика. Однако в любом
+  случае при разработке механизмов защиты приложения следует знать
+  о возможных ошибках и не повторять их.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

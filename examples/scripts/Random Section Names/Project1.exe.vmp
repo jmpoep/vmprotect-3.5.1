@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document>
+    <Protection InputFileName="Project1.exe" Options="32768" RunParameters="">
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress='VMProtectMarker &quot;Test marker&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Correct password&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Incorrect password&quot;' Options="1" />
+        </Procedures>
+        <Messages />
+    </Protection>
+    <DLLBox />
+    <Script>
+        <![CDATA[function GetRandomSectionName()
+	local res = ""
+	for i = 1, 8 do
+		res = res .. string.char(32 + math.random(string.byte("z") - 32))
+	end
+	return res
+end
+
+function OnAfterSaveFile()
+	local file = vmprotect.core():outputArchitecture()
+	for i = 1, file:segments():count() do
+		segment = file:segments():item(i)
+		name = GetRandomSectionName()
+		print(string.format("Section \"%s\" is renamed to \"%s\"", segment:name(), name))
+		segment:setName(name)
+	end
+end]]>
+</Script>
+</Document>

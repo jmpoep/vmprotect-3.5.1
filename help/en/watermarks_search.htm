@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Searching for watermarks</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Searching for watermarks</h1>
+
+  <p>The "Search" tab of the watermark dialog allows you to locate watermarks in an executable or a specified process of the protected application:</p>
+  <p><img src="images/watermarks_search.png" /></p>
+
+  <ul>
+    <li><strong>Search in file</strong> - look for watermarks in the application executable. Select a file in the "File Name" field where you want to look for watermarks in;</li>
+
+    <li><strong>Search in module</strong> - search in a module of the selected process. Select a running process in the drop-down list, then select a module of this process to search watermarks in.</li>
+  </ul>
+
+  <p>Results of the search are displayed in the list below:</p>
+
+  <ul>
+    <li><strong>Name</strong> - the name of the found watermark;</li>
+
+    <li><strong>Count</strong> - the number of copies of the found watermark.</li>
+  </ul>
+
+  <p><strong>Important:</strong><br />
+  When you search for watermarks in an unpacked executable, any of this modes will do. However, if an executable is <a href="dictionary.htm#Pack">packed</a>, you should search for watermarks in the running application only (the "Search in module" mode). Searching in the executable in this case is useless as watermarks (as well as the code and data) are packed and are only unpacked when the application is running.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

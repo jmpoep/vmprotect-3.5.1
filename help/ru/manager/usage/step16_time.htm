@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.6: Ограничиваем время работы программы</title>
+</head>
+
+<body>
+  <h1>Шаг 1.6: Ограничиваем время работы программы</h1>
+
+  <p>Вы можете ограничить время работы программы с момента запуска.
+  Это может быть полезно для демонстрационных целей: выдается
+  полноценный серийный номер, однако программа работает не более
+  пяти минут. Система лицензирования не закрывает такую программу
+  принудительно по истечении указанного времени, а лишь уведомляет
+  об окончании времени выставлением флага состояния. Зададим
+  ограничение времени работы в одну минуту, добавив в ini-файл
+  строчку:</p>
+  <pre class="code">TimeLimit=1
+</pre>
+
+  <p>Модифицируем программу следующим образом:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        if (res) return 0;
+
+        VMProtectSerialNumberData sd = {0};
+        VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+        printf("I will run for %d minute(s)\n", sd.bRunningTime);
+        print_state(VMProtectGetSerialNumberState());
+        Sleep(60 * 1000 * sd.bRunningTime);
+        printf("After %d minute(s):\n", sd.bRunningTime);
+        print_state(VMProtectGetSerialNumberState());
+
+        return 0;
+}
+</pre>
+
+  <p>Программа выводит состояние серийного номера в момент старта,
+  потом считывает максимальное время работы, ждет, пока оно пройдет
+  и выводит состояние номера еще раз. Для одной минуты мы получим
+  следующий результат:</p>
+  <pre class="code">state = 0
+I will run for 1 minute(s)
+state = 0
+After 1 minute(s):
+state = SERIAL_STATE_FLAG_RUNNING_TIME_OVER
+</pre>
+
+  <p>Защищаемая программа должна анализировать состояние серийного
+  номера с определенной периодичностью и завершить свою работу в
+  случае появления такого флага. Система лицензирования не делает
+  этого автоматически, т.к. программе может требоваться освободить
+  какие-то ресурсы, записать данные в файл и т.д. Также программа
+  может не завершаться по истечении данного времени, а переходить в
+  более ограниченный режим работы. Система лицензирования оставляет
+  эти вопросы на усмотрение разработчика.</p><br />
+  <a href="step17_maxbuild.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

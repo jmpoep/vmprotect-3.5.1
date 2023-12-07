@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>ru.com.vmpsoft.vmprotect.3.0</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <customFilter name="VMProtect 3.0">
+        <filterAttribute>vmpg</filterAttribute>
+        <filterAttribute>3.0</filterAttribute>
+    </customFilter>
+    <filterSection>
+        <filterAttribute>vmpg</filterAttribute>
+        <filterAttribute>3.0</filterAttribute>
+        <toc><section title="Введение" ref="terms.htm">
+                <section title="Словарь терминов" ref="dictionary.htm" />
+                <section title="Изучение, взлом и защита программного обеспечения" ref="software_protection.htm" />
+                <section title="Что такое VMProtect?" ref="about_vmprotect.htm" />
+                <section title="Рекомендации по защите" ref="recommendations.htm" />
+                <section title="История изменений" ref="history.htm" />
+            </section>
+            <section title="Работа с VMProtect" ref="work.htm">
+                <section title="Подготовка проекта" ref="create_project.htm">
+                    <section title="Использование MAP-файла" ref="use_map_file.htm" />
+                    <section title="Использование маркеров" ref="use_markers.htm" />
+                    <section title="Функции SDK" ref="sdk_functions.htm" />
+                </section>
+                <section title="Главное окно" ref="main_window.htm">
+                    <section title="Главное меню" ref="main_menu.htm">
+                        <section title="Меню &quot;Файл&quot;" ref="menu_file.htm" />
+                        <section title="Меню &quot;Правка&quot;" ref="menu_edit.htm" />
+                        <section title="Меню &quot;Проект&quot;" ref="menu_project.htm" />
+                        <section title="Меню &quot;Инструменты&quot;" ref="menu_tools.htm" />
+                        <section title="Меню &quot;Справка&quot;" ref="menu_help.htm" />
+                    </section>
+                    <section title="Панель инструментов" ref="toolbar.htm" />
+                    <section title="Раздел &quot;Проект&quot;" ref="project.htm">
+                        <section title="Секция &quot;Функции для защиты&quot;" ref="project_functions.htm" />
+                        <section title="Секция &quot;Лицензии&quot;" ref="manager/licenses.htm" />
+                        <section title="Секция &quot;Файлы&quot;" ref="project_files.htm" />
+                        <section title="Секция &quot;Скрипт&quot;" ref="project_script.htm" />
+                        <section title="Секция &quot;Опции&quot;" ref="project_options.htm" />
+                    </section>
+                    <section title="Раздел &quot;Функции&quot;" ref="functions.htm" />
+                    <section title="Раздел &quot;Свойства&quot;" ref="info.htm">
+                        <section title="Секция &quot;Директории&quot;" ref="info_directories.htm" />
+                        <section title="Секция &quot;Сегменты&quot;" ref="info_segments.htm" />
+                        <section title="Секция &quot;Импорты&quot;" ref="info_imports.htm" />
+                        <section title="Секция &quot;Экспорты&quot;" ref="info_exports.htm" />
+                        <section title="Секция &quot;Ресурсы&quot;" ref="info_resources.htm" />
+                        <section title="Секция &quot;Калькулятор&quot;" ref="info_calc.htm" />
+                        <section title="Секция &quot;Дамп&quot;" ref="info_dump.htm" />
+                    </section>
+                </section>
+                <section title="Консольная версия" ref="mode_console.htm" />
+            </section>
+            <section title="Система лицензирования" ref="manager/index.htm">
+                <section title="Возможности системы лицензирования VMProtect" ref="manager/features.htm" />
+                <section title="Как работает система лицензирования?" ref="manager/howitworks.htm" />
+                <section title="Интеграция в приложение" ref="manager/usage/index.htm">
+                    <section title="Этап 1: Тестовый режим работы" ref="manager/usage/index.htm#TestMode">
+                        <section title="Шаг 1: Создаем защищаемое приложение" ref="manager/usage/step11_app.htm" />
+                        <section title="Шаг 2: Добавляем код проверки лицензии" ref="manager/usage/step12_code.htm" />
+                        <section title="Шаг 3: Получаем флаги состояния серийного номера" ref="manager/usage/step13_flags.htm" />
+                        <section title="Шаг 4: Получаем имя и e-mail пользователя" ref="manager/usage/step14_name.htm" />
+                        <section title="Шаг 5: Проверяем срок действия серийного номера" ref="manager/usage/step15_exp.htm" />
+                        <section title="Шаг 6: Ограничиваем время работы программы" ref="manager/usage/step16_time.htm" />
+                        <section title="Шаг 7: Ограничиваем бесплатные обновления" ref="manager/usage/step17_maxbuild.htm" />
+                        <section title="Шаг 8: Номера из &quot;черного списка&quot;" ref="manager/usage/step18_blacklist.htm" />
+                        <section title="Шаг 9: Привязка к оборудованию" ref="manager/usage/step19_hwid.htm" />
+                        <section title="Шаг 10: Пользовательские данные" ref="manager/usage/step1A_userdata.htm" />
+                    </section>
+                    <section title="Этап 2: Реальный режим работы" ref="manager/usage/index.htm#RealMode">
+                        <section title="Шаг 1: Создаем новое защищенное приложение" ref="manager/usage/step21_src.htm" />
+                        <section title="Шаг 2: Создаем проект защиты в VMProtect" ref="manager/usage/step22_vmp.htm" />
+                        <section title="Шаг 3: Создаем продукт в менеджере лицензий" ref="manager/usage/step23_product.htm" />
+                        <section title="Шаг 4: Тестируем результат" ref="manager/usage/step24_test.htm" />
+                        <section title="Шаг 5: Привязываем код к серийному номеру" ref="manager/usage/step25_codelock.htm" />
+                    </section>
+                    <section title="Описание функций API лицензирования" ref="manager/usage/api.htm" />
+                </section>
+                <section title="Генераторы ключей" ref="manager/keygen/index.htm">
+                    <section title="Windows-версия" ref="manager/keygen/keygen_dll.htm" />
+                    <section title=".Net-версия" ref="manager/keygen/keygen_net.htm" />
+                    <section title="UNIX-версия" ref="manager/keygen/keygen_php.htm" />
+                    <section title="Формат серийного номера" ref="manager/keygen/serial_format.htm" />
+                    <section title="Алгоритмы шифрования серийных номеров" ref="manager/keygen/algorithms.htm" />
+                </section>
+                <section title="Система Активации" ref="manager/activation.htm">
+                    <section title="Настройка Активации в VMProtect" ref="manager/activation/vmprotect.htm" />
+                    <section title="Поддержка Активации в Web License Manager" ref="manager/activation/weblm.htm" />
+                    <section title="API Активации" ref="manager/activation/api.htm" />
+                </section>
+            </section>
+            <section title="Использование скриптов" ref="script.htm">
+                <section title="Классы" ref="script_classes.htm" />
+                <section title="Встроенные функции" ref="script_functions.htm" />
+                <section title="События" ref="script_events.htm" />                
+            </section>
+            <section title="Водяные знаки" ref="watermarks.htm">
+                <section title="Вкладка &quot;Настройка&quot;" ref="watermarks_setup.htm" />
+                <section title="Вкладка &quot;Поиск&quot;" ref="watermarks_search.htm" />
+            </section>
+            <section title="Ответы на вопросы" ref="faq.htm" />
+            <section title="Контактная информация" ref="contacts.htm" />
+        </toc>
+        <keywords>
+            <keyword id="default" ref="terms.htm"/>
+            <keyword id="project::functions" ref="project_functions.htm"/>
+            <keyword id="project::options" ref="project_options.htm"/>
+            <keyword id="project::script" ref="project_script.htm"/>
+            <keyword id="project::files" ref="project_files.htm"/>
+            <keyword id="project::licenses" ref="manager/licenses.htm"/>
+            <keyword id="project::mapfunctions" ref="functions.htm"/>
+            <keyword id="project::details" ref="info.htm"/>
+            <keyword id="functions::setup" ref="project_functions.htm#AddProcedure"/>
+            <keyword id="functions::search" ref="project_functions.htm#Search"/>
+            <keyword id="watermarks::setup" ref="watermarks_setup.htm"/>
+            <keyword id="watermarks::search" ref="watermarks_search.htm"/>
+            <keyword id="settings" ref="menu_tools.htm#Settings"/>
+            <keyword id="contacts" ref="contacts.htm"/>
+        </keywords>
+        <files>
+            <file>default.css</file>
+            <file>about_vmprotect.htm</file>
+            <file>contacts.htm</file>
+            <file>create_project.htm</file>
+            <file>default.css</file>
+            <file>dictionary.htm</file>
+            <file>faq.htm</file>
+            <file>functions.htm</file>
+            <file>history.htm</file>
+            <file>info.htm</file>
+            <file>info_calc.htm</file>
+            <file>info_directories.htm</file>
+            <file>info_dump.htm</file>
+            <file>info_exports.htm</file>
+            <file>info_imports.htm</file>
+            <file>info_resources.htm</file>
+            <file>info_segments.htm</file>
+            <file>info_calc.htm</file>
+            <file>main_menu.htm</file>
+            <file>menu_file.htm</file>
+            <file>menu_edit.htm</file>
+            <file>menu_project.htm</file>
+            <file>menu_tools.htm</file>
+            <file>menu_help.htm</file>
+            <file>main_window.htm</file>
+            <file>mode_console.htm</file>
+            <file>project.htm</file>
+            <file>project_files.htm</file>
+            <file>project_functions.htm</file>
+            <file>project_options.htm</file>
+            <file>project_options_external_addresses.htm</file>
+            <file>project_script.htm</file>
+            <file>recommendations.htm</file>
+            <file>script.htm</file>
+            <file>script_classes.htm</file>
+            <file>script_events.htm</file>
+            <file>script_functions.htm</file>
+            <file>sdk_functions.htm</file>
+            <file>software_protection.htm</file>
+            <file>terms.htm</file>
+            <file>toolbar.htm</file>
+            <file>use_map_file.htm</file>
+            <file>use_markers.htm</file>
+            <file>watermarks.htm</file>
+            <file>watermarks_search.htm</file>
+            <file>watermarks_setup.htm</file>
+            <file>about_vmprotect.htm</file>
+            <file>work.htm</file>
+            <file>images/activation_setup.png</file>
+            <file>images/button_compilation.png</file>
+            <file>images/button_execute.png</file>
+            <file>images/button_open.png</file>
+            <file>images/button_project.png</file>
+            <file>images/button_save.png</file>
+            <file>images/button_action.png</file>
+            <file>images/button_search.png</file>
+            <file>images/delphi_project.png</file>
+            <file>images/expert_find.png</file>
+            <file>images/export_keys.png</file>
+            <file>images/functions.png</file>
+            <file>images/import_key.png</file>
+            <file>images/licenses1.png</file>
+            <file>images/lock_to_serial.png</file>
+            <file>images/main_window.png</file>
+            <file>images/menu_edit.png</file>
+            <file>images/menu_file.png</file>
+            <file>images/menu_help.png</file>
+            <file>images/menu_project.png</file>
+            <file>images/menu_project_import.png</file>
+            <file>images/menu_tools.png</file>
+            <file>images/preferences.png</file>
+            <file>images/project_add_folder.png</file>
+            <file>images/project_add_function.png</file>
+            <file>images/project_add_license.png</file>
+            <file>images/project_file_delete.png</file>
+            <file>images/project_file_menu.png</file>
+            <file>images/project_file_protection.png</file>
+            <file>images/project_file_settings.png</file>
+            <file>images/project_functions.png</file>
+            <file>images/project_functions_content.png</file>
+            <file>images/project_functions_content2.png</file>
+            <file>images/project_functions_menu.png</file>
+            <file>images/project_functions_menu2.png</file>
+            <file>images/project_functions_menu3.png</file>
+            <file>images/project_functions_search.png</file>
+            <file>images/project_generate_keys.png</file>
+            <file>images/project_options.png</file>
+            <file>images/project_script.png</file>
+            <file>images/properties_directory.png</file>
+            <file>images/properties_dump.png</file>
+            <file>images/properties_dump_goto.png</file>
+            <file>images/properties_export.png</file>
+            <file>images/properties_import.png</file>
+            <file>images/properties_resources.png</file>
+            <file>images/properties_segments.png</file>
+            <file>images/properties_calc.png</file>
+            <file>images/watermarks_add.png</file>
+            <file>images/watermarks_menu.png</file>
+            <file>images/watermarks_search.png</file>
+            <file>images/watermarks_setup.png</file>
+            <file>images/delphi_map.png</file>
+            <file>images/visual_studio_map.png</file>
+            <file>manager/activation/api.htm</file>
+            <file>manager/activation/vmprotect.htm</file>
+            <file>manager/activation/weblm.htm</file>
+            <file>images/weblm_1.png</file>
+            <file>images/weblm_2.png</file>
+            <file>manager/keygen/algorithms.htm</file>
+            <file>manager/keygen/index.htm</file>
+            <file>manager/keygen/keygen_dll.htm</file>
+            <file>manager/keygen/keygen_net.htm</file>
+            <file>manager/keygen/keygen_php.htm</file>
+            <file>manager/keygen/serial_format.htm</file>
+            <file>manager/usage/api.htm</file>
+            <file>images/codelock_error.png</file>
+            <file>images/depends.png</file>
+            <file>manager/usage/index.htm</file>
+            <file>manager/usage/step11_app.htm</file>
+            <file>manager/usage/step12_code.htm</file>
+            <file>manager/usage/step13_flags.htm</file>
+            <file>manager/usage/step14_name.htm</file>
+            <file>manager/usage/step15_exp.htm</file>
+            <file>manager/usage/step16_time.htm</file>
+            <file>manager/usage/step17_maxbuild.htm</file>
+            <file>manager/usage/step18_blacklist.htm</file>
+            <file>manager/usage/step19_hwid.htm</file>
+            <file>manager/usage/step1A_userdata.htm</file>
+            <file>manager/usage/step21_src.htm</file>
+            <file>manager/usage/step22_vmp.htm</file>
+            <file>manager/usage/step23_product.htm</file>
+            <file>manager/usage/step24_test.htm</file>
+            <file>manager/usage/step25_codelock.htm</file>
+            <file>manager/activation.htm</file>
+            <file>manager/features.htm</file>
+            <file>manager/howitworks.htm</file>
+            <file>manager/index.htm</file>
+            <file>manager/licenses.htm</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

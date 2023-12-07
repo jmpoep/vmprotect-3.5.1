@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>External Addresses</title>
+</head>
+
+<body>
+  <h1>External Addresses</h1>
+
+  When protecting an application, VMProtect utilizes the space that becomes free during compilation for its own needs, including storage of various data (virtualized or mutated code, VM interpreters and so on). As a result, certain situations may occur when a jump "inside" the protected code is made from other parts of the program. Addresses such a jump is performed from are called external. A situation described above can happen when code markers are used and a jump from a non-protected part of the program is performed inside the markers:
+      <pre class="code">VMProtectBegin(nil);
+for  I:=0 to 10 do
+begin
+  Inc(J);
+  VMProtectEnd;
+end;
+</pre>
+
+      <p>In the assembler code this cycle looks as:</p>
+      <pre class="code">----------------- marker begin ----------------
+0044D12C        mov eax, 0000000B
+0044D131        inc ebx 
+----------------- marker end -----------------
+0044D132        dec eax 
+0044D133        jnz 0044D131
+</pre>
+
+      <p>Apparently, when commands at 0044D12C and 0044D131 addresses are virtualized and a non-virtualized conditional jump at 0044D133 is performed, an error occurs, because the address of 0044D131 contains various data or just garbage instead of the original code. In this example, 0044D131 is an external address.</p>
+
+      <p>When the "Debug mode" option is enabled, the INT 03 command replaces the original code. This is a simple breakpoint and a debugger command.
+	  When the protected application is executed under a debugger and control is passed to the 0044D131 address, a breakpoint is activated, and the debugger window displays the address the given jump is initiated at.</p>
+
+      <p>When such jumps are detected, we recommend to check all code markers, whether they are set properly. If the protected code is not marked, or if the program logic cannot be changed so to avoid passing control inside the protected code, you should mark such addresses as <a href=
+      "project_functions.htm#ExtAddress">external</a> in the GUI.</p>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

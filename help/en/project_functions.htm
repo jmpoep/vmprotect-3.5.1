@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>"Functions for Protection" section</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    div.c2 {text-align: center}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>"Functions for Protection" section</h1>
+
+  <p>This section is for choosing which functions must be protected.</p>
+  <p><img src="images/project_functions.png" /></p>
+  <h3 id="AddFunction">Adding a function</h3>
+  <p>To add a new object to the project, click the "Add Function" button on the toolbar, or select the corresponding item in the context menu:</p>
+  <p><img src="images/project_functions_menu.png" /></p>
+  <p>A new function dialog appears:</p>
+  <p><img src="images/project_add_function.png" /></p>
+  <p>Specify the address of the function, or start typing function's name to the quick search box to select the function directly from the list on the "Functions" tab. Use multi-selection if you want to add several functions at once. All selected functions are added with the chosen protection options.</p>
+  <p><strong>Options</strong></p>
+  <ul>
+    <li><a name="CompilationTypes" id=
+    "CompilationTypes"><strong>Compilation type</strong></a> -
+    select the way the object is compiled. Selecting a proper way to protect each object (procedure, function, code fragment) from examination and hacking results in optimal balance between performance and security of the code.
+    VMProtect allows the developer to set the following compilation types for each protected object:</li>
+      <ul>
+        <li><strong>Mutation.</strong> The executable code is modified at the level of CPU commands - existing commands are mutated, various "garbage" commands are added and so on. This type of compilation is relatively weak in terms of protecting the code from hack or analysis. Its main purpose is to prevent detection of processed functions with automated signature analysers (PEiD+KANAL, IDA+FLIRT etc.). This type of compilation is worthwhile to protect library functions as they usually do not require strong protection from cracking and analysis. So it is enough to modify signatures so that a potential cracker couldn't automatically detect particular libraries used in the application. Mutation provides low level of protection and analysis, but high performance of code execution.</li>
+
+        <li><strong>Virtualization.</strong> The executable code is translated to the bytecode executed on a virtual machine.
+        This compilation type should be applied to all critical parts of code that require both serious hacking and analysis countermeasures and high performance. Virtualization provides average protection from hacking and analysis and average execution speed.</li>
+
+        <li><strong>Ultra (mutation + virtualization).</strong>
+        The executable code is mutated on the processor instruction level and then is translated to the bytecode executed on a virtual machine.
+        This type of compilation should be applied to all fragments of code when the speed of execution is not critical. Ultra protection provides high protection and is executed slowly.</li>
+      </ul>
+    
+    <li id="LockToKey"><strong>Lock to Serial Number</strong> - if this option is enable, the protected function become <a href="manager/features.htm#lock">unavailable without a valid serial number entered</a>. In such a way you can limit access to certain functions of the application in the unregistered version.</li>
+  </ul>
+
+  <p id="Search"><strong>Search</strong></p>
+
+  <p>You can locate objects you need by their name using the quick search box:</p>
+  <p><img src="images/project_functions_search.png" /></p>
+
+  <p>You can use the following wildcard symbols in the search box:</p>
+  <ul>
+    <li><strong>*</strong> - replaces any number of symbols;</li>
+    <li><strong>?</strong> - replaces one symbol.</li>
+  </ul>
+
+  <h3 id="AddFolder">Adding a folder</h3>
+  <p>You can add a folder to the project using the context menu:</p>
+  <p><img src="images/project_functions_menu.png" /></p>
+  <p>Folders group protected objects and allow changing protection parameters (exclusion from compilation, type of compilation) of all objects in a folder at once.</p>
+  <p>Enter the name of a new folder:</p>
+  <p><img src="images/project_add_folder.png" /></p>
+
+  <h3>Editing objects</h3>
+  <p>The right side of the window displays contents of the selected object. If a protected object is selected in the project tree, the right part displays a disassembled representation of this object:</p>
+
+  <p><img src="images/project_functions_content.png" alt=
+  "Code" /></p>
+  <p>Right-clicking a line of code brings up the context menu:</p>
+  <p><img src="images/project_functions_menu3.png" /></p>
+  <ul>
+    <li><a name="ExtAddress" id="ExtAddress"><strong>External address</strong></a> - Add the chosen address to the list of <a href=
+    "project_options_external_addresses.htm">external addresses</a>;</li>
+
+    <li><strong>End of function</strong> - limit the list of command that should be processed during compilation;</li>
+  </ul>
+
+  <p>If a folder is selected in the project tree, the right side displays the list of functions in that folder:</p>
+
+  <p><img src="images/project_functions_content2.png" /></p>
+
+  <p>You can move functions to and from folders with simple drag-n-drop.</p>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

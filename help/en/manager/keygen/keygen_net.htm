@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>.Net-version</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    p.c1 {color:red;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>.Net-version</h1>
+
+  <h3>Description</h3>
+
+  <p>The .Net-version of the key generator is a build containing all that is required to generate serial numbers. Source codes are in <strong>Keygen\Net</strong> as two projects: KeyGen (the key generator itself) and Usage (an example of use of the key generator).</p>
+
+  <p class="c1">The key generator is supplied in source codes for quick building under a given version of the .Net
+  Framework, however we strongly do not recommend to apply any changes to the code. In future versions of VMProtect some new possibilities may be added to the generator, and that may lead to repeated modification of the code. Also, this may lead to errors that are very difficult to locate.
+  If you found errors in the original code of the generator or would like to suggest improvements, please contact the support team.</p>
+
+  <h3>Using the generator</h3>
+
+  <p>Take the code from the <strong>Usage</strong> project as a base,
+  then add to your project a link to the VMProtect.KeyGen.dll build. After that you will be able to generate serial numbers in your application. To function properly, the generator must "know" which product you generate serial numbers for.
+  To achieve this, in VMProtect open the "Project | Export key pair" dialog and select the "Parameters for KeyGen.Net" option. The text area below will contain text information you should copy and paste to your application as a string constant.</p>
+
+  <p>Here is an example code to call the generator:</p>
+  <pre>
+try
+{
+        string data = @""; // put the exported data here
+        Generator g = new Generator(data);
+        g.UserName = "John Doe";
+        g.EMail = "john@doe.com";
+        g.ExpirationDate = DateTime.Now.AddMonths(1);
+        g.MaxBuildDate = DateTime.Now.AddYears(1);
+        g.RunningTimeLimit = 15;
+        g.HardwareID = "AQIDBAgHBgU=";
+        g.UserData = new byte[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        string serial = g.Generate();
+        Console.WriteLine("Serial number:\n{0}\n", serial);
+}
+catch (Exception ex)
+{
+        Console.WriteLine("Error: {0}", ex);
+}
+        
+</pre>
+
+  <p>The string you copied from VMProtect should be placed to the <strong>data</strong> variable passed as a parameter to the serial number class constructor. In case of any problems occur while parsing the product data, the constructor throws an exception containing a description of the problem. If the constructor successfully finishes its work, the generator is ready to produce serial numbers.</p>
+
+  <p>A serial number can contain various information specified using the generator properties. The above example displays how to fill all and every field of a serial number. Certain fields have limitations. For example, the <strong>User Name</strong> and
+  <strong>E-Mail</strong> cannot accept strings exceeding 255 symbols in the UTF-8 encoding. If incorrect data are supplied, properties throw exceptions containing a description of the problem.</p>
+
+  <p>When the generator setup is done, the 
+  <strong>Generate()</strong> method is invoked. This method generates a serial number. At this step, all data of the serial number are combined, the checksum is calculated and the data are encrypted. If the volume of data exceeds the allowed length, the method throws an exception.</p>
+
+  <p>If you need to generate multiple serial numbers, you can use the generator class several times in a row, without the need to create it from scratch. To clear any given property of the generator, simply assign a <strong>null</strong> value to it.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

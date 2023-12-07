@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Описание функций API лицензирования</title>
+  <style type="text/css">
+/*<![CDATA[*/
+                th {text-align:left;}
+                table {border-collapse:collapse; margin-top: 4px;}
+                td,th {border: 1px solid #B0B0B0; padding-left:10;padding-right:10;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Описание функций API лицензирования</h1>
+
+  <p>API системы лицензирования является продолжением API VMProtect
+  и входит в его SDK. API позволяет задать серийный номер и
+  получить информацию о нем: подходит он к программе или нет, истек
+  ли срок действия, на кого зарегистрирован продукт и т.п. Также API
+  позволяет получить идентификатор оборудования, на котором
+  выполняется программа.</p><strong id=
+  "VMProtectSetSerialNumber">VMProtectSetSerialNumber</strong>
+
+  <p>Функция предназначена для загрузки серийного номера в систему
+  лицензирования. Полный формат вызова представлен ниже:</p>
+  <pre class="code">int VMProtectSetSerialNumber(const char *SerialNumber);
+</pre>
+
+  <p>Входной параметр <strong>SerialNumber</strong> должен
+  содержать указатель на текстовую строку с серийным номером в
+  кодировке base-64 и завершаемую нулем ('\0'). Функция возвращает
+  битовую маску флагов состояния серийного номера, аналогичную той,
+  что возвращает <strong>VMProtectGetSerialNumberState()</strong>,
+  подробнее о флагах будет написано ниже. Серийный номер считается
+  "хорошим", если функция вернула значение 0.</p><br />
+  <strong id=
+  "VMProtectGetSerialNumberState">VMProtectGetSerialNumberState</strong>
+
+  <p>Функция возвращает флаги состояния серийного номера,
+  предварительно установленного вызовом
+  <strong>VMProtectSetSerialNumber()</strong>.</p>
+  <pre class="code">int VMProtectGetSerialNumberState();
+</pre>
+
+  <p>Наличие хотя бы одного установленного флага говорит о
+  проблемах с серийным номером: программа не должна работать, если
+  установлен хотя бы один бит. Подробные значениях флагов описаны в
+  таблице:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Флаг</th>
+
+      <th>Значение</th>
+
+      <th>Описание</th>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_CORRUPTED</td>
+
+      <td>0x00000001</td>
+
+      <td>Система лицензирования повреждена. Возможные причины:
+      некорректная настройка проекта защиты, попытка взлома
+      программы.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_INVALID</td>
+
+      <td>0x00000002</td>
+
+      <td>Серийный номер некорректен. Флаг выставляется, если
+      система лицензирования не может расшифровать серийный
+      номер.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_BLACKLISTED</td>
+
+      <td>0x00000004</td>
+
+      <td>Серийный номер подходит к продукту, однако занесен в
+      черный список в VMProtect.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_DATE_EXPIRED</td>
+
+      <td>0x00000008</td>
+
+      <td>Срок действия серийного номера истек. Подробную
+      информацию о сроке действия можно получить вызовом
+      <strong>VMProtectGetSerialNumberData()</strong></td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_RUNNING_TIME_OVER</td>
+
+      <td>0x00000010</td>
+
+      <td>Время работы программы истекло. Подробную информацию о
+      времени работы программы можно получить вызовом
+      <strong>VMProtectGetSerialNumberData()</strong></td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_BAD_HWID</td>
+
+      <td>0x00000020</td>
+
+      <td>Идентификатор оборудования не совпадает с тем, что
+      записан в серийном номере.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED</td>
+
+      <td>0x00000040</td>
+
+      <td>Серийный номер не предназначен для работы с этой версией
+      защищаемой программы. Максимальную дату сборки программы, к
+      которой подходит этот серийный номер, можно узнать вызовом
+      <strong>VMProtectGetSerialNumberData()</strong>.</td>
+    </tr>
+  </table><br /><br />
+  <strong id=
+  "VMProtectGetSerialNumberData">VMProtectGetSerialNumberData</strong>
+
+  <p>Функция предназначена для получения информации о содержимом
+  серийного номера, установленного вызовом
+  <strong>VMProtectSetSerialNumber()</strong>. Формат вызова
+  представлен ниже:</p>
+  <pre class="code">bool VMProtectGetSerialNumberData(VMProtectSerialNumberData *Data, int Size);
+</pre>
+
+  <p>Первый параметр - указатель на структуру
+  <strong>VMProtectSerialNumberData</strong>, в которую будет
+  записана вся необходимая информация. Второй параметр - размер
+  структуры, передаваемой в первом параметре - служит для контроля
+  формата структуры. Функция возвращает FALSE в случаях, если система
+  лицензирования повреждена (см. флаг состояния
+  SERIAL_STATE_FLAG_CORRUPTED), если на вход подан нулевой адрес
+  структуры или если переданный размер структуры некорректен. Во
+  всех остальных случаях функция возвращает TRUE и записывает всю
+  информацию о серийном номере по указанном адресу. Ниже
+  описываются все элементы структуры:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Элемент</th>
+
+      <th>Тип</th>
+
+      <th>Описание</th>
+    </tr>
+
+    <tr>
+      <td>nState</td>
+
+      <td>int</td>
+
+      <td>Битовая маска флагов проверки ключа. Аналогична той, что
+      возвращает
+      <strong>VMProtectGetSerialNumberState()</strong>.</td>
+    </tr>
+
+    <tr>
+      <td>wUserName</td>
+
+      <td>wchar_t[256]</td>
+
+      <td>Имя покупателя в кодировке UNICODE, завершаемое
+      нулем.</td>
+    </tr>
+
+    <tr>
+      <td>wEMail</td>
+
+      <td>wchar_t[256]</td>
+
+      <td>E-Mail покупателя в кодировке UNICODE, завершаемый
+      нулем.</td>
+    </tr>
+
+    <tr>
+      <td>dtExpire</td>
+
+      <td>VMProtectDate</td>
+
+      <td>Дата окончания срока действия ключа. Формат структуры
+      VMProtectDate описан ниже.</td>
+    </tr>
+
+    <tr>
+      <td>dtMaxBuild</td>
+
+      <td>VMProtectDate</td>
+
+      <td>Максимальная дата сборки продукта, с которой будет
+      работать этот ключ. Формат структуры VMProtectDate описан
+      ниже.</td>
+    </tr>
+
+    <tr>
+      <td>bRunningTime</td>
+
+      <td>int</td>
+
+      <td>Количество минут, которое программа будет работать
+      (максимальная длина сессии). Измеряется в минутах,
+      отсчитывается с момента запуска программы.</td>
+    </tr>
+
+    <tr>
+      <td>nUserDataLength</td>
+
+      <td>unsigned char</td>
+
+      <td>Длина пользовательских данных, размещенных в поле
+      <strong>bUserData</strong>.</td>
+    </tr>
+
+    <tr>
+      <td>bUserData</td>
+
+      <td>unsigned char[255]</td>
+
+      <td>Пользовательские данные, записанные в ключ. Количество
+      актуальных байт указано в поле
+      <strong>nUserDataLength</strong>.</td>
+    </tr>
+  </table><br />
+
+  <p>Структура <strong>VMProtectDate</strong> предназначена для
+  компактного хранения даты. Ее поля описаны в таблице:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Элемент</th>
+
+      <th>Тип</th>
+
+      <th>Описание</th>
+    </tr>
+
+    <tr>
+      <td>wYear</td>
+
+      <td>unsigned short</td>
+
+      <td>Год.</td>
+    </tr>
+
+    <tr>
+      <td>bMonth</td>
+
+      <td>unsigned char</td>
+
+      <td>Месяц, нумерация начинается с единицы.</td>
+    </tr>
+
+    <tr>
+      <td>bDay</td>
+
+      <td>unsigned char</td>
+
+      <td>День, нумерация начинается с единицы.</td>
+    </tr>
+  </table><br />
+  <br />
+  <strong id=
+  "VMProtectGetCurrentHWID">VMProtectGetCurrentHWID</strong>
+
+  <p>Функция предназначена для получения идентификатора
+  оборудования, на котором работает программа. Формат вызова
+  следующий:</p>
+  <pre class="code">int VMProtectGetCurrentHWID(char * HWID, int Size);
+</pre>
+
+  <p>Первый параметр - указатель на область памяти, куда будет
+  записан идентификатор. Второй параметр - размер области данных.
+  Функция возвращает количество записанных байт с учетом
+  завершающего нуля ('\0'). Если вместо первого параметра подать
+  NULL, то функция вернет необходимое количество байт для записи
+  номера. Наиболее правильный способ вызова функции следующий:</p>
+  <pre class="code"><strong>int</strong> nSize = <strong>VMProtectGetCurrentHWID</strong>(NULL, 0); // получим необходимый размер буфера
+<strong>char *</strong>pBuf = <strong>new char</strong>[nSize]; // выделим буфер
+<strong>VMProtectGetCurrentHWID</strong>(pBuf, nSize); // получим идентификатор
+// используем его
+<strong>delete</strong> [] pBuf; // освободим память
+</pre><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

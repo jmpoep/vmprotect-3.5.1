@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <CustomBuildStep>
+      <Command>call $(SolutionDir)core\gen_inc.bat $(SolutionDir)</Command>
+      <Message>Generate include files (version, lang)</Message>
+      <Outputs>$(SolutionDir)core\lang_def.inc;$(SolutionDir)core\lang_info.inc;$(SolutionDir)core\lang_enum.inc;$(SolutionDir)core\version.h;$(SolutionDir)app\vmprotect_gui.app\Contents\Info.plist</Outputs>
+      <Inputs>$(SolutionDir)langs\en.lng</Inputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

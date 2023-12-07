@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.2: Adding the license checking code</title>
+</head>
+
+<body>
+  <h1>Step 1.2: Adding the license checking code</h1><strong>Include VMProtect SDK</strong>
+
+  <p>If you haven't do this before, it is time to include VMProtect SDK to your project. The SDK is three files: the header file (VMProtectSDK.h), the library file (VMProtectSDK32.lib) and the dll-file with implementation (VMProtectSDK32.dll). There are individual implementations of the library and the dll-file for 64-bit systems.</p>
+
+  <p>Put the dll-file, the header file and the library file to the working folder of our application, where the source files are, and include the header file to the main file:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+</pre>
+
+  <p>Build the project and make sure it compiles and runs as before. The licensing system is inactive yet.</p><strong>Sending a serial number to the licensing system</strong>
+
+  <p>Now, right below the line with the serial number, we add a call to the SDK function of the licensing system:</p>
+  <pre class="code">char *serial = "Xserialnumber"; // we set the serial number directly in the code, for simplicity
+int res = VMProtectSetSerialNumber(serial);
+printf("res = 0x%08X\n", res);
+</pre>
+
+  <p>If after you did this the program stops with an error saying the required dll-file is missing, make sure you put the corresponding DLL-file to the working folder of our application. In case of a successful execution, you should see the following message:</p>
+  <pre class="code">res = 0x00000002
+</pre>
+
+  <p>2 corresponds to the SERIAL_STATE_FLAG_INVALID flag 
+  <a href="api.htm">described in the API</a>. This means the licensing system thinks our key is incorrect, which is pretty true, as we didn't "explain" to the system which keys are correct, and which ones are not.</p><strong>Specifying the "correct" serial number</strong>
+
+  <p>In the test mode, the licensing system analyzes the 
+  VMProtectLicense.ini file and reacts to function calls in accordance with the specified settings. We will thoroughly review the file on later steps, and now we simply create such a file and add the following text there:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber 
+</pre>
+
+  <p>Now, run our program again. If you still receive the "2" error code, make sure the ini-file is located in the working folder of the app. This time we should receive "0". That's the sign that the licensing system accepted and approved the serial number. Now we can remove the 
+  <strong>is_registered()</strong> function from the code - the licensing system is now in charge for checking serial numbers:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+
+int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // we set the serial number directly in the code, for simplicity
+
+        int res = VMProtectSetSerialNumber(serial);
+        printf("res = 0x%08X\n", res);
+
+        if (res)
+        {
+                printf("please register!\n");
+                return 0;
+        }
+        printf("We are registered.\n");
+        return 0;
+}
+</pre><br />
+  <a href="step13_flags.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ScintillaQT">
+      <UniqueIdentifier>{83be54e5-ae34-40dc-bfe8-fd456407d8af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{fbea6dcd-ec02-467e-92b1-be3b12ce7a2e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\VMProtect\main.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\mainwindow.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\models.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\widgets.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\property_editor.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\function_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\license_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\import_license_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\export_key_pair_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\progress_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\watermarks_window.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\settings_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\message_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\watermark_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\about_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\template_save_dialog.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\templates_window.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\precompiled.cc" />
+    <ClCompile Include="..\third-party\scintilla\PlatQt.cc">
+      <Filter>ScintillaQT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ScintillaEditBase.cc">
+      <Filter>ScintillaQT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ScintillaQt.cc">
+      <Filter>ScintillaQT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\help_browser.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\remotecontrol.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtect\resources.cc">
+      <Filter>res</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\VMProtect\mainwindow.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\models.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\widgets.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\property_editor.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\progress_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\license_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\import_license_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\function_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\export_key_pair_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\watermarks_window.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\settings_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\message_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\watermark_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\about_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\template_save_dialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\templates_window.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\help_browser.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\application.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\remotecontrol_win.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\remotecontrol.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\third-party\scintilla\ScintillaEditBase.h">
+      <Filter>ScintillaQT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\third-party\scintilla\ScintillaQt.h">
+      <Filter>ScintillaQT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\styles.qss">
+      <Filter>res</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\VMProtect\application.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\third-party\scintilla\PlatQt.h">
+      <Filter>ScintillaQT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\VMProtect\precompiled.h" />
+    <ClInclude Include="..\VMProtect\wait_cursor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\core\vmprotect.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

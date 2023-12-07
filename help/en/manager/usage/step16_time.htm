@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.6: Limiting the operation time of the program</title>
+</head>
+
+<body>
+  <h1>Step 1.6: Limiting the operation time of the program</h1>
+
+  <p>You can limit the program operates since the moment it is started. This can be useful for demonstration purposes: you provide a real serial number to a user, but the program works no longer than 5 minutes. The licensing system doesn't force such a program to shut down, but merely sets the status flag. So, let's set a maximum working time of one minute, by adding the following line to the ini-file:</p>
+  <pre class="code">TimeLimit=1
+</pre>
+
+  <p>And modify the program as follows:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // we set the serial number directly in the code, for simplicity
+
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        if (res) return 0;
+
+        VMProtectSerialNumberData sd = {0};
+        VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+        printf("I will run for %d minute(s)\n", sd.bRunningTime);
+        print_state(VMProtectGetSerialNumberState());
+        Sleep(60 * 1000 * sd.bRunningTime);
+        printf("After %d minute(s):\n", sd.bRunningTime);
+        print_state(VMProtectGetSerialNumberState());
+
+        return 0;
+}
+</pre>
+
+  <p>The program prints the status of the serial number upon start up, then calculates the maximum operating time and waits it to expire. Then the serial number status is printed again. With the maximum operation time set to one minute we should receive the following result:</p>
+  <pre class="code">state = 0
+I will run for 1 minute(s)
+state = 0
+After 1 minute(s):
+state = SERIAL_STATE_FLAG_RUNNING_TIME_OVER
+</pre>
+
+  <p>The protected program should analyze the status of a serial number periodically and shut down if the flag is set. The licensing system does not do this automatically, because the program may need to free memory, save data to a file and so on. Also, you may want the program to not stop after the operation time has expired, but instead switch to a more restricted mode. The licensing system leaves this up to the developer.</p><br />
+  <a href="step17_maxbuild.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

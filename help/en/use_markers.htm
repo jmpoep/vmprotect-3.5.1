@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Using markers</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    div.c2 {text-align: center}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Using markers</h1>
+
+  <p>To protect individual fragments of the code and to protect string constants, you can insert special markers to the source code of your application. Markers are calls to functions imported from the external library (32-bit applications use 
+  VMProtectSDK32.dll, and 64-bit applications use VMProtectSDK64.dll; drivers use VMProtectDDK32.sys and
+  VMProtectDDK64.sys respectively) - further referred to as 
+  VMProtectSDK. Procedures and functions in VMProtectSDK do not perform any actions and are merely labels VMProtect uses to determine boundaries of the protected code. The beginning and the end of the protected block are marked as follows:</p>
+
+  <ul>
+    <li><strong>Delphi</strong>
+      <pre class="code">uses VMProtectSDK;
+
+VMProtectBegin(MARKER_TITLE);
+...
+VMProtectEnd;
+</pre>
+    </li>
+
+    <li><strong>C/C++</strong>
+      <pre class="code">#include "VMProtectSDK.h"
+
+VMProtectBegin(MARKER_TITLE);
+...
+VMProtectEnd();
+</pre>
+    </li>
+
+    <li><strong>MASM</strong>
+      <pre class="code">include VMProtectSDK.inc
+
+invoke VMProtectBegin,SADD(MARKER_TITLE)
+...
+invoke VMProtectEnd
+</pre>
+    </li>
+
+    <li><strong>Visual Basic</strong>
+      <pre class="code">VMProtectBegin (StrPtr(MARKER_TITLE))
+...
+VMProtectEnd
+</pre>
+    </li>
+  </ul>
+
+  <p>Also, instead of VMProtectBegin you can use markers with the predefined <a href=
+  "project_functions.htm#CompilationTypes">compilation types</a>:</p>
+
+  <ul>
+    <li>VMProtectBeginVirtualization - the marker uses the "Virtualization" compilation type.</li>
+
+    <li>VMProtectBeginMutation - the marker uses the "Mutation" compilation type.</li>
+
+    <li>VMProtectBeginUltra - the marker uses the "Ultra" compilation type.</li>
+  </ul>
+
+  <p>Markers are processed as follows: when VMProtect analyzes the code of the protected application, it locates all calls to 
+  VMProtectSDK procedures and functions. Boundaries of blocks to protect are defined by marker pairs
+  VMProtectBegin/VMProtectBeginVirtualization/VMProtectBeginMutation/VMProtectBeginUltra
+  and VMProtectEnd. Then, when VMProtect processes the code of the protected application, it removes both the markers and any mentions of the VMProtectSDK, so there is no need to include these libraries to your setup package. Markers are removed regardless of whether they are included to compilation or not. When named markers are used, their names are also removed.</p>
+
+  <p>If a title for the marker is specified, it is assigned with the name like 
+  "VMProtectMarker MARKER_TITLE". If a title of the marker is not specified, it is assigned with a unique name: 
+  "VMProtectMarker"+marker serial number. However, using non-named markers has a significant disadvantage: if a new marker will be inserted to the code of the program, numeration of all non-named markers will change. So we recommend to always use named markers.</p>
+
+  <p>A particularly important thing to consider when working with markers is that you shouldn't allow jumps from non-protected areas inside the marker. This can happen, for example, if you enclose a part of a cycle in markers. If the application that uses markers becomes non-functional after protection, you can detect jumps from non-protected areas and addresses by enabling the "Debug mode" option. In this mode, when the protected application works under the debugger, the latter will interrupt execution of the program if a jump from a non-protected area into the protected debugger is detected. When all such jumps are found, you should either change placement of the markers, or if this is impossible, mark those addresses as external using the GUI version of VMProtect.</p>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

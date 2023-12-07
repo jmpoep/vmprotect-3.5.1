@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="Project1.exe" Options="819200" RunParameters="" OutputFileName="%MYVAR%.exe">
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress='VMProtectMarker &quot;Test marker&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Correct password&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Incorrect password&quot;' Options="1" />
+        </Procedures>
+        <Messages />
+        <Objects />
+    </Protection>
+    <DLLBox>
+        <Folders />
+    </DLLBox>
+    <Script>
+        <![CDATA[vmprotect.setEnvironmentVariable("MYVAR", "output")]]>
+</Script>
+    <LicenseManager />
+</Document>

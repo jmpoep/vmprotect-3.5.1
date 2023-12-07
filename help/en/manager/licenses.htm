@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Managing licenses</title>
+</head>
+
+<body>
+  <h1>Managing licenses</h1>
+
+  <h3>Initialization</h3>
+
+  <p>By default, licensing functions are off. To enable them, you should create a pair of keys in the "Licenses" subsection of the "Project" section. If the project links to the license manager database (in older versions of VMProtect the license manager was a standalone program), VMProtect will suggest you to import the corresponding licenses to the project. When initialization finishes, the Lock to Serial Number option will be available, and you will be able to create and process serial numbers.</p>
+
+  <h3>Interface</h3>
+
+  <p>The "Interface" section displays a full list of licenses in the left panel and parameters of the selected element in the main panel.</p>
+
+  <p><img src="../images/licenses1.png" /></p>
+
+  <p>The right panel displays detailed information about the selected license. It also allows blocking a serial number, copying it to the clipboard or seeing hardware id information (by clicking it).</p>
+
+  <h3 id="AddLicense">Creating a license</h3>
+
+  <p>To add a new license, click the corresponding button on the toolbar.
+  AThe Add License dialog appears:</p>
+
+  <p><img src="../images/project_add_license.png" /></p>
+
+  <p>The upper part of the dialog allows to specify main parameters of the new license. The lower section configures which parameters will be finally put into a serial number and allows adding additional data: for example, a hardware identifier or custom user data.
+  When you finish filling the data, click OK, and VMProtect creates a new license.</p>
+
+  <h3>Removing and blocking licenses</h3>
+
+  <p>To delete a license, right-click it in the list of licenses and choose "Delete" in the context menu. Or simply select the license and press Del. To block a license, turn the "Blocked" parameter in the main panel to "Yes".</p><p>There is a difference between deleting a license and clocking it. Removed serial numbers are not blocked by the licensing system. They simply do not exist any more in the database. If a license was created by mistake and the serial number never was sent to anyone, you can delete such a license. However, if the serial number was compromised, you should not just delete the license, you should block it instead. In this case the information about this serial number is passed to the licensing system, and it will not further accept this serial number.</p>
+
+  <h3>Importing serial numbers</h3>
+
+  <p>Serial numbers can be created not only in VMProtect, but also in third-party programs - key generators. Key generators allow you to automatically provide e-commerce agents with serial numbers whenever a license is purchased. To add such serial numbers to the database, you can import them. To import serial numbers, press 
+  Ctrl+I or select the "Import" command in the "Project" menu.</p>
+
+  <p><img src="../images/menu_project_import.png" /></p>
+
+  <p>The first step to import a serial number is the import dialog:</p>
+
+  <p><img src="../images/import_key.png" /></p>
+
+  <p>If the entered license already presents in the database, the edit license window will be opened. Otherwise, the new license dialog appears where you can adjust the license information and confirm license creation by clicking the OK button. The license is added to the database.</p><a name="export" id="export"></a>
+
+  <h3>Exporting license parameters</h3>
+
+  <p>External key generators require secret key of the product to work properly. You can obtain this information in the most suitable form by using the "Export key pair" command from the "Project" menu. The following export dialog appears:</p>
+
+  <p><img src="../images/export_keys.png" /></p>
+
+  <p>The "Export format" field allows you to select one of the supported formats, while the "Results of export" field contains the key data in the most appropriate format for the selected type of a key generator. To copy the contents to the clipboard, click the "Copy" button.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>SDK functions</title>
+</head>
+
+<body>
+  <h1>SDK functions</h1>
+
+  <p>SDK functions can be integrated to the source code of the protected application to set boundaries of the protected areas, to detect debuggers or virtualization tools.</p>
+
+  <p><strong>Code markers</strong></p>
+
+  <ul>
+    <li><a href="#VMProtectBegin">VMProtectBegin</a></li>
+    <li><a href="#VMProtectBeginVirtualization">VMProtectBeginVirtualization</a></li>
+    <li><a href="#VMProtectBeginMutation">VMProtectBeginMutation</a></li>
+    <li><a href="#VMProtectBeginUltra">VMProtectBeginUltra</a></li>
+    <li><a href="#VMProtectBeginVirtualizationLockByKey">VMProtectBeginVirtualizationLockByKey</a></li>
+    <li><a href="#VMProtectBeginUltraLockByKey">VMProtectBeginUltraLockByKey</a></li>
+    <li><a href="#VMProtectEnd">VMProtectEnd</a></li>
+  </ul>
+
+  <p><strong>Service functions</strong></p>
+
+  <ul>
+    <li><a href="#VMProtectIsProtected">VMProtectIsProtected</a></li>
+    <li><a href="#VMProtectIsDebuggerPresent">VMProtectIsDebuggerPresent</a></li>
+    <li><a href="#VMProtectIsVirtualMachinePresent">VMProtectIsVirtualMachinePresent</a></li>
+    <li><a href="#VMProtectIsValidImageCRC">VMProtectIsValidImageCRC</a></li>
+    <li><a href="#VMProtectDecryptStringA">VMProtectDecryptStringA</a></li>
+    <li><a href="#VMProtectDecryptStringW">VMProtectDecryptStringW</a></li>
+    <li><a href="#VMProtectFreeString">VMProtectFreeString</a></li>
+  </ul>
+
+  <p><strong>Licensing functions</strong></p>
+
+  <ul>
+    <li><a href="manager/usage/api.htm">VMProtectSetSerialNumber</a></li>
+    <li><a href="manager/usage/api.htm">VMProtectGetSerialNumberState</a></li>
+    <li><a href="manager/usage/api.htm">VMProtectGetSerialNumberData</a></li>
+    <li><a href= "manager/usage/api.htm">VMProtectGetCurrentHWID</a></li>
+  </ul>
+
+  <p id="VMProtectBegin"><strong>VMProtectBegin</strong></p>
+  <pre class="code">void VMProtectBegin(const char *MarkerName);
+</pre>
+
+  <p>The <a href="use_markers.htm">marker</a> identifying the beginning of the protected area of the code. A call to VMProtectBegin must be placed before the first command (or procedure or function call) of the protected code block.
+  MarkerName defines the name of the marker that looks like "VMProtectMarker"+MarkerNamе in VMProtect. For example, a marker 
+  VMProtectBegin('CheckRegistration') will look as 
+  VMProtectMarker "CheckRegistration". If the name of the marker is not set, it is given a unique name in the form of "VMProtectMarker"+marker_serial_number. You can set the <a href=
+  "project_functions.htm#CompilationTypes">compilation type</a> of the given protected block in VMProtect.</p>
+
+  <p id="VMProtectBeginVirtualization"><strong>VMProtectBeginVirtualization</strong></p>
+  <pre class="code">void VMProtectBeginVirtualization(const char *MarkerName);
+</pre>
+
+  <p>The marker identifying the beginning of the protected area of the code with the predefined "virtualization" compilation type.
+  MarkerName defines the <a href="#VMProtectBegin">name of the marker</a>.
+  The compilation type of this marker cannot be changed during further work with VMProtect.</p>
+
+  <p id="VMProtectBeginMutation"><strong>VMProtectBeginMutation</strong></p>
+  <pre class="code">void VMProtectBeginMutation(const char *MarkerName);
+</pre>
+
+  <p>The marker identifying the beginning of the protected area of the code with the predefined "mutation" compilation type. MarkerName defines the <a href="#VMProtectBegin">name of the marker</a>.
+  The compilation type of this marker cannot be changed during further work with VMProtect.</p>
+
+  <p id="VMProtectBeginUltra"><strong>VMProtectBeginUltra</strong></p>
+  <pre class="code">void VMProtectBeginUltra(const char *MarkerName);
+</pre>
+
+  <p>The marker identifying the beginning of the protected area of the code with the predefined "ultra (virtualization+mutation)" compilation type. MarkerName defines the <a href="#VMProtectBegin">name of the marker</a>. The compilation type of this marker cannot be changed during further work with VMProtect.</p>
+
+  <p id="VMProtectBeginVirtualizationLockByKey"><strong>VMProtectBeginVirtualizationByKey</strong></p>
+  <pre class="code">void VMProtectBeginVirtualizationLockByKey(const char *MarkerName);
+</pre>
+
+  <p>The marker identifying the beginning of the protected area of the code with the predefined "virtualization" compilation type and the enabled <a href=
+  "project_functions.htm#LockToKey">"Lock to key"</a> option.
+  MarkerName defines the <a href="#VMProtectBegin">name of the marker</a>. The compilation type of this marker cannot be changed during further work with VMProtect.</p>
+
+  <p id="VMProtectBeginUltraLockByKey"><strong>VMProtectBeginUltraLockByKey</strong></p>
+  <pre class="code">void VMProtectBeginUltraLockByKey(const char *MarkerName);
+</pre>
+
+  <p>The marker identifying the beginning of the protected area of the code with the predefined "ultra (virtualization+mutation)" compilation type and the enabled <a href=
+  "project_functions.htm#LockToKey">"Lock to key"</a> option. MarkerName defines the <a href="#VMProtectBegin">name of the marker</a>. The compilation type of this marker cannot be changed during further work with VMProtect.</p>
+
+  <p id="VMProtectEnd"><strong>VMProtectEnd</strong></p>
+  <pre class="code">void VMProtectEnd(void);
+</pre>
+
+  <p>The marker identifying the end of the protected area of the code. The call to VMProtectEnd must be placed after the last command (procedure or function call) of the protected code block.</p>
+
+  <p id="VMProtectIsProtected"><strong>VMProtectIsProtected</strong></p>
+  <pre class="code">bool VMProtectIsProtected(void);
+</pre>
+
+  <p>The VMProtectIsProtected function returns True if the file is processed by VMProtect.</p>
+
+  <p id="VMProtectIsDebuggerPresent"><strong>VMProtectIsDebuggerPresent</strong></p>
+  <pre class="code">bool VMProtectIsDebuggerPresent(bool CheckKernelMode);
+</pre>
+
+  <p>The VMProtectIsDebuggerPresent function allows to detect the launch of the application under a debugger. The result
+  (True/False) can be processed with in-app protection mechanisms. If CheckKernelMode=False the function checks for User-mode debuggers (OllyDBG, WinDBG etc.). If CheckKernelMode=True, both User-mode and Kernel-mode debuggers (SoftICE,
+  Syser etc.). When protecting drivers, the value of CheckKernelMode does not make sense, because drivers always work in the kernel mode, so presence of kernel-mode debugger is always checked.</p>
+
+  <p id="VMProtectIsVirtualMachinePresent"><strong>VMProtectIsVirtualMachinePresent</strong></p>
+  <pre class="code">bool VMProtectIsVirtualMachinePresent(void);
+</pre>
+
+  <p>The VMProtectIsVirtualMachinePresent function allows to detect the launch of the application under a virtual machine tool: VMware, Virtual PC,
+  VirtualBox, Sandboxie. The result
+  (True/False) can be processed with in-app protection mechanisms.</p>
+
+  <p id="VMProtectIsValidImageCRC"><strong>VMProtectIsValidImageCRC</strong></p>
+  <pre class="code">bool VMProtectIsValidImageCRC(void);
+</pre>
+
+  <p>The VMProtectIsValidImageCRC function detects the fact that the executable module has been changed in the memory of the process (only unchangeable segments of code and data are checked). The result
+  (True/False) can be processed with in-app protection mechanisms.</p>
+
+  <p id="VMProtectDecryptStringA"><strong>VMProtectDecryptStringA</strong></p>
+  <pre class="code">const char * VMProtectDecryptStringA(const char *Value);
+</pre>
+
+  <p>The VMProtectDecryptStringA function decrypts the ANSI string constant - Value. To decrypt the constant, you must <a href="project_functions.htm#AddFunction">include it to the list of protected objects
+  </a>.</p>
+
+  <p id="VMProtectDecryptStringW"><strong>VMProtectDecryptStringW</strong></p>
+  <pre class="code">const wchar_t * VMProtectDecryptStringW(const wchar_t *Value);
+</pre>
+
+  <p>The VMProtectDecryptStringW function decrypts the Unicode string constant - Value. To decrypt the constant, you must <a href="project_functions.htm#AddFunction">include it to the list of protected objects</a>.</p>
+
+  <p id="VMProtectFreeString"><strong>VMProtectFreeString</strong></p>
+  <pre class="code">bool VMProtectFreeString(const void *Value);
+</pre>
+
+  <p>The VMProtectFreeString function frees dynamic memory allocated for the decrypted string. It is not necessary to free up memory, but if you do this - you must use this function.
+  If VMProtectDecryptStringA/VMProtectDecryptStringW are used with the same parameters for the second time without destroying previously decrypted string, additional memory is not allocated.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,819 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>History of changes</title>
+</head>
+
+<body>
+  <h1>History of changes</h1>
+
+  <h3>Version 3.5</h3>
+  <p>[!] .NET: Many bugs are fixed<br />
+  [!] ELF: Fixed a bug that occurred inside VMProtectGetCurrentHWID while getting HDD information<br />
+  [+] .NET: Added support of .NET Core (3.0+) and .NET Standard (2.1+)<br />
+  [+] .NET: Added import protection<br />
+  [+] .NET: Added resources protection<br />
+  [+] .NET: Added support of mixed assemblies<br />
+  [*] Mach-O: Improved support of sections with types S_THREAD_LOCAL_VARIABLES and S_THREAD_LOCAL_REGULAR<br />
+  [*] Mach-O: Improved support of Objective-C<br />
+  [*] ELF: Improved support of relocations with type R_386_PC32<br />
+  [*] PE: Improved antidebug<br />
+  </p>
+
+  <h3>Version 3.4</h3>
+  <p>[!] Fixed a bug that occurred during virtualization of BT [m16], POP [m64]<br />
+  [+] Added support of .NET applications<br />
+  [+] Added disassembling PMULLD<br />
+  [+] PE: Added support of COFF symbols<br />
+  [*] ELF: Improved disassembling of SWITCH<br />
+  [*] ELF: Improved support of relocations with type R_386_PC32<br />
+  [*] PE: Improved exception handling<br />
+  [*] PE: Improved support of Windows Server 2016 Datacenter<br />
+  </p>
+
+  <h3>Version 3.3</h3>
+  <p>[+] PE: Added support of "Control Flow Guard"<br />
+  [+] PE: Added support of PDB files for loading symbols<br />
+  [+] Mach-O: Added support of OS X 10.13 and later<br />
+  [+] ELF: Added support of statically linked libstdc++.so<br />
+  [+] ELF: Added support of CentOS 5 and CentOS 6<br />
+  [+] ELF: Added support of TLS segments<br />
+  [+] ELF: Added support of HTTPS for VMProtectActivateLicense<br />
+  [*] PE: Improved exception handling for x64 applications<br />
+  [*] PE: Improved detection of virtualization tools under the Hyper-V role<br />
+  [*] PE: Improved demagling of MSVC symbols<br />
+  [*] Mach-O: Improved exception handling<br />
+  [*] Mach-O: Improved support of Objective-C<br />
+  [*] ELF: Fixed a bug that occurred when the "Pack the Output File" option was used<br />
+  </p>
+
+  <h3>Version 3.2</h3>
+  <p>[!] PE: Fixed an error that occurred in VMProtectIsValidImageCRC in protected driver<br />
+  [!] Fixed an error that occurred during virtualization of XOR with relocations<br />
+  [*] PE: Improved packing of sections with the TLS directory<br />
+  [*] PE: Improved antidebug<br />
+  [*] PE: The Taggant System has been removed<br />
+  [*] Accelerated unpacking when the "<a href=
+  "project_options.htm#PackOutputFile">Packing output file</a>" option was used<br />
+  [+] Added support of ELF format<br />
+  [+] Added disassembling of AVX commands<br />
+  </p>
+
+  <h3>Version 3.1</h3>
+
+  <p>[!] Fixed an error that occurred during disassembling of MOVUPS with REX prefix 0x41<br />
+  [!] Fixed an error that occurred during virtualization of XLAT, FSIN and POPAD<br />
+  [*] Improved exceptions handling<br />
+  [*] Improved VM architecture<br />
+  [*] Improved checking the integrity of a file on disk when the "<a href=
+  "project_options.htm#MemoryProtection">Memory protection</a>" option was used<br />
+  [*] Improved virtualization of FSTENV, FSTCW, FSAVE and FSTSW<br />
+  [*] PE: VMProtectActivateLicense now works via WinHTTP and uses IE proxy settings by default<br />
+  [*] PE: VMProtectGetCurrentHWID has been improved for kernel drivers<br />
+  [*] PE: Improved support of Delphi 6 when the "<a href=
+  "project_options.htm#ImportProtection">Import protection</a>" option was used<br />
+  [*] PE: Improved antidebug<br />
+  [+] Added virtualization of ADD, AND, SUB, XOR, OR with LOCK prefix<br />
+  [+] Added virtualization of CQO<br />
+  [+] Added disassembling PINSRB, PINSRD, PINSRQ, PMINSD, PMINUW, PMINUD, PMAXSB, PMAXSD, PMAXUW and PMAXUD<br />
+  [+] Mach-O: Added support of section "__unwind_info"<br />
+  [+] Mach-O: Added support of LC_LOAD_WEAK_DYLIB<br />
+  [+] Mach-O: Added support of Delphi Berlin<br />
+  [+] PE: Added support of Windows 10 for kernel drivers<br />
+  [+] PE: Now the "Rich Header" is deleted when the "<a href=
+  "project_options.htm#Additional">Strip debug information</a>" option was used<br />
+  [+] Ultimate: Functionality of "<a href="project_files.htm">Files</a>" has been enhanced. Now you can create folders and use symbols ".." for indication of the parent directory<br />
+  [+] GUI: At displaying of protected ANSI strings the code page from Windows settings is used now<br />
+  [+] LUA: Usage of functions from external DLLs has been added<br />
+  </p>
+
+  <h3>Version 3.0</h3>
+
+  <p>[*] PE: Added support for exceptions in x64 code<br />
+  [*] Mach-O: Added support for <a href="sdk_functions.htm">SDK functions</a><br />
+  [*] Ultimate: Added support for <a href="manager/usage/api.htm">licensing functions</a> for drivers and applications written on VB6<br />
+  [*] Ultimate: Functionality of <a href="project_files.htm">DLL Box</a> has been enhanced. Now the protected application can envelope any files
+  including ActiveX servers with optional automatic registration in the virtual registry.<br />
+  [*] Virtual Box detection has been improved<br />
+  [*] Script engine changed to LUA<br />
+  [*] New VM architecture<br />
+  [+] A new function <a href="sdk_functions.htm#VMProtectIsProtected">VMProtectIsProtected</a> is added to the SDK<br />
+  </p>
+
+  <h3>Version 2.13</h3>
+
+  <p>[!] PE: Added support for Delay Import<br />
+  [!] PE: Improved compatibility with VS2012<br />
+  [!] PE: Improved compatibility with Embarcadero RAD Studio XE3<br />
+  [!] PE: Improved compatibility with MinGW<br />
+  [!] Ultimate: Improved compatibility of DLL Box with Windows 8<br />
+  [+] WebLM: Added support for mbstring.func_overload = 2<br />
+  [+] WebLM: In the activation code a new field "Expiry date" has been added.
+  (Now VMProtectActivateLicense can return ACTIVATION_EXPIRED if the current date exceeds the expiry date)<br />
+  [+] WebLM: Fields "Expiry date" and "Maximum build date" now contain the "days since purchase" value<br /></p>
+
+  <h3>Version 2.12</h3>
+
+  <p>[!] PE: Fixed bugs in x64 applications<br />
+  [!] PE: Fixed an error that occurred if an application had the IMAGE_DLLCHARACTERISTICS_NX_COMPAT flag<br />
+  [+] PE: Added support for Windows 8<br />
+  [+] WebLM: Added Russian and Chinese language<br /></p>
+
+  <h3>Version 2.11</h3>
+
+  <p>[!] Fixed a bug during <a href=
+  "project_options.htm#PackOutputFile">packing</a> in х64
+  applications<br />
+  [!] PE: Fixed a bug that occurred when the 
+  "<a href="project_options.htm#ImportProtection">Import protection</a>" option was used<br />
+  [!] PE: Fixed a bug emerging when a TLS section with relocation tables was processed<br />
+  [+] Ultimate: Added <a href=
+  "manager/activation.htm">activation/deactivation</a><br />
+  [+] Mach-O: Added <a href=
+  "project_options.htm#PackOutputFile">packing</a><br />
+  [*] PE: Support for DriverVerifier<br />
+  [*] PE: Improved support for SEH for MSVC<br />
+  [*] Mach-O: Improved support for IndirectSymbols<br /></p>
+
+  <h3>Version 2.10</h3>
+
+  <p>[!] Fixed a bug that occurred when the 
+  "<a href="project_options.htm#ResourceProtection">Resource protection</a>" option was used<br />
+  [!] Fixed a bug that occurred when the
+  "<a href="project_options.htm#ImportProtection">Import protection</a>" option was used<br />
+  [!] Fixed a bug that occurred when x64 drivers without relocation tables were protected<br />
+  [+] Added support for Max OS X executables (Mach-O format)<br />
+  [+] Added support for HLT command<br />
+  [+] New API is added to SDK - <a href=
+  "sdk_functions.htm#VMProtectFreeString">VMProtectFreeString</a><br />
+  [*] Improved identification of markers and strings marked with <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>/<a href="sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+  [*] Now you can use relative paths in output file name and license parameters<br />
+  [*] Improved support for SEH for Delphi<br />
+  [*] SenseLock Edition: Added the "<a href=
+  "project_options.htm#ResourceProtection">Resource protection</a>" option<br />
+  [*] SenseLock Edition: A <a href=
+  "manager/licenses.htm">license manager</a> is added to the GUI version<br />
+  [*] SenseLock Edition: programming of keys is added to the GUI version<br />
+  [*] Licenses in the license manager can now be copied and pasted to/from the clipboard<br /></p>
+
+  <h3>Version 2.09</h3>
+
+  <p>[!] Fixed a bug that occurred when <a href=
+  "project_options.htm#DebuggerDetection">a debugger was detected</a>
+  under Windows 2000<br />
+  [!] Fixed a bug that occurred while disassembling PMULHUW and LDMXCSR commands<br />
+  [!] Fixed a bug that occurred when <a href=
+  "project_options.htm#MemoryProtection">memory protection</a> was used(file integrity wasn't checked)<br />
+  [!] Ultimate: Fixed a bug that occurred when running protected files under Windows 2000 (this required 
+  EncodePointer/DecodePointer functions from kernel32.dll)<br />
+  [*] Improved virtualization of exception handlers for Visual
+  C<br />
+  [*] <a href="project_options.htm#ResourceProtection">Resource protection</a> is now available in Lite and Professional versions<br />
+  [*] Added support for EnumResourceTypes, EnumResourceNames and
+  EnumResourceLanguages when using <a href=
+  "project_options.htm#ResourceProtection">resource protection</a> (available only when called from the main module)<br />
+  [+] Added support for exceptions for Borland C Builder<br />
+  [+] Ultimate: Improved performance of <a href=
+  "manager/usage/api.htm#VMProtectGetSerialNumberState">VMProtectGetSerialNumberState</a>
+  and <a href=
+  "manager/usage/api.htm#VMProtectGetSerialNumberData">VMProtectGetSerialNumberData</a> functions<br />
+
+  [+] The script for <a href=
+  "script_classes.htm#TLicenseManager">TLicenseManager</a> now includes the
+  <a href=
+  "script_classes.htm#TLicenseManager.Save">Save</a> method<br />
+  [-] The "Move resources to the end of the file" option is removed. The resource section is always the last one now.<br /></p>
+
+  <h3>Version 2.08</h3>
+
+  <p>[!] Fixed a bug that occurred when assembling the TEST [XXXX], REG command<br />
+  [!] Fixed a bug that occurred while disassembling х64 commands with the 0x67 prefix<br />
+  [*] Improved support for files with small values of 
+  SectionAlignment<br />
+  [*] Improved placement of markers and strings for Intel
+  Compiler 12 and Lazarus<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection
+  </a><br />
+  [*] Ultimate: Now you can load project files with licensing parameters<br />
+  [+] Ultimate: Added <a href=
+  "project_options.htm#ResourceProtection">resource protection</a><br />
+  [+] Ultimate: The script now includes classes: <a href=
+  "script_classes.htm#TLicense">TLicense</a> and <a href=
+  "script_classes.htm#TLicenseManager">TLicenseManager</a><br /></p>
+
+  <h3>Version 2.07</h3>
+
+  <p>[!] Fixed an error occurred when working with the <a href=
+  "manager/licenses.htm">license manager</a> if Windows had other system language than English<br />
+  [+] In the expert mode you can now change the default messages: "Debugger is detected", "Virtualization tools are detected", "File is corrupted" and "Serial number is required"
+  <br />
+  [+] The script class <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> now has the <a href=
+  "script_classes.htm#TVMProtector.Messages">Messages</a> property<br />
+  [*] Improved compatibility of <a href=
+  "project_options.htm#MemoryProtection">memory protection</a> with some antiviruses<br /></p>
+
+  <h3>Version 2.06</h3>
+
+  <p>[!] Fixed a bug with marker name identification for MinGW<br />
+  [!] Fixed an error occurred during <a href=
+  "project_options.htm#ImportProtection">import protection</a> in х64 files
+  <br />
+  [!] Fixed an error occurred during virtualization of FILD WORD
+  PTR [XXXX]<br />
+  [!] Fixed an error occurred while disassembling PSRLW<br />
+  [!] Fixed an error occurred in <a href=
+  "project_files.htm">DLL Box</a> when the antivirus was active<br />
+  [*] Project file is now saved as XML<br />
+  [*] Script is now stored in a project file<br />
+  [*] Ultimate: <a href="manager/licenses.htm">License manager</a> is now in the GUI version<br />
+  [*] Ultimate: Significantly sped up execution of code <a href=
+  "project_functions.htm#LockToKey">locked to a serial number</a><br />
+  [+] Added support for MAP files for MinGW<br />
+  [+] Added support for JCLDEBUG<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEDirectory">TPEDirectory</a> now has the 
+  Clear method<br />
+  [+] The script class <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> now has properties:
+  <a href=
+  "script_classes.htm#TVMProcedure.InputSize">InputSize</a> and
+  <a href=
+  "script_classes.htm#TVMProcedure.OutputSize">OutputSize</a><br />
+  [+] Ultimate: New API are added to SDK - <a href=
+  "sdk_functions.htm#VMProtectBeginVirtualizationLockByKey">VMProtectBeginVirtualizationLockByKey</a>
+  and <a href=
+  "sdk_functions.htm#VMProtectBeginUltraLockByKey">VMProtectBeginUltraLockByKey</a><br />
+  </p>
+
+  <h3>Version 2.05</h3>
+
+  <p>[!] Fixed errors with line identification for MinGW programs<br />
+  [!] Fixed the "Out of system resources" error occurred when many procedures were added to the project<br />
+  [!] Fixed an error occurred in the console version during output of strings<br />
+  [*] MAP file date is now taken from its contents<br />
+  [+] Ultimate: Added examples on working with the <a href=
+  "manager/index.htm">licensing system</a> (on MSVC and
+  Delphi)<br />
+  [+] Ultimate: Added source codes of the <a href=
+  "manager/keygen/keygen_dll.htm">serial number generator</a>
+  on MSVC<br />
+  [+] Ultimate: Added <a href="project_files.htm">DLL Box</a>
+  (available only for EXE files)<br />
+  [+] Ultimate: A new class <a href=
+  "script_classes.htm#TInternalDLLs">TInternalDLLs</a> is added to the script<br />
+  [+] Ultimate: In the script class <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> a new property is added: <a href=
+  "script_classes.htm#TVMProtector.InternalDlls">InternalDlls</a><br />
+
+  [+] In the script class <a href=
+  "script_classes.htm#TMapRecord">TMapRecord</a> a new property is added:
+  <a href=
+  "script_classes.htm#TMapRecord.SegmentName">SegmentName</a><br />
+  [+] In the script class  <a href=
+  "script_classes.htm#TIntelRecord">TIntelRecord</a> a new property is added: <a href=
+  "script_classes.htm#TIntelRecord.Operands">Operands</a><br />
+  [+] Czech language is added<br /></p>
+
+  <h3>Version 2.04</h3>
+
+  <p>[!] Fixed an error occurred during obfuscation of FDIVR
+  [ESP+XXXX]<br />
+  [!] Fixed an error occurred during obfuscation of SWITCH in x64 applications
+  <br />
+  [*] When using the "<a href=
+  "project_options.htm#MemoryProtection">Memory protection</a>" option, a file is checked for integrity now<br />
+  [*] Ultimate: Better licensing module integration to the protected program<br />
+  [+] Added support for files with overlay<br />
+  [+] Ultimate: Added an example of <a href=
+  "manager/keygen/keygen_net.htm">C# serial number generator</a><br />
+  [+] Ultimate: <a href="manager/licenses.htm">License manager</a> now has export of product parameters for a generator on C#<br />
+  [+] Ultimate: The <a href="mode_console.htm">console version</a>
+  now has the "-lf" parameter to specify a file with licensing parameters<br />
+  [+] Added French help file<br /></p>
+
+  <h3>Version 2.03</h3>
+
+  <p>[!] Fixed an error occurred when using <a href=
+  "project_options.htm#ImportProtection">import protection</a> in SYS files (base address of hal.dll wasn't determined under Windows 7)<br />
+  [!] Fixed an error occurred during obfuscation of command using CRx registers in SYS files<br />
+  [!] Fixed small issues<br />
+  [*] Improvements in <a href="manager/index.htm">licensing system</a> of the Ultimate version<br />
+  [+] French language is added<br /></p>
+
+  <h3>Version 2.02</h3>
+
+  <p>[!] An error is fixed in SenseLock Edition occurred when several programs using different licenses on the key run simultaneously
+  (users of SenseLock Edition should update master key firmware)<br />
+  [!] Fixed EntryPoint disassembly error in Delphi programs<br />
+  [!] Fixed small issues<br />
+  [*] Important improvements in <a href="manager/index.htm">licensing system</a> of the Ultimate version<br />
+  [*] SenseLock Edition now uses the licensing system of the Ultimate version (users of SenseLock Edition should update master key firmware)<br />
+  [*] Improved detection of strings marked with <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>/<a href="sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+
+  [+] GUI now supports Unicode<br />
+  [+] Traditional Chinese is added<br /></p>
+
+  <h3>Version 2.01</h3>
+
+  <p>[!] Fixed small issues in the installer, the <a href=
+  "manager/licenses.htm">license manager</a> and <a href=
+  "sdk_functions.htm">SDK</a><br />
+  [*] VMProtect is registered with its own 
+  <a href="manager/index.htm">licensing system now</a><br />
+  [+] Added Chinese Simplified<br /></p>
+
+  <h3>Version 2.0</h3>
+
+  <p>[!] Fixed disassembly and virtualization bugs of CALL FWORD PTR [XXXX] and JMP FWORD PTR [XXXX] commands<br />
+  [!] An error is fixed in SenseLock Edition occurred when the serial number is asked after the standard PIN of a user has changed<br />
+  [!] Fixed an error occurred during virtualization of SWITCH in х64 applications<br />
+  [!] Fixed an error occurred while disassembling commands:
+  ROL, ROR, RCL, RCR, SHL, SHR, SAL and SAR, with the REX prefix in х64 applications<br />
+  [!] Fixed an error occurred during virtualization of the CMOVxx command<br />
+  [!] Fixed small issues<br />
+  [*] The help file in Russian is updated<br />
+  [*] The help file in English is updated<br />
+  [+] Added the <a href="manager/index.htm">licensing system</a> (available only in Ultimate version)<br />
+  [+] New API are added to the SDK - <a href=
+  "sdk_functions.htm#VMProtectDecryptStringA">VMProtectDecryptStringA</a>
+  and <a href=
+  "sdk_functions.htm#VMProtectDecryptStringW">VMProtectDecryptStringW</a><br />
+
+  [+] The script class <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> now has a new property
+  <a href=
+  "script_classes.htm#TVMProcedure.CompilationOptions">CompilationOptions</a><br />
+
+  [+] The script class <a href=
+  "script_classes.htm#TVMProcedure">TVMProcedure</a> now has properties
+  <a href=
+  "script_classes.htm#TVMProcedure.SELicense">SELicense</a> and
+  <a href="script_classes.htm#TVMProcedure.SEVersion">SEVersion</a>
+  (available in SenseLock Edition only)<br />
+  [+] The script class <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> has new properties added: <a href=
+  "script_classes.htm#TVMProtector.VMSectionName">VMSectionName</a>
+  and <a href=
+  "script_classes.htm#TVMProtector.VMExecutorCount">VMExecutorCount</a><br />
+
+  [+] The script class <a href=
+  "script_classes.htm#TVMProtector">TVMProtector</a> has new properties added:
+  <a href=
+  "script_classes.htm#TVMProtector.SEMasterPassword">SEMasterPassword</a>,
+  <a href=
+  "script_classes.htm#TVMProtector.SEUserPIN">SEUserPIN</a>,
+  <a href="script_classes.htm#TVMProtector.SEKeyID">SEKeyID</a>,
+  <a href="script_classes.htm#TVMProtector.SELicense">SELicense</a>
+  and <a href=
+  "script_classes.htm#TVMProtector.SEVersion">SEVersion</a>
+  (available in SenseLock Edition only)<br />
+  [-] The option "Create online commands dynamically" is removed<br /></p>
+
+  <h3>Version 1.81</h3>
+
+  <p>[!] Fixed an error occurred during execution of mutated code on Pentium 4 processors<br />
+  [!] Fixed an error occurred during execution of virtualized code on some Athlon processors<br />
+  [!] Fixed errors occurred during disassembly and virtualization of exception handler structures with an exception filter 
+  (for program on Delphi and Borland
+  C++ Builder)<br />
+  [!] Fixed an error occurred when using <a href=
+  "project_options.htm#VirtualMachines">several VM</a> in 64-bit files<br />
+  [!] Fixed small issues<br />
+  [*] Enhanced detection of <a href=
+  "use_markers.htm">marker</a> names (for programs on Visual C)<br />
+  [*] Significantly reduced memory consumption during compilation<br />
+  [*] The "HTML" resource is not packed now<br />
+  [*] The help file in Russian is updated<br />
+  [+] Added wildcard search of procedures in the "Master" mode<br />
+  [+] Added <a href="project_options.htm#PackOutputFile">new packing mode</a> featuring higher compression rate<br />
+  [+] Added support for files with TLS callbacks<br />
+  [+] New API is added to the SDK - <a href=
+  "sdk_functions.htm#VMProtectIsValidImageCRC">VMProtectIsValidImageCRC</a><br />
+  </p>
+
+  <h3>Version 1.8</h3>
+
+  <p>[!] Fixed errors occurred during <a href=
+  "project_options.htm#ImportProtection">import protection</a> in SYS files<br />
+  [!] Fixed errors occurred during <a href=
+  "project_options.htm#MemoryProtection">memory protection</a> in
+  DLL/SYS files<br />
+  [!] Fixed errors occurred when using <a href=
+  "project_options.htm#VirtualMachines">multiple VM</a> in
+  DLL/SYS-files<br />
+  [!] Fixed an error occurred during mutation of the code with exception handlers<br />
+  [!] Fixed an error occurred when <a href=
+  "project_options.htm#MemoryProtection">memory protection</a> and
+  <a href="project_options.htm#Watermarks">watermarks</a> were used simultaneously<br />
+  [!] Fixed small bugs<br />
+  [*] Improved detection of references to <a href=
+  "use_markers.htm">marked</a> strings (you don't have to mark every reference to a protected string now)<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection</a><br />
+  [*] Improved <a href=
+  "project_options.htm#DebuggerDetection">debugger detection</a><br />
+  [*] The help file in Russian is updated<br />
+  [+] The GUI version now allows saving project files under different names<br />
+  [+] Now you can open project files<br />
+  [+] Added <a href=
+  "project_options.htm#VirtualizationToolsDetection">Sandboxie detection</a><br />
+  [+] Added support for files compiled with the /SAFESEH key<br />
+  [+] Added support for CodeGear 2009<br />
+  [+] Now you can have named markers (when <a href=
+  "sdk_functions.htm#VMProtectBegin">VMProtectBegin</a>/<a href=
+  "sdk_functions.htm#VMProtectBeginMutation">VMProtectBeginMutation</a>/<a href="sdk_functions.htm#VMProtectBeginVirtualization">VMProtectBeginVirtualization</a>/<a href="sdk_functions.htm#VMProtectBeginUltra">VMProtectBeginUltra</a>
+  from VMProtectSDKxx.dll/VMProtectDDKxx.sys are used)<br />
+  [+] New API are added to the SDK (<a href=
+  "sdk_functions.htm#VMProtectIsDebuggerPresent">VMProtectIsDebuggerPresent</a>
+  and <a href=
+  "sdk_functions.htm#VMProtectIsVirtualMachinePresent">VMProtectIsVirtualMachinePresent</a>)<br />
+
+  [+] A new utility was added to SenseLock Edition - "Remote update and licensing system"<br />
+  [+] SenseLock Edition now has key id lock<br /></p>
+
+  <h3>Version 1.7</h3>
+
+  <p>[!] Sections with SHAREABLE+WRITABLE flags are not packed now<br />
+  [!] Fixed small issues<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection</a> for SYS files<br />
+  [*] Improved <a href=
+  "project_options.htm#PackOutputFile">packing</a> of SYS files
+  (packed sections are not flagged with WRITABLE any more)<br />
+  [*] Improved <a href=
+  "project_options.htm#DebuggerDetection">debugger detection</a><br />
+  [+] Added the "<a href=
+  "project_options.htm#MemoryProtection">Memory protection</a>" option (this option prevent changes to be made to memory while the application is running)<br />
+  [+] Added the "<a href=
+  "project_options.htm#VirtualizationToolsDetection">Detect virtualization tools (VMware/Virtual PC)</a>" option<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has a property
+  <a href=
+  "script_classes.htm#TPEFile.EntryPoint">EntryPoint</a><br /></p>
+
+  <h3>Version 1.65</h3>
+
+  <p>[!] Fixed small issues<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection</a><br />
+  [*] Improved <a href=
+  "project_options.htm#DebuggerDetection">debugger detection
+  </a><br />
+  [+] Added identification of unpaired <a href=
+  "use_markers.htm">markers</a> (unpaired markers are available in the general list of objects)<br />
+  [+] Added markers to apply a pre-defined compilation type:
+  VMProtectBeginVirtualization, VMProtectBeginMutation and
+  VMProtectBeginUltra<br />
+  [+] Added Chinese Traditional language<br /></p>
+
+  <h3>Version 1.64</h3>
+
+  <p>[!] Fixed a bug occurred during execution of a <a href=
+  "project_options.htm#PackOutputFile">packed file</a>,
+  if it had "TYPELIB", "REGISTRY" and "MUI" resources<br />
+  [!] Fixed the R6002 error occurred during execution of a packed file (for programs written on Visual C)<br />
+  [!] Fixed a bug occurred when the
+  "<a href="project_options.htm#ImportProtection">Import protection</a>" option was used in 64-bit SYS files<br />
+  [!] Fixed small issues<br />
+  [*] The settings file is now saved to %APPDATA%/PolyTech/VMProtect<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection
+  </a><br />
+  [+] Added the option "<a href=
+  "project_options.htm#VirtualMachines">Virtual machines</a>"
+  (different virtualized fragments of code are executed on different virtual machines with different architecture)<br />
+  [+] Added the option "<a href=
+  "project_options.htm#DebuggerDetection">Debugger detection</a>"
+  (if a debugger is detected during the protected application execution, the app shows a corresponding message and closes)<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPESection">TPESection</a> now has a property
+  <a href=
+  "script_classes.htm#TPESection.IncludedInPacking">IncludedInPacking</a><br />
+
+  [+] Added support for IRETD command<br />
+  [+] Added an example of using markers in Lazarus<br /></p>
+
+  <h3>Version 1.63</h3>
+
+  <p>[!] Fixed an error occurred when using the 
+  "<a href="project_options.htm#ImportProtection">Import protection</a>" option<br />
+  [!] Fixed small issues<br />
+  [+] A new event was added to the script: <a href=
+  "script_events.htm#OnBeforePackFile">OnBeforePackFile</a><br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has a new property
+  <a href="script_classes.htm#TPEFile.Handle">Handle</a><br />
+  [+] Added an example of using <a href=
+  "use_markers.htm">markers</a> in Free Pascal<br />
+  [*] Improved integrity control of VM objects<br /></p>
+
+  <h3>Version 1.62</h3>
+
+  <p>[!] Fixed errors occurring when using the 
+  "<a href="project_options.htm#ImportProtection">Import protection
+  </a>" option<br />
+  [!] Fixed an error occurred when handling an exception in the TRY/EXCEPT/END block in the "Ultra" mode (for programs written on Delphi and
+  Borland C++ Builder)<br />
+  [*] Improved <a href="project_options.htm#ImportProtection">import protection</a> for SYS files<br />
+  [+] Every object of a project now can have its own compilation options for individual performance tuning
+  (individual options are configured in the project tree)<br />
+  [+] Added the "Move resources to the end of the file" option<br />
+  [+] Added an example of using extended markers (see
+  Examples\Scripts\UseExtMarkers)<br /></p>
+
+  <h3>Version 1.61</h3>
+
+  <p>[!] Fixed an error occurred when starting packed files under Windows 95/98<br />
+  [!] Fixed small issues<br />
+  [+] An ability to pass a file name via the command line is added to the Lite version<br />
+  [+] A history is added in the "Master" mode<br />
+  [+] Language selection is added in the "Master" mode<br />
+  [+] Added the "<a href=
+  "project_options.htm#ImportProtection">Import protection</a>" option
+  (recommended for use along with packing of the output file)<br />
+  [+] In the <a href="mode_console.htm">console version</a>, a new parameter "-we" is added(with this parameter all warnings are displayed as error)<br />
+  [+] A new class <a href=
+  "script_classes.htm#TPEResourceRecords">TPEResourceRecords</a> is added to the script<br />
+
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has a new property
+  <a href=
+  "script_classes.htm#TPEFile.ResourceRecords">ResourceRecords</a><br />
+  </p>
+
+  <h3>Version 1.6</h3>
+
+  <p>[!] Fixed small issues<br />
+  [*] Improved work with identical strings(now identical strings are displayed as a single object with multiple elements inside)<br />
+  [+] Added an option to pack the output file<br />
+  [+] A new class <a href=
+  "script_classes.htm#TPEExportRecords">TPEExportRecords</a> is added to the script<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has a property
+  <a href=
+  "script_classes.htm#TPEFile.ExportRecords">ExportRecords</a><br />
+
+  [+] A new event <a href=
+  "script_events.htm#OnBeforeSaveFile">OnBeforeSaveFile</a> is added to the script<br />
+  [+] The help file in Chinese is added (translation by Wang
+  Xiaopeng)<br />
+  [+] Added MAP-file date/time check. (If modification date and time of the MAP-file differ from those of the protected file, the MAP-file is not loaded)<br /></p>
+
+  <h3>Version 1.56</h3>
+
+  <p>[!] Fixed an error occurred during virtualization of BT, BTC, BTR and BTS commands<br />
+  [!] Fixed small issues<br />
+  [*] List of options is sorted in order of priority<br />
+  [*] Improved support for SEH for VC8<br />
+  [*] Improved dynamic online-command production<br />
+  [*] Improved VM object integrity control<br />
+  [+] Added support for PREFETCH and PREFETCHW commands<br />
+  [+] New functions CompareText and
+  AnsiCompareText are added to the script<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has a new property
+  <a href="script_classes.htm#TPEFile.Size">Size</a><br />
+  [+] Added an example of using <a href=
+  "use_markers.htm">markers</a> in MinGW<br />
+  [+] Added Chinese language (translation by Wang Xiaopeng)<br />
+  [+] In the procedure adding dialog <a href=
+  "project_functions.htm#Search">wildcard search</a> is added ("*" and "?" are allowed)<br />
+  [+] Messages of the compiler now includes output file size<br /></p>
+
+  <h3>Version 1.55</h3>
+
+  <p>[!] Fixed an error occurred when working with a file having unaligned ImageSize value<br />
+  [!] Fixed an error occurred when calculating TRY block beginning in Delphi programs<br />
+  [!] Fixed an error occurred when a "mixed" code was processed in Discardable and NonDiscardable section of SYS-files<br />
+  [!] Fixed an error occurred during virtualization of 64-bit DLL/SYS-files<br />
+  [*] The "Encrypt registers upon exit of the VM" option is restored<br />
+  [+] A new class <a href=
+  "script_classes.htm#TIniFile">TIniFile</a> is added to the script<br />
+  [+] The script class <a href=
+  "script_classes.htm#TPEFile">TPEFile</a> now has new properties and methods<br />
+  [+] The GUI-version now features a calculator to calculate file offsets by addresses<br />
+  [+] Added Italian language (translation by Gabriele Lanza)<br /></p>
+
+  <h3>Version 1.54</h3>
+
+  <p>[!] Fixed an error occurred during mutation of the PUSH ESP command<br />
+  [!] ИFixed an error occurred during virtualization of the FLDCW [ESP+xxxx] command<br />
+  [!] Fixed an error occurred during obfuscation of the bytecode<br />
+  [*] GUI is enhanced<br />
+  [+] Added German and Spanish languages<br />
+  [+] Added support for <a href="script.htm">scripts</a><br />
+  [+] In the <a href="mode_console.htm">console version</a> a parameter is added to specify a script file name<br /></p>
+
+  <h3>Version 1.53</h3>
+
+  <p>[!] Fixed errors occurred during virtualization of code in DLL/SYS-files<br />
+  [*] Code virtualization improvements<br />
+  [*] In the <a href="mode_console.htm">console version</a> "running" percent is removed when the output is directed to a file<br />
+  [+] Added an option to insert markers for x86-64<br />
+  [+] Added an ability to create folders in a project<br />
+  [+] In the <a href="mode_console.htm">console version</a> a new parameter is added to identify the file name of a project<br /></p>
+
+  <h3>Version 1.52</h3>
+
+  <p>[!] Fixed an error occurred during mutation of CMOVxx, CMPXCHG and CMPXCHG8B commands<br />
+  [!] Fixed an error occurred during mutation of LEA ESP,[ESP+xxxx] command<br />
+  [*] The RCL and RCR commands are added to the basic logic of VM<br />
+  [+] Added support for x86-64<br />
+  [+] In the GUI-version, the "<a href=
+  "project_options.htm">Options</a>" tab now can be set to display an output file name<br />
+  [+] Added the help file in Russian and English<br /></p>
+
+  <h3>Version 1.51</h3>
+
+  <p>[!] Fixed an error occurred during creating a "Relocation
+  Table" of zero length<br />
+  [!] Fixed an error occurred during mutation of the CALL [xxxx] command in the "Mutation" mode in DLL/SYS files<br />
+  [!] In the Delphi example, VMProtectBegin definition now includes a command preventing optimization of VMProtectBegin 
+  (optimization could lead to a non-functional protected application)<br />
+  [+] Added the "Autosave project after compiling" option<br /></p>
+
+  <h3>Version 1.5</h3>
+
+  <p>[!] Fixed an error occurred while dragging files to the main window<br />
+  [!] Fixed an error occurred when working with read-only files<br />
+  [!] Fixed small issue during compilation in the "Ultra" mode<br />
+  [*] A protected file now inherits attributes of the original file<br />
+  [+] the list of protected procedures can now include strings (string assignment must be selected with markers)<br />
+  [+] The installation package includes examples of using markers in Borland C++ Builder, Delphi, MASM, Visual Basic and Visual
+  C++<br />
+  [+] Added an option: "Integrate to shell"<br /></p>
+
+  <h3>Version 1.4</h3>
+
+  <p>[!] Fixed an error occurred during mutation of IMUL, MUL, IDIV, DIV commands<br />
+  [!] Fixed an error occurred during virtualization of multiple CASE tables following one by one<br />
+  [!] Fixed an error occurred during virtualization of POP word/dword ptr [esp+xxxx] and IMUL reg8 commands<br />
+  [!] Fixed an error occurred while disassembling MOVNTPS and MOVNTPD commands<br />
+  [+] Added a new type of compilation "Ultra" (mutation + virtualization)"<br />
+  [+] Added compilation type selection in the add/modify procedure window<br />
+  [+] Added search for watermarks in processes (used for searching watermarks in packed files)<br />
+  [*] Enhanced compatibility with ASM compilers (TASM, MASM etc.)<br /></p>
+
+  <h3>Version 1.3</h3>
+
+  <p>[!] Fixed an error occurred during emulation of the FILD word ptr [xxxx] command<br />
+  [+] Each procedure can be specified a certain compilation type ("Mutation" or "Virtualization")<br /></p>
+
+  <h3>Version 1.25</h3>
+
+  <p>[+] Added support for SEH for VC7-8<br />
+  [+] Added support for markers in Visual Basic (begin and end of a fragment are marked with the following lines: Call VarPtr("VMProtect
+  begin") and Call VarPtr("VMProtect end"))<br />
+  [*] In the registered version, the VM interpreter completely changes now (to prevent automatic detection of protection by signature scanners such as PEiD, RDG Packer
+  Detector and others)<br /></p>
+
+  <h3>Version 1.24</h3>
+
+  <p>[+] Added a possibility to insert watermarks to a protected file<br />
+  [*] VM interpreter now supports multi-threaded applications (no need to create a procedure to allocate memory for interpreter's needs)<br />
+  [-] The option to allocate memory for VM interpreter's neds is removed. <br /></p>
+
+  <h3>Version 1.23</h3>
+
+  <p>[!] Fixed small issues [+] Added the "Master" mode [+] The procedure tree now displays links [*] Options
+  "Hide constants", "Dynamically create online commands",
+  "Encrypt registers on jumps", "VM object integrity control" and others are only available for registered users now</p>
+
+  <h3>Version 1.22.2</h3>
+
+  <p>[!]Fixed an error occurred during compilation of projects with the "Memory allocation in the interpreter" option enabled<br /></p>
+
+  <h3>Version 1.22</h3>
+
+  <p>[!] Fixed small issues<br />
+  [+] Added a possibility to check integrity of a bytecode (requires enabling the "VM object integrity control" option on)<br /></p>
+
+  <h3>Version 1.21</h3>
+
+  <p>[!] Fixed an error occurred during emulation of CMPXCHG8b, if operands are EAX and EDX<br />
+  [+] Now interpreter contains only those commands that will be used to execute a bytecode<br />
+  [-] Some commands were removed from the basic logic of VM (to complicate analysis and decompiling of a bytecode)<br /></p>
+
+  <h3>Version 1.2</h3>
+
+  <p>[!] Fixed an error occurred when the Bound Import directory is moved<br />
+  [+] Added a possibility to include marked parts of the code to the project(the beginning and the end of the 
+  fragment are marked by the following code assembler insertions - "db $EB,$10,'VMProtect begin',0" and "db
+  $EB,$0E,'VMProtect end',0")<br />
+  [+] Added an option to include exported functions to the project<br />
+  [-] Removed the "Encrypt bytecode" option (bytecode is now always encrypted)<br /></p>
+
+  <h3>Version 1.1</h3>
+
+  <p>[!] Fixed errors occurred while: emulation of SBB
+  (wrong state of some flags); emulation of CMOVxx,
+  CMPXCHG and CMPXCHG8b (when the second operand was addressed using ESP or a DWORD value)<br />
+  [+] Added support for SEH in VB6 (native)<br />
+  [+] Added support for MAP-files generated by IDA<br />
+  [+] Added an option for batch adding of procedures<br />
+  [+] Added displaying of links to commands directly in the list of procedures<br />
+  [+] Added a new option: "Encrypt registers on jumps"<br /></p>
+
+  <h3>Version 1.09</h3>
+
+  <p>[*] End of procedure detection process while disassembling of cycles is improved<br />
+  [+] For UPX compatibility, Shareable flag of Writeable sections is cleared (if the old relocation table is used for VM needs)<br /></p>
+
+  <h3>Version 1.08</h3>
+
+  <p>[*] Big fragments of code disassembly is sped up<br />
+  [*] Metamorphism mechanism of bytecode interpreter is improved<br /></p>
+
+  <h3>Version 1.07</h3>
+
+  <p>[!] Fixed errors occurred when: working with PE files (when code section virtual size was equal to zero);
+  obfuscating FPU commands (errors led to wrong results); disassembly (CWD was detected instead of CWDE);
+  emulation of ROL and ROR commands (if the argument was 1-byte)<br />
+  [+] Added support for SSE2 command group<br /></p>
+
+  <h3>Version 1.06</h3>
+
+  <p>[!] Fixed an error corrupting the A flag state after emulating SUB, CMP, DEC, NEG, CMPXCHG, SCAS and
+  CMPS commands.<br />
+  [!] Fixed an error occurred when working with an unaligned file<br />
+  [+] Added support for BSF, BSR and CMPXCHG8b instructions<br />
+  [+] For multi-threaded applications, you can specify a memory allocation procedure for the VM interpreter
+  (memory allocation procedure must be defined as fastcall)<br /></p>
+
+  <h3>Version 1.05</h3>
+
+  <p>[+] Added support for FUCOMPP and FCMOVxx instructions<br />
+  [+] The type of strings
+  (ANSI/Unicode/Pascal) and comments for structure fields made by compilers are now shown 
+  when looking at parts of the code<br />
+  [+] Added a metamorphism procedure for the bytecode interpreter<br />
+  [+] Added new compilation options: "Bytecode encryption" and
+  "Strip relocations (for EXE files only)"<br />
+  [-] Removed the "Obfuscate bytecode" option (now always on)<br /></p>
+
+  <h3>Version 1.04</h3>
+
+  <p>[!] Fixed an error occurred while detecting SEH handlers for C++<br />
+  [*] Bytecode obfuscator is totally reworked<br />
+  [+] Relocations are highlighted in the code now<br /></p>
+
+  <h3>Version 1.03</h3>
+
+  <p>[+] "Free space" from original parts of code is used to store the bytecode<br />
+  [+] Added detection of "short" pascal-format strings (first byte defines the length of a string)<br /></p>
+
+  <h3>Version 1.02</h3>
+
+  <p>[!] Fixed errors related to execution of online-commands in DLL/SYS<br />
+  [*] Changed the calculation algorithm of bytecode checksum<br />
+  [+] Added an option "VM interpreter integrity control" (also works as an anti-debug technique if the interpreter is being debugged and the debugger uses INT 03 as breakpoints).<br />
+  [+] Usage of "old" relocation tables to store the bytecode<br /></p>
+
+  <h3>Version 1.01</h3>
+
+  <p>[!] Fixed an error occurred when files with relocations were created(the error arose during operation of DLL/SYS-files in Windows 95/98/Me)<br />
+  [!] Fixed small issues in the disassembler<br />
+  [+] Added support for instructions: F2XM1, FABS, FCLEX, FCOS,
+  FDECSTP, FINCSTP, FINIT, FLDCW, FLDLN2, FLDLG2, FPREM, FREM1,
+  FPTAN, FRNDINT, FSIN, FSTCW, FTST, FYL2X, FPATAN, FLDZ,
+  FISTP<br />
+  [+] Added support for MAP-files of Borland C Builder<br />
+  [+] Now you can select the language of the interface and messages (Russian and English are available)<br /></p>
+
+  <h3>Version 1.0</h3>
+
+  <p>[!] Fixed small bugs in the interface<br />
+  [+] Added support for CMOV and CMPXCHG<br /></p>
+
+  <h3>Version 0.97</h3>
+
+  <p>[!] Fixed small bugs in the interface<br />
+  [+] Added support for Virtual Pascal<br /></p>
+
+  <h3>Version 0.96</h3>
+
+  <p>[!] Fixed error in the compiler (incorrect work with the C flag while compiling NEG and SBB instructions; fixed POPF processing;
+  fixed wrong bytecode CRC check when processing external conditional jumps)<br />
+  [!] Fixed bugs in the VM interpreter related to bytecode obfuscation<br />
+  [+] Improved processing of a MAP-file generated by C/C++
+  compilers (procedure names contain information about arguments)<br /></p>
+
+  <h3>Version 0.94</h3>
+
+  <p>[!] Fixed many errors<br /></p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schemas.verisign.com/pkiservices/2009/07/management" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.verisign.com/pkiservices/2009/07/management" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import schemaLocation="CertificateManagementService.xsd" namespace="http://schemas.verisign.com/pkiservices/2009/07/management" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="requestKeyRecoveryMessage">
+    <wsdl:part name="request" element="tns:requestKeyRecoveryMessage" />
+  </wsdl:message>
+  <wsdl:message name="requestKeyRecoveryResponseMessage">
+    <wsdl:part name="response" element="tns:requestKeyRecoveryResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="updateCertificateStatusRequest">
+    <wsdl:part name="request" element="tns:updateCertificateStatusRequest" />
+  </wsdl:message>
+  <wsdl:message name="updateCertificateStatusResponse">
+    <wsdl:part name="response" element="tns:updateCertificateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="bulkUpdateCertificateStatusRequest">
+    <wsdl:part name="request" element="tns:bulkUpdateCertificateStatusRequest" />
+  </wsdl:message>
+  <wsdl:message name="bulkUpdateCertificateStatusResponse">
+    <wsdl:part name="response" element="tns:bulkUpdateCertificateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchCertificateRequest">
+    <wsdl:part name="request" element="tns:searchCertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="searchCertificateResponse">
+    <wsdl:part name="response" element="tns:searchCertificateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="certificateManagementOperations">
+    <wsdl:operation name="updateCertificateStatus">
+      <wsdl:input message="tns:updateCertificateStatusRequest" />
+      <wsdl:output message="tns:updateCertificateStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="bulkUpdateCertificateStatus">
+      <wsdl:input message="tns:bulkUpdateCertificateStatusRequest" />
+      <wsdl:output message="tns:bulkUpdateCertificateStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="keyRecovery">
+      <wsdl:input message="tns:requestKeyRecoveryMessage" />
+      <wsdl:output message="tns:requestKeyRecoveryResponseMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="searchCertificate">
+      <wsdl:input message="tns:searchCertificateRequest" />
+      <wsdl:output message="tns:searchCertificateResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="certificateManagementServiceSOAP" type="tns:certificateManagementOperations">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="updateCertificateStatus">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/management/updateCertificateStatus" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bulkUpdateCertificateStatus">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/management/bulkUpdateCertificateStatus" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="keyRecovery">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/management/keyRecovery" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchCertificate">
+      <soap:operation soapAction="http://schemas.verisign.com/pkiservices/2009/07/management/searchCertificate" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="certificateManagementService">
+    <wsdl:port name="certificateManagementServiceSOAP" binding="tns:certificateManagementServiceSOAP">
+      <soap:address location="https://pki-ws.symauth.com/pki-ws/certificateManagementService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

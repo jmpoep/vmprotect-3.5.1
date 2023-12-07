@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <CustomBuildBeforeTargets>
+    </CustomBuildBeforeTargets>
+    <_PropertySheetDisplayName>qt-release</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(QTDIR)\msvc2015_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%QTDIR%\msvc2015_static\lib;$(QTDIR)\msvc2015_static\plugins\platforms;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QtMain.lib;Qt5Gui.lib;Qt5Core.lib;Qt5Concurrent.lib;Qt5Widgets.lib;Qt5WinExtras.lib;Qt5Help.lib;Qt5Sql.lib;Qt5Network.lib;Qt5CLucene.lib;qwindows.lib;Qt5PlatformSupport.lib;qtfreetype.lib;qtpcre.lib;qtharfbuzzng.lib;winmm.lib;imm32.lib;Opengl32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+      <Outputs>
+      </Outputs>
+      <Inputs>
+      </Inputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

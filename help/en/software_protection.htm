@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Analysis, cracking and protection of software</title>
+</head>
+
+<body>
+  <h1>Analysis, cracking and protection of software</h1>
+
+  <p>A software product can be analyzed by means of static or dynamic analysis. Static analysis means protection cracking algorithm is based on disassembly results analysis or on decompiling of the protected application. Dynamic analysis is required to crack encrypted or dynamically changing executables, because static analysis of such programs proved to be difficult.</p>
+
+  <p>For dynamic analysis, the program being cracked is executed in a debugger framework. This way, everything that happens during operation of the program can be controlled by the debugger. During dynamic analysis, a cracker uses the debug mode to bypass all protection algorithms of the program one by one, in particular registration key generation and check procedures. Another tool dynamic analysis often use is tracking of files, system services, ports and external devices the cracked program queries.</p>
+
+  <p>The main instruments to protect applications from cracking attempts are  <a href=
+  "dictionary.htm#Protector">software protectors</a>. Protection most of protectors provide is based on
+  <a href="dictionary.htm#Pack">packing</a> and/or <a href=
+  "dictionary.htm#Crypt">encryption</a> of the original executable with great focus put on protecting unpacking/decryption procedures.</p>
+
+  <p>Such an algorithm is often insufficient to provide reliable protection. If an application is protected by packing, a hacker can easily obtain the original unpacked file as soon as he makes the memory dump right after the unpacker finishes its work. Moreover, there are multiple automated tools to crack the most popular protectors. The same is true for encryption: after obtaining a proper license key (often purchased legally), a cracker can decrypt protected parts of the code.</p>
+
+  <p>Some software protectors use a number of anti-debug techniques. However, each one of them significantly influences the performance of the protected program. Also, anti-debug methods are only effective against dynamic analysis and are completely inefficient against static analysis. Even more, all anti-debug methods modern protectors use are well-known and studied, and crackers have programmed many utilities to avoid or bypass them. Activity monitors are not affected by the built-in anti-debug protection at all.</p>
+
+  <p>More efficient ways to protect an application are
+  <a href="dictionary.htm#Obfuscation">obfuscation</a> and <a href=
+  "dictionary.htm#Virtualization">virtualization</a> that complicate analysis of the protected application's code. Generally, high efficiency of these protection method is based on the human factor: the more complex the code is and the more resources the application uses, the harder it is for a cracker to understand program logic and, consequently, to crack protection.</p>
+
+  <p>Obfuscation "entangles" the code of an application by adding excessive instructions to it. Virtualization transforms the source code to the <a href=
+  "dictionary.htm#ByteCode">bytecode</a> executed by a special interpreter that imitates a virtual machine with a specific set of commands.
+  Therefore, virtualization leads to high and irreducible level of complexity of the resulting code, and if applied properly, the code protected with such a method does not contain methods to restore the original code explicitly. 
+  So, the main advantage of virtualization is that a virtualized fragment of the code doesn't transform to machine language commands during execution, and this in turn prevents obtaining of the original code of the application by a cracker.</p>
+
+  <p>Reverse engineering of virtualized fragments is reduced to analysis of the architecture of a <a href=
+  "dictionary.htm#VirtualMachine">virtual machine</a>, building a disassembler for the corresponding architecture of a processor imitated by the virtual machine, and analysis of the disassembled code. A properly implemented virtual machine makes creating a disassembler for it quite a difficult task. The only disadvantage of virtualization is relatively low execution speed, so this method should only be applied to parts of the code that are non-critical to execution speed.</p>
+
+  <p>Most of today's protectors do not put much attention to obfuscation and virtualization, or their implementation is poor. This allows crackers to remove such protection in automatic or semi-automatic mode. Another bottleneck of modern protectors is use of undocumented Windows functions, which leads to limited operation of the protected application in newer versions of the OS, or if DEP is enabled.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

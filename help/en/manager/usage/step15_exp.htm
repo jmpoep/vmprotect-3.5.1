@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.5: Checking the expiration date of the serial number</title>
+</head>
+
+<body>
+  <h1>Step 1.5: Checking the expiration date of the serial number</h1>
+
+  <p>Now put a new line to the ini-file in the following format: ExpDate=YYYYMMDD. For example:</p>
+  <pre class="code">ExpDate=20000101
+</pre>
+
+  <p>The date specified in this line must be already passed, that is, the maximum date is yesterday. When we run the program, we should see the following:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_DATE_EXPIRED
+please register!
+</pre>
+
+  <p>Now let's get some more information before the "please register" message is shown and the program exists:</p>
+  <pre class="code">if (res)
+{
+        VMProtectSerialNumberData sd = {0};
+        VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+        printf("exp. date: y = %d, m = %d, d = %d\n", sd.dtExpire.wYear, sd.dtExpire.bMonth, sd.dtExpire.bDay);
+        printf("please register!\n");
+        return 0;
+}
+</pre>
+
+  <p>The second run of the app now provides more details to us:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_DATE_EXPIRED
+exp. date: y = 2000, m = 1, d = 1
+please register!
+</pre>
+
+  <p>Ok, now remove the ExpDate=... line from the ini-file, so it will not influence everything else we are to do.</p><br />
+  <a href="step16_time.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Serial number encryption algorithms</title>
+</head>
+
+<body>
+  <h1>Serial number encryption algorithms</h1>
+
+  <p>The security of a key in the licensing system is based on asymmetric cryptography algorithms. The current version implements the RSA algorithm with the key length from 1024 to 16384 bits. Future versions are planned to implement other algorithms based on ECC as well as symmetric+asymmetric combined cryptography.</p>
+
+  <p>The algorithm used is unique for each product. Keys made with one algorithm cannot be used with another one, this means changing algorithms after at least one license is created is not allowed. The protection module in the protected program "knows" which algorithm the serial number is encrypted with and will not accept keys made with other algorithms or with the same algorithm but different parameters (say, different key length).</p>
+
+  <h3>RSA Algorithm</h3>
+
+  <p>A serial number is encrypted with the RSA algorithm as follows:</p>
+
+  <ul>
+    <li><strong>Adding random data to the beginning of the serial number</strong> - the method is based on RFC2313, but the implementation is slightly different. The following bytes are added to the beginning of the key: 00 02 NN...NN 00, where NN..NN
+    are from 8 to 16 random non-zero bytes. The number of bytes is random, but the system takes into account the length of the key and its maximum capacity.</li>
+
+    <li><strong>Adding random data to the end of the serial number</strong>
+    - the total number of bytes in a serial number must be equal to the number of bits in keys of the algorithm divided by 8.
+    The serial number is appended with the corresponding number of bytes holding random data. As a result, the following serial number format is produced: 00 02 NN..NN 00 DD..DD MM..MM, where NN is a set of random non-zero bytes, DD is the original serial number, MM is a set of random bytes (including zeros). The summary length of the sequence should be equal to the number of bits in keys of the algorithm divided by 8</li>
+
+    <li><strong>Encryption</strong> goes using a typical procedure implemented in many libraries to process big numbers. The PHP generator contains all the required information.</li>
+
+    <li><strong>Packing</strong> - the set of bytes obtained after encryption is encoded to base-64 &mdash; this is a serial number that goes to a customer.</li>
+  </ul><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

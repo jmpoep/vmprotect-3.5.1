@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.0;net20;net40</TargetFrameworks>
+    <Platforms>AnyCPU;x64</Platforms>	
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net20' Or '$(TargetFramework)' == 'net40'">
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);TRACE;RUNTIME</DefineConstants>
+    <OutputPath>..\..\bin\32\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);TRACE;RUNTIME</DefineConstants>
+    <OutputPath>..\..\bin\64\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);TRACE;DEBUG;RUNTIME</DefineConstants>
+    <OutputPath>..\..\bin\32\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);TRACE;DEBUG;RUNTIME</DefineConstants>
+    <OutputPath>..\..\bin\64\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <Compile Remove="VMProtect.Netcore\**" />
+    <Compile Remove="VMProtect.Runtime.Netstandard\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <EmbeddedResource Remove="VMProtect.Netcore\**" />
+    <EmbeddedResource Remove="VMProtect.Runtime.Netstandard\**" />
+    <None Remove="Tests\**" />
+    <None Remove="VMProtect.Netcore\**" />
+    <None Remove="VMProtect.Runtime.Netstandard\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,396 @@
+Archive member included because of file (symbol)
+
+/usr/lib/libc_nonshared.a(elf-init.oS)
+                              /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o (__libc_csu_fini)
+
+Discarded input sections
+
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccYfaHqg.o
+ __i686.get_pc_thunk.bx
+                0x0000000000000000        0x0 /usr/lib/libc_nonshared.a(elf-init.oS)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/libc_nonshared.a(elf-init.oS)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+LOAD /tmp/ccYfaHqg.o
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/libgcc.a
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/libgcc_s.so
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../libc.so
+START GROUP
+LOAD /lib/libc.so.6
+LOAD /usr/lib/libc_nonshared.a
+LOAD /lib/ld-linux.so.2
+END GROUP
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/libgcc.a
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/libgcc_s.so
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+LOAD /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+                0x0000000008048000                PROVIDE (__executable_start, 0x8048000)
+                0x0000000008048134                . = (0x8048000 + SIZEOF_HEADERS)
+
+.interp         0x0000000008048134       0x13
+ *(.interp)
+ .interp        0x0000000008048134       0x13 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.note.ABI-tag   0x0000000008048148       0x20
+ .note.ABI-tag  0x0000000008048148       0x20 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.hash
+ *(.hash)
+
+.gnu.hash       0x0000000008048168       0x20
+ *(.gnu.hash)
+ .gnu.hash      0x0000000008048168       0x20 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.dynsym         0x0000000008048188       0x50
+ *(.dynsym)
+ .dynsym        0x0000000008048188       0x50 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.dynstr         0x00000000080481d8       0x4a
+ *(.dynstr)
+ .dynstr        0x00000000080481d8       0x4a /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.gnu.version    0x0000000008048222        0xa
+ *(.gnu.version)
+ .gnu.version   0x0000000008048222        0xa /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.gnu.version_d  0x000000000804822c        0x0
+ *(.gnu.version_d)
+ .gnu.version_d
+                0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.gnu.version_r  0x000000000804822c       0x20
+ *(.gnu.version_r)
+ .gnu.version_r
+                0x000000000804822c       0x20 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.rel.dyn        0x000000000804824c        0x8
+ *(.rel.init)
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ .rel.text      0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ *(.rel.fini)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+ *(.rel.data.rel.ro* .rel.gnu.linkonce.d.rel.ro.*)
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+ *(.rel.ctors)
+ *(.rel.dtors)
+ *(.rel.got)
+ .rel.got       0x000000000804824c        0x8 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+ .rel.bss       0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.rela.dyn
+ *(.rela.init)
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+ *(.rela.fini)
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+ *(.rela.ctors)
+ *(.rela.dtors)
+ *(.rela.got)
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+
+.rel.plt        0x0000000008048254       0x18
+ *(.rel.plt)
+ .rel.plt       0x0000000008048254       0x18 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.rela.plt
+ *(.rela.plt)
+
+.init           0x000000000804826c       0x17
+ *(.init)
+ .init          0x000000000804826c        0xb /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+                0x000000000804826c                _init
+ .init          0x0000000008048277        0x5 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .init          0x000000000804827c        0x5 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .init          0x0000000008048281        0x2 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+
+.plt            0x0000000008048284       0x40
+ *(.plt)
+ .plt           0x0000000008048284       0x40 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x00000000080482a4                __libc_start_main@@GLIBC_2.0
+                0x00000000080482b4                puts@@GLIBC_2.0
+
+.text           0x00000000080482d0      0x1a8
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x00000000080482d0       0x24 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x00000000080482d0                _start
+ .text          0x00000000080482f4       0x26 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+ *fill*         0x000000000804831a        0x6 90909090
+ .text          0x0000000008048320       0x83 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ *fill*         0x00000000080483a3        0x1 90909090
+ .text          0x00000000080483a4       0x2b /tmp/ccYfaHqg.o
+                0x00000000080483a4                main
+ *fill*         0x00000000080483cf        0x1 90909090
+ .text          0x00000000080483d0       0x79 /usr/lib/libc_nonshared.a(elf-init.oS)
+                0x00000000080483d0                __libc_csu_fini
+                0x00000000080483e0                __libc_csu_init
+ .text.__i686.get_pc_thunk.bx
+                0x0000000008048449        0x4 /usr/lib/libc_nonshared.a(elf-init.oS)
+                0x0000000008048449                __i686.get_pc_thunk.bx
+ *fill*         0x000000000804844d        0x3 90909090
+ .text          0x0000000008048450       0x28 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .text          0x0000000008048478        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+ *(.text.*personality*)
+ *(.gnu.warning)
+
+.fini           0x0000000008048478       0x1c
+ *(.fini)
+ .fini          0x0000000008048478       0x13 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+                0x0000000008048478                _fini
+ .fini          0x000000000804848b        0x5 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .fini          0x0000000008048490        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+                0x0000000008048494                PROVIDE (__etext, .)
+                0x0000000008048494                PROVIDE (_etext, .)
+                0x0000000008048494                PROVIDE (etext, .)
+
+.rodata         0x0000000008048494       0x12
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata        0x0000000008048494        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x0000000008048494                _fp_hw
+ .rodata.cst4   0x0000000008048498        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x0000000008048498                _IO_stdin_used
+ .rodata        0x000000000804849c        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+                0x000000000804849c                __dso_handle
+ .rodata        0x00000000080484a0        0x6 /tmp/ccYfaHqg.o
+
+.rodata1
+ *(.rodata1)
+
+.eh_frame_hdr   0x00000000080484a8       0x1c
+ *(.eh_frame_hdr)
+ .eh_frame_hdr  0x00000000080484a8       0x1c /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+
+.eh_frame       0x00000000080484c4       0x58
+ *(.eh_frame)
+ .eh_frame      0x00000000080484c4       0x54 /usr/lib/libc_nonshared.a(elf-init.oS)
+ .eh_frame      0x0000000008048518        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+                0x000000000804851c                . = (ALIGN (0x1000) - ((0x1000 - .) & 0xfff))
+                0x000000000804951c                . = (0x1000 DATA_SEGMENT_ALIGN 0x1000)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.tdata
+ *(.tdata .tdata.* .gnu.linkonce.td.*)
+
+.tbss
+ *(.tbss .tbss.* .gnu.linkonce.tb.*)
+ *(.tcommon)
+
+.preinit_array  0x000000000804951c        0x0
+                0x000000000804951c                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array)
+                0x000000000804951c                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x000000000804951c        0x0
+                0x000000000804951c                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array)
+                0x000000000804951c                PROVIDE (__init_array_end, .)
+
+.fini_array     0x000000000804951c        0x0
+                0x000000000804951c                PROVIDE (__fini_array_start, .)
+ *(.fini_array)
+ *(SORT(.fini_array.*))
+                0x000000000804951c                PROVIDE (__fini_array_end, .)
+
+.ctors          0x000000000804951c        0x8
+ *crtbegin.o(.ctors)
+ .ctors         0x000000000804951c        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *(.ctors)
+ .ctors         0x0000000008049520        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+
+.dtors          0x0000000008049524        0x8
+ *crtbegin.o(.dtors)
+ .dtors         0x0000000008049524        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *(.dtors)
+ .dtors         0x0000000008049528        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+                0x0000000008049528                __DTOR_END__
+
+.jcr            0x000000000804952c        0x4
+ *(.jcr)
+ .jcr           0x000000000804952c        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .jcr           0x000000000804952c        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+
+.data.rel.ro
+ *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
+ *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*)
+
+.dynamic        0x0000000008049530       0xc8
+ *(.dynamic)
+ .dynamic       0x0000000008049530       0xc8 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x0000000008049530                _DYNAMIC
+
+.got            0x00000000080495f8        0x4
+ *(.got)
+ .got           0x00000000080495f8        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x00000000080495fc                . = (. DATA_SEGMENT_RELRO_END 0xc)
+
+.got.plt        0x00000000080495fc       0x18
+ *(.got.plt)
+ .got.plt       0x00000000080495fc       0x18 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x00000000080495fc                _GLOBAL_OFFSET_TABLE_
+
+.data           0x0000000008049614        0x4
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x0000000008049614        0x4 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+                0x0000000008049614                data_start
+                0x0000000008049614                __data_start
+ .data          0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+ .data          0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .data          0x0000000008049618        0x0 /tmp/ccYfaHqg.o
+ .data          0x0000000008049618        0x0 /usr/lib/libc_nonshared.a(elf-init.oS)
+ .data          0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .data          0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+ *(.gnu.linkonce.d.*personality*)
+
+.data1
+ *(.data1)
+                0x0000000008049618                _edata = .
+                0x0000000008049618                PROVIDE (edata, .)
+                0x0000000008049618                __bss_start = .
+
+.bss            0x0000000008049618        0x8
+ *(.dynbss)
+ .dynbss        0x0000000000000000        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ .bss           0x0000000008049618        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+ .bss           0x0000000008049618        0x5 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ *fill*         0x000000000804961d        0x3 00
+ .bss           0x0000000008049620        0x0 /tmp/ccYfaHqg.o
+ .bss           0x0000000008049620        0x0 /usr/lib/libc_nonshared.a(elf-init.oS)
+ .bss           0x0000000008049620        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .bss           0x0000000008049620        0x0 /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+ *(COMMON)
+                0x0000000008049620                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0000000008049620                . = ALIGN (0x4)
+                0x0000000008049620                . = ALIGN (0x4)
+                0x0000000008049620                _end = .
+                0x0000000008049620                PROVIDE (end, .)
+                0x0000000008049620                . = DATA_SEGMENT_END (.)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000      0x114
+ *(.comment)
+ .comment       0x0000000000000000       0x2e /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crt1.o
+ .comment       0x000000000000002e       0x2e /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crti.o
+ .comment       0x000000000000005c       0x2e /usr/lib/gcc/i386-redhat-linux/4.1.2/crtbegin.o
+ .comment       0x000000000000008a       0x2e /tmp/ccYfaHqg.o
+ .comment       0x00000000000000b8       0x2e /usr/lib/gcc/i386-redhat-linux/4.1.2/crtend.o
+ .comment       0x00000000000000e6       0x2e /usr/lib/gcc/i386-redhat-linux/4.1.2/../../../crtn.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(test1 elf32-i386)

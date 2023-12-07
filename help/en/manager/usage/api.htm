@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Licensing API functions</title>
+  <style type="text/css">
+/*<![CDATA[*/
+                th {text-align:left;}
+                table {border-collapse:collapse; margin-top: 4px;}
+                td,th {border: 1px solid #B0B0B0; padding-left:10;padding-right:10;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Licensing API functions</h1>
+
+  <p>The licensing system API is an integral part of VMProtect API and its SDK. API allows you to specify a serial number and retrieve all information about it: whether it suits the program or not, is the serial number expired, the name this product is registered to and so on. Also, the API provides a hardware identifier of the computer the program runs on.</p><strong id=
+  "VMProtectSetSerialNumber">VMProtectSetSerialNumber</strong>
+
+  <p>This function loads a serial number to the licensing system. Call syntax:</p>
+  <pre class="code">int VMProtectSetSerialNumber(const char *SerialNumber);
+</pre>
+
+  <p>The input <strong>SerialNumber</strong> parameter must contain a pointer to a null-terminated string ('\0') containing a base-64 encoded serial number. The function returns a bit mask of serial number status flags, the same as the one <strong>VMProtectGetSerialNumberState()</strong> returns. You can read more about flags below. The serial number is "good" if the function returned 0.</p><br />
+  <strong id=
+  "VMProtectGetSerialNumberState">VMProtectGetSerialNumberState</strong>
+
+  <p>This function returns status flags for the serial number specified by a call to 
+  <strong>VMProtectSetSerialNumber()</strong>.</p>
+  <pre class="code">int VMProtectGetSerialNumberState();
+</pre>
+
+  <p>If at least one flag is set, there is a problem with the serial number. The program shouldn't work if at least one bit is set. The detailed description of flags and their values is listed in the table below:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Flag</th>
+
+      <th>Value</th>
+
+      <th>Description</th>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_CORRUPTED</td>
+
+      <td>0x00000001</td>
+
+      <td>The licensing system is corrupted. Possible reasons are: incorrect setup of the protection project, cracking attempt.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_INVALID</td>
+
+      <td>0x00000002</td>
+
+      <td>The serial number is incorrect. The flag is set if the licensing system cannot decrypt the serial number.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_BLACKLISTED</td>
+
+      <td>0x00000004</td>
+
+      <td>The serial number matches the product, but is black listed in VMProtect.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_DATE_EXPIRED</td>
+
+      <td>0x00000008</td>
+
+      <td>The serial number is expired. You can obtain the detailed information about the expiration date by calling 
+      <strong>VMProtectGetSerialNumberData()</strong></td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_RUNNING_TIME_OVER</td>
+
+      <td>0x00000010</td>
+
+      <td>Operating time of the program is depleted. You can obtain the detailed information about the operating time of the program by calling
+      <strong>VMProtectGetSerialNumberData()</strong></td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_BAD_HWID</td>
+
+      <td>0x00000020</td>
+
+      <td>Hardware identifier does not match the hardware identifier prescribed in the key.</td>
+    </tr>
+
+    <tr>
+      <td>SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED</td>
+
+      <td>0x00000040</td>
+
+      <td>The serial number does not match the current version of the protected program. You can obtain the maximum build date of the program this serial number matches by calling 
+      <strong>VMProtectGetSerialNumberData()</strong>.</td>
+    </tr>
+  </table><br /><br />
+  <strong id=
+  "VMProtectGetSerialNumberData">VMProtectGetSerialNumberData</strong>
+
+  <p>This function obtains information about contents of the serial number acquired with a call to
+  <strong>VMProtectSetSerialNumber()</strong>. Call syntax:</p>
+  <pre class="code">bool VMProtectGetSerialNumberData(VMProtectSerialNumberData *Data, int Size);
+</pre>
+
+  <p>The first parameter is a pointer to the 
+  <strong>VMProtectSerialNumberData</strong> structure, where all necessary information will be written to. The second parameter is the size of the structure passed in the first parameter. It is required to control the structure's format. The function returns FALSE if the licensing system is corrupted (see the SERIAL_STATE_FLAG_CORRUPTED flag), if a zero address of the structure is provided or if the passed size of the structure is incorrect. In all other cases, the function returns TRUE and records all information about the serial number to the provided address. Below are the elements of the structure:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Element</th>
+
+      <th>Type</th>
+
+      <th>Description</th>
+    </tr>
+
+    <tr>
+      <td>nState</td>
+
+      <td>int</td>
+
+      <td>A bit flag mask indicating the status of a key. Similar to the one returned by 
+      <strong>VMProtectGetSerialNumberState()</strong>.</td>
+    </tr>
+
+    <tr>
+      <td>wUserName</td>
+
+      <td>wchar_t[256]</td>
+
+      <td>The name of a customer in UNICODE, null-terminated.</td>
+    </tr>
+
+    <tr>
+      <td>wEMail</td>
+
+      <td>wchar_t[256]</td>
+
+      <td>The e-Mail of a customer in UNICODE, null-terminated.</td>
+    </tr>
+
+    <tr>
+      <td>dtExpire</td>
+
+      <td>VMProtectDate</td>
+
+      <td>The key expiration date. The format of the 
+      VMProtectDate structure is described below.</td>
+    </tr>
+
+    <tr>
+      <td>dtMaxBuild</td>
+
+      <td>VMProtectDate</td>
+
+      <td>The maximum product build date the given key can work with. The format of the VMProtectDate structure is described below.</td>
+    </tr>
+
+    <tr>
+      <td>bRunningTime</td>
+
+      <td>int</td>
+
+      <td>The amount of minutes the program will work (maximum duration of a session). The value in minutes counts from the moment the program starts.</td>
+    </tr>
+
+    <tr>
+      <td>nUserDataLength</td>
+
+      <td>unsigned char</td>
+
+      <td>The length of user data in the
+      <strong>bUserData</strong> field.</td>
+    </tr>
+
+    <tr>
+      <td>bUserData</td>
+
+      <td>unsigned char[255]</td>
+
+      <td>User data put into the key. The actual number of bytes is specified in 
+      <strong>nUserDataLength</strong>.</td>
+    </tr>
+  </table><br />
+
+  <p>The <strong>VMProtectDate</strong> structure is a compact representation of date. Its fields are listed in the table below:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>Element</th>
+
+      <th>Type</th>
+
+      <th>Description</th>
+    </tr>
+
+    <tr>
+      <td>wYear</td>
+
+      <td>unsigned short</td>
+
+      <td>Year.</td>
+    </tr>
+
+    <tr>
+      <td>bMonth</td>
+
+      <td>unsigned char</td>
+
+      <td>Month, starts from 1.</td>
+    </tr>
+
+    <tr>
+      <td>bDay</td>
+
+      <td>unsigned char</td>
+
+      <td>Day, starts from 1.</td>
+    </tr>
+  </table><br />
+  <br />
+  <strong id=
+  "VMProtectGetCurrentHWID">VMProtectGetCurrentHWID</strong>
+
+  <p>This function obtains a hardware identifier of the PC the program is working on. Call syntax:</p>
+  <pre class="code">int VMProtectGetCurrentHWID(char * HWID, int Size);
+</pre>
+
+  <p>The first parameter is a pointer to a memory area where the identifier is written to. The second parameter is the size of this area. The function returns the number of bytes written inclusive of the trailing zero byte ('\0'). If NULL is provided in the first parameter, the function returns the number of bytes required to store the hardware identifier. Here is the correct way to use the function:</p>
+  <pre class="code"><strong>int</strong> nSize = <strong>VMProtectGetCurrentHWID</strong>(NULL, 0); // get the required buffer size
+<strong>char *</strong>pBuf = <strong>new char</strong>[nSize]; // allocate memory for the buffer
+<strong>VMProtectGetCurrentHWID</strong>(pBuf, nSize); // obtain the identifier
+// use the identifier
+<strong>delete</strong> [] pBuf; // release memory
+</pre><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

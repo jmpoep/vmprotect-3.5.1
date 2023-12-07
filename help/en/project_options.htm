@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>"Options" section</title>
+</head>
+
+<body>
+  <h1>"Options" section</h1>
+
+  <p>The "Options" subsection of the "Project" section allows you to configure various protection parameters:</p>
+  <p><img src="images/project_options.png" /></p>
+
+  <h3>File</h3>
+
+  <ul>
+    <li><strong id="MemoryProtection">Memory Protection</strong> -
+    this option allows you to secure the image of the file in memory from any changes (data integrity is checked for all sections that do not have the WRITABLE attribute). Image integrity check is performed before passing the control to the original entry point of the program. If integrity is violated, a corresponding message is shown and the program stops execution.</li>
+
+    <li><strong id="ImportProtection">Import Protection</strong> -
+    this option allows hiding the list of API the protected program uses from a cracker. We recommend using this option along with packing of the output file.</li>
+
+    <li><strong id="ResourceProtection">Resource Protection</strong> -
+    this option encrypts resources of the program (except icons, manifests and other service resources).</li>
+
+    <li>
+      <strong id="PackOutputFile">Pack the Output File</strong>
+      - this option allows you to pack the protected file to reduce its size. The application is unpacked automatically when the protected file is executed. The entire unpacking goes without any disk writing, completely in RAM.
+
+      <p>When using this option, we also recommend to include
+      <a href="dictionary.htm#EntryPoint">EntryPoint</a> to the list of protected objects.<br />
+      <strong>Important:</strong><br />
+      When the program starts, after the code is unpacked the control is passed to EntryPoint. If the code of EntryPoint is virtualized, this code will be executed on the same VM interpreter as the code of the unpacker itself. Virtualization of EntryPoint combined with packing of the protected file prevents manual unpacking of the protected file, as in this case an intruder has to restore EntryPoint code to get a working file image.</p>
+    </li>
+	<li>
+	  <strong id="Additional">Additional</strong>
+	  - additional levels of protection:</li>
+	  <ul>
+	    <li>
+		  <strong id="watermarks">Watermarks</strong> - allows adding <a href="watermarks.htm">watermarks</a> to the project.
+		</li>
+		<li><strong id="VMSectionName">VM Segments</strong> -
+    When the file is compiled, new segments will be added to it to the place where various system data are stored (virtualized and mutated code, VM interpreters, watermarks etc.). This option allows you to specify names for these new segments.
+    We recommend changing the standard ".vmp" name of segments to something else
+    (for example ".UPX").</li>
+		<li><strong>Strip Debug Information</strong> - removing of debug information impedes analysis of the code by a cracker.</li>
+		<li><strong>Strip Relocations</strong> - some compilers (i.e. Delphi) create a relocation table for EXE files that are not used by the operating system to load EXE files. If the option is enabled, the space occupied by relocation table is be used for VM needs.</li>
+	  </ul>
+	
+  </ul>
+
+  <h3>Detection</h3>
+
+  <ul>
+    <li><strong id="DebuggerDetection">Debugger</strong> - this option prevents debugging of the protected file. There are 2 types of debuggers: User-mode debuggers (OllyDBG, WinDBG etc.) and
+    Kernel-mode debuggers(SoftICE, Syser and others).
+    Debugger detection is performed before passing control to the entry point of the program. If a debugger is detected, a corresponding message is shown and the program stops execution.</li>
+
+    <li><strong id="VirtualizationToolsDetection">Virtualization Tools</strong> - this option prohibits executing the protected file in various virtual environments:
+    VMware, Virtual PC, VirtualBox, Sandboxie. Detection of virtualization is performed before passing control to the entry point of the program. If a virtual environment is detected, a corresponding message is shown and the program stops execution.</li>
+  </ul>
+
+  <h3>Messages</h3>
+  <p>Here you can customize messages the program displays when it detects a debugger, a virtualization tool, if the file is corrupted or when there's an attempt to execute the code protected by a serial number.</p>
+  
+  <h3 id="LicensingParameters">Licensing parameters</h3>
+
+  <p>Choose a project file created in the <a href="manager/licenses.htm">license manager</a> as a licensing parameter file. By default, the current project file is used.</p>
+  
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

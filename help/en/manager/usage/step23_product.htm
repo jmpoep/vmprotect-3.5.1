@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 2.3: First start of the protected product</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Step 2.3: First start of the protected product</h1>
+
+  <p>The licensing system is initialized, so let's try to compile the VMProtect project and run the protected file. After running it from the command line we will receive the following message:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is bad
+state = SERIAL_STATE_FLAG_INVALID
+</pre>
+
+  <p>If you run depends.exe and can see that our protected executable file doesn't use the VMProtectSDK.dll any more. This means the licensing module is already built into the program. You can also review the list of used DLL from VMProtect, in the "Details | Imports" section.</p>
+
+  <p><img src="../../images/depends.png" /></p>
+
+  <p>Our protected program reads a serial number from the serial.txt file. Since there is no such file yet, the licensing module receives an empty serial number that is interpreted as incorrect.
+  Now we switch to the "Licenses" section and generate a serial number.
+  This procedure is described <a href=
+  "../licenses.htm">here</a> in all details, and now we merely create a simple serial number without any limitations.</p>
+
+  <p><img src="../../images/project_add_license.png" /></p>
+
+  <p>Then, we copy the serial number (select the "Serial number" field in the license properties and precc Ctrl+C), create a file named serial.txt in the same folder as the protected application, and paste the copied number there. Now, if we run our application we will see this:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is correct, calling foo()
+I'm foo
+done
+</pre>
+
+  <p>The licensing system checked the serial number and found it correct. On the <a href="step24_test.htm">next step</a> we will try to apply some limitations will watch the results.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

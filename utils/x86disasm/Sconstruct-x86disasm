@@ -1,0 +1,93 @@
+import os
+import platform
+import sys
+sys.path.append("../..")
+import fileop
+
+def get_arg(arg_str):
+	return int((ARGUMENTS.get(arg_str, '0'))) != 0
+
+release = get_arg('release')
+clean = get_arg('clean')
+amd64 = get_arg('amd64')
+
+system = platform.system().lower()
+linux = (system == 'linux')
+macosx = (system == 'darwin')
+win = (system == 'windows')
+assert win or linux or macosx, 'Unsupported platform'
+
+defs = {}
+
+if win:
+	if release:
+		compiler_flags = '-MD -Ox -Oy '
+		defs['NDEBUG'] = None
+	else:
+		compiler_flags = '-WX -MTd -Zi -Od '
+		defs['_DEBUG'] = None
+		defs['_DPRINT'] = None
+	compiler_flags += ' -GS -GF -EHsc '
+	defs['WIN'] = None
+	defs['_CRT_SECURE_NO_DEPRECATE'] = None
+	defs['_FILE_OFFSET_BITS'] = '64'
+	defs['WIN32'] = None
+	defs['_CONSOLE'] = None
+	linker_flags = '-debug -opt:ref'
+elif linux or macosx:
+	if release:
+		compiler_flags = '-O3 -fomit-frame-pointer'
+		defs['NDEBUG'] = None
+	else:
+		compiler_flags = '-g'
+		defs['_DPRINT'] = None
+	if linux:
+		defs['LIN'] = None
+	else:
+		defs['MACOSX'] = None
+	linker_flags = ' -pthread '
+else:
+	assert False, 'Unsupported OS'
+
+defs['UNITTEST'] = None
+
+incdirs = ['../../third-party/libudis86']
+
+if amd64:
+	defs['AMD64'] = None
+	target_arch = 'x86_64'
+else:
+	defs['I386'] = None
+	target_arch = 'x86'
+
+project_name = 'x86disasm'
+
+env = Environment(
+					ENV       = os.environ,
+					CCFLAGS   = compiler_flags,
+					CPPPATH   = incdirs,
+					CPPDEFINES = defs,
+					LINKFLAGS = linker_flags,
+					NAME      = project_name,
+					TARGET_ARCH = target_arch
+					)
+
+if win:
+	obj_ext = '.obj'
+elif linux or macosx:
+	obj_ext = '.o'
+else:
+	assert False
+
+dirs = ['.', '../../third-party/libudis86']
+
+if clean:
+	fileop.clean_dirs(dirs, obj_ext)
+else:
+	# Build file list
+	sources = []
+	sources += Glob('./*.cc')
+	sources += Glob('../../third-party/libudis86/*.c')
+	# Perform build
+	env.Program(project_name, sources)
+

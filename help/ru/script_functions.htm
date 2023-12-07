@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Встроенные функции</title>
+</head>
+
+<body>
+  <h1>Встроенные функции</h1>
+
+  <p>Помимо методов и свойств классов скриптового языка
+  пользователю VMProtect доступны функции, дающие возможность
+  выполнить ряд основных операций. Среди этих функций присутствуют
+  как общесистемные функции, позволяющие работать со строками,
+  датами и числами, использовать командную строку программы,
+  выводить различные сообщения и т.д., так и специализированные
+  функции, позволяющие работать с ядром VMProtect и водяными
+  знаками:</p>
+
+  <ul>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></li>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.5">table</a></li>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.6">math</a></li>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.7">bit32</a></li>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.8">io</a></li>
+    <li><a href="http://www.lua.org/manual/5.2/manual.html#6.9">os</a></li>
+    <li><a href="#VMProtect">vmprotect</a></li>
+  </ul>
+  <a name="VMProtect"></a>
+  <pre class="code">
+namespace vmprotect {
+	<a href="script_classes.htm#Core">Core</a> core(); // возвращает ядро VMProtect
+	string extractFilePath(string name); // извлекает путь файла 
+	string extractFileName(string name); // извлекает имя файла 
+	string extractFileExt(string name); // извлекает расширение файла 
+	table commandLine(); // возвращает командную строку
+	<a href="script_classes.htm#FFILibrary">FFILibrary</a> openLib(string name); // открывает библиотеку
+};
+</pre>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

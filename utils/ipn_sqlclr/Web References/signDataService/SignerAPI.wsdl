@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:vssign="http://schemas.symantec.com/pkiservices/2011/11/sign" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.symantec.com/pkiservices/2011/11/sign" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import schemaLocation="SignerAPI.xsd" namespace="http://schemas.symantec.com/pkiservices/2011/11/sign" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="prepSignDataRequest">
+    <wsdl:part name="request" element="vssign:PrepSignDataRequest" />
+  </wsdl:message>
+  <wsdl:message name="prepSignDataResponse">
+    <wsdl:part name="response" element="vssign:PrepSignDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="verifySignedDataRequest">
+    <wsdl:part name="request" element="vssign:VerifySignedDataRequest" />
+  </wsdl:message>
+  <wsdl:message name="verifySignedDataResponse">
+    <wsdl:part name="response" element="vssign:VerifySignedDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="noOpRequest">
+    <wsdl:part name="request" element="vssign:ToBeSignedPKCS7BlobType" />
+  </wsdl:message>
+  <wsdl:message name="noOpResponse">
+    <wsdl:part name="response" element="vssign:ToBeSignedClientPKCS7BlobType" />
+  </wsdl:message>
+  <wsdl:portType name="signDataOperations">
+    <wsdl:operation name="prepSignData">
+      <wsdl:input message="vssign:prepSignDataRequest" />
+      <wsdl:output message="vssign:prepSignDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="verifySignedData">
+      <wsdl:input message="vssign:verifySignedDataRequest" />
+      <wsdl:output message="vssign:verifySignedDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="noOp">
+      <wsdl:input message="vssign:noOpRequest" />
+      <wsdl:output message="vssign:noOpResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="signDataServiceSOAP" type="vssign:signDataOperations">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="prepSignData">
+      <soap:operation soapAction="http://schemas.symantec.com/pkiservices/2011/11/sign/signDataOperations/prepSignDataRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifySignedData">
+      <soap:operation soapAction="http://schemas.symantec.com/pkiservices/2011/11/sign/signDataOperations/verifySignedDataRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noOp">
+      <soap:operation soapAction="http://schemas.symantec.com/pkiservices/2011/11/sign/signDataOperations/noOpRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="signDataService">
+    <wsdl:port name="signDataServiceSOAP" binding="vssign:signDataServiceSOAP">
+      <soap:address location="https://egwhost/signDataService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

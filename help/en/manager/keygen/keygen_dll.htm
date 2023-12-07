@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Windows-version</title>
+</head>
+
+<body>
+  <h1>Windows-version</h1>
+
+  <h3>Description</h3>
+
+  <p>Windows key generators are DLL-files for x86 and x64 platforms, a C language header file and an MSVC-compatible lib-file. Therefore, the library can be both linked statically and loaded dynamically.</p>
+
+  <p>All files of the generator are located in the 
+  <strong>Keygen\DLL</strong> folder. A test application generating serial numbers is also there.</p>
+
+  <h3>Generator API</h3>
+
+  <p>The generator exports just two functions: the first one generates a serial number, while the second one frees up memory allocated by the first one. Let's start with the first and the main one:</p>
+  <pre class="code"><strong>VMProtectErrors</strong> __stdcall <strong>VMProtectGenerateSerialNumber</strong>(
+                                <strong>VMProtectProductInfo *</strong> pProductInfo, 
+                                <strong>VMProtectSerialNumberInfo *</strong> pSerialInfo, 
+                                <strong>char **</strong> pSerialNumber
+                        );
+</pre>
+
+  <p>The first parameter is a pointer to the 
+  <strong>VMProtectProductInfo</strong> structure, which contents are uploaded to VMProtect (see <a href=
+  "../licenses.htm#export">Exporting product parameters</a>).
+  The structure contains product private key, the algorithm used and the identifier of the product. More details on filling this structure follow below.</p>
+
+  <p>The second parameter is a pointer to the 
+  <strong>VMProtectSerialNumberInfo</strong> structure, which contents are moved to the generated serial number. The structure holds all fields of a serial number and a bit mask that defines which fields should be written to the serial number.</p>
+  <pre class="code">struct <strong>VMProtectSerialNumberInfo</strong>
+{
+        <strong>INT</strong>              flags;
+        <strong>wchar_t *</strong>        pUserName;
+        <strong>wchar_t *</strong>        pEMail;
+        <strong>DWORD</strong>            dwExpDate;
+        <strong>DWORD</strong>            dwMaxBuildDate;
+        <strong>BYTE</strong>             nRunningTimeLimit;
+        <strong>char *</strong>           pHardwareID;
+        <strong>size_t</strong>           nUserDataLength;
+        <strong>BYTE *</strong>           pUserData;
+}; 
+</pre>
+
+  <p>The <strong>flags</strong> field contains bit flags from the 
+  <strong>VMProtectSerialNumberFlags</strong> set described before the structure:</p>
+
+  <ul>
+    <li><strong>HAS_USER_NAME</strong> - put the user name from the 
+    <strong>pUserName</strong> variable into the serial number.</li>
+
+    <li><strong>HAS_EMAIL</strong> - put the e-mail from the
+    <strong>pEMail</strong> variable into the serial number.</li>
+
+    <li><strong>HAS_EXP_DATE</strong> - the serial number will expire after the date specified in the 
+    <strong>dwExpDate</strong> variable.</li>
+
+    <li><strong>HAS_MAX_BUILD_DATE</strong> - the serial number will only work with version of the product built up to the date specified in the  <strong>dwMaxBuildDate</strong> variable.</li>
+
+    <li><strong>HAS_TIME_LIMIT</strong> - the program stops working after the time specified in the 
+    <strong>nRunningTimeLimit</strong> variable expires (the time is specified in minutes and shouldn't exceed 255).</li>
+
+    <li><strong>HAS_HARDWARE_ID</strong> - the program works only on hardware with the id specified in the <strong>pHardwareID</strong> variable.</li>
+
+    <li><strong>HAS_USER_DATA</strong> - put custom user data of 
+    <strong>nUserDataLength</strong> length at the address of <strong>pUserData</strong> to the serial number.</li>
+  </ul>
+
+  <p>The third parameter is a pointer to a pointer. The address of the generated serial number is written there. After generating the serial number, it should be copied, and the address must be passed to the second API function of the generator that will free memory taken by the serial number.</p>
+  <pre class="code"><strong>void</strong> __stdcall <strong>VMProtectFreeSerialNumberMemory</strong>(<strong>char *</strong> pSerialNumber);
+</pre>
+
+  <p>The <strong>VMProtectGenerateSerialNumber</strong> function
+  returns a <strong>VMProtectErrors</strong> value that either contains 0 if the serial number is successfully generated, or an error code.
+  Possible error codes are:</p>
+
+  <ul>
+    <li><strong>ALL_RIGHT</strong> - no errors, the serial number is generated.</li>
+
+    <li><strong>UNSUPPORTED_ALGORITHM</strong> - an incorrect key encryption algorithm is passed in the first parameter of the function.</li>
+
+    <li><strong>UNSUPPORTED_NUMBER_OF_BITS</strong> - an incorrect number of bits is passed in the first parameter of the function.</li>
+
+    <li><strong>USER_NAME_IS_TOO_LONG</strong> - the length of the UTF-8 encoded user name exceeded 255 byte.</li>
+
+    <li><strong>EMAIL_IS_TOO_LONG</strong> - the length of the UTF-8 encoded user e-mail exceeded 255 byte.</li>
+
+    <li><strong>USER_DATA_IS_TOO_LONG</strong> - the length of the user data exceeded 255 byte.</li>
+
+    <li><strong>HWID_HAS_BAD_SIZE</strong> - the hardware identifier has incorrect size.</li>
+
+    <li><strong>PRODUCT_CODE_HAS_BAD_SIZE</strong> - the identifier of the product passed in the first parameter of the function has incorrect size.</li>
+
+    <li><strong>SERIAL_NUMBER_TOO_LONG</strong> - the serial number is too long and can't fit the number of bits specified in the algorithm.</li>
+
+    <li><strong>BAD_PRODUCT_INFO</strong> - the first parameter of the function is incorrect or NULL.</li>
+
+    <li><strong>BAD_SERIAL_NUMBER_INFO</strong> - the second parameter of the function is incorrect or NULL.</li>
+
+    <li><strong>BAD_SERIAL_NUMBER_CONTAINER</strong> - the third parameter of the function doesn't point to memory to write the serial number address to.</li>
+
+    <li><strong>NOT_EMPTY_SERIAL_NUMBER_CONTAINER</strong> - the third parameter of the function doesn't point to an empty memory cell, the cell must be NULL.</li>
+
+    <li><strong>BAD_PRIVATE_EXPONENT</strong> - the first parameter of the function contains an incorrect value of the private exponent.</li>
+
+    <li><strong>BAD_MODULUS</strong> - the first parameter of the function contains an incorrect value of modulus.</li>
+  </ul>
+
+  <p>Errors can be of two categories: those caused by incorrect parameters or incorrect value of the first parameter, and all the rest. First category errors are rare and they indicate incorrect configuration of the structure. You should upload the product information again and check if the structure is filled correctly. An example of a proper filling of the structure can be found below.</p>
+
+  <p>Second category errors are caused by an attempt to put more data to the key than it can hold with its size. In this case we recommend to send a message to the e-commerce provider containing a text like "The key will be sent in 24 hours" instead of the actual serial number, and send all the required information to your own e-mail. In this case, the key is generated manually in VMProtect, some data are truncated to fit all crucial information to the maximum key size.</p>
+
+  <h3>Example of usage</h3>
+
+  <p>Below is a code example that calls the above functions and generates a serial number. Notice the block of code in the very beginning. The example will not work until you replace it with the one exported from VMProtect for your product:</p>
+  <pre class="code">//////////////////////////////////////////////////////////////////////////
+// !!! this block should be generated by VMProtect !!!                 ///
+//////////////////////////////////////////////////////////////////////////
+
+<strong>VMProtectAlgorithms</strong> g_Algorithm = ALGORITHM_RSA;
+<strong>size_t</strong> g_nBits = 0;
+<strong>byte</strong> g_vModulus[1];
+<strong>byte</strong> g_vPrivate[1];
+<strong>byte</strong> g_vProductCode[1];
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+<strong>int</strong> _tmain(<strong>int</strong> argc, <strong>_TCHAR*</strong> argv[])
+{
+        <strong>VMProtectProductInfo</strong>     pi;
+        pi.algorithm = g_Algorithm;
+        pi.nBits = g_nBits;
+        pi.nModulusSize = sizeof(g_vModulus);
+        pi.pModulus = g_vModulus;
+        pi.nPrivateSize = sizeof(g_vPrivate);
+        pi.pPrivate = g_vPrivate;
+        pi.nProductCodeSize = sizeof(g_vProductCode);
+        pi.pProductCode = g_vProductCode;
+
+        <strong>VMProtectSerialNumberInfo</strong> si = {0};
+        si.flags = HAS_USER_NAME | HAS_EMAIL;
+        si.pUserName = L"John Doe";
+        si.pEMail = L"john@doe.com";
+        <strong>char *</strong> pBuf = NULL;
+        <strong>VMProtectErrors</strong> res = <strong>VMProtectGenerateSerialNumber</strong>(&amp;pi, &amp;si, &amp;pBuf);
+        <strong>if</strong> (res == ALL_RIGHT)
+        {
+                <strong>printf</strong>("Serial number:\n%s\n", pBuf);
+                <strong>VMProtectFreeSerialNumberMemory</strong>(pBuf);
+        }
+        else
+        {
+                <strong>printf</strong>("Error: %d\n", res);
+        }
+
+        <strong>return</strong> 0;
+} 
+</pre>
+
+  <p>This is an example project for Microsoft Visual Studio from <strong>Keygen\DLL\Example</strong>. Below are the most interesting parts of the code with our comments.</p>
+
+  <p>First lines of the <strong>main</strong> function fill the <strong>VMProtectProductInfo</strong> structure with data, exported from VMProtect. This code is typical and it shouldn't be changed to avoid errors. Then we create the 
+  <strong>VMProtectSerialNumberInfo</strong> structure and insert a bit combination of user name and e-mail to the flag field.
+  In the next line, we put the user name and the password to the appropriate fields in the structure. Note, values are accepted in the UNICODE encoding. The key generator will transform them to UTF-8.</p>
+
+  <p>Then, we initialize a pointer variable where the address of the generated key will be stored, and call 
+  <strong>VMProtectGenerateSerialNumber</strong>, then analyze the return code. If there are no errors, the generated key goes out to console, and a call to free serial number memory function is made.</p><strong>The rest fields of the 
+  VMprotectSerialNumberInfo structure</strong>
+
+  <p>Some fields of the structure may needs some additional explanations. For example, <strong>dwExpDate</strong> and
+  <strong>dwMaxBuildDate</strong> fields contain dates in the specific format: <strong>0xYYYYMMDD</strong>, that is, the year is stored in the high wordб while the month and the day are in the respectively high and low bytes of the low word.
+  To produce such a number, the following macros is used: <strong>MAKEDATE(y,
+  m, d)</strong>. You can call it like this: <strong>MAKEDATE(2010,
+  05, 12)</strong>.</p>
+
+  <p>The <strong>pHardwareID</strong> field should contain a pointer to a string the 
+  <strong>VMProtectGetCurrentHWID</strong> method from the licensing SDK has returned.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

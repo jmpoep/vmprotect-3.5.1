@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\VMProtectCon\CommandLineParser.cpp">
+      <Filter>Original</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VMProtectCon.Tests\main.cpp" />
+    <ClCompile Include="..\VMProtectCon.Tests\precompiled.cpp" />
+    <ClCompile Include="..\VMProtectCon.Tests\Test_CommandLineParser.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\VMProtectCon.Tests\precompiled.h" />
+    <ClInclude Include="..\VMProtectCon\CommandLineParser.h">
+      <Filter>Original</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Original">
+      <UniqueIdentifier>{ce9d8e08-740d-454a-8c56-4ddb2fb9bf9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{0bb27dc3-31a8-4dcd-a1c6-30ecffb73462}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

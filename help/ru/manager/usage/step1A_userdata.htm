@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.10: Пользовательские данные</title>
+</head>
+
+<body>
+  <h1>Шаг 1.10: Пользовательские данные</h1>
+
+  <p>Серийный номер может содержать до 255 байт произвольных
+  данных, которые система лицензирования без изменений передает
+  вызывающей программе. Это может быть какая-то дополнительная
+  информация о продаже, данные, без которых не будет работать
+  полная версия, или еще что-нибудь. Изменим функцию
+  <strong>main()</strong>, чтобы она считывала данные из серийного
+  номера и показывала их на экране:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber";
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        if (res) return 0;
+
+        VMProtectSerialNumberData sd = {0};
+        VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+        printf("Serial number has %d byte(s) of data\n", sd.nUserDataLength);
+        for (int i = 0; i &lt; sd.nUserDataLength; i++)
+                printf("%02X ", sd.bUserData[i]);
+        printf("\n");
+        return 0;
+}
+</pre>
+
+  <p>Ini-файл при этом сократим до такого вида:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber 
+</pre>
+
+  <p>Теперь запустим программу и убедимся, что наш серийный номер
+  подходит, но не содержит никаких данных:</p>
+  <pre class="code">state = 0
+Serial number has 0 byte(s) of data
+</pre>
+
+  <p>Чтобы добавить пользовательские данные в серийный номер,
+  необходимо создать в ini-файле переменную UserData и присвоить ей
+  строчку из HEX-символов. Символы должны идти парами, т.е. длина
+  строки должна быть кратна 2. Строка может быть, например,
+  такой:</p>
+  <pre class="code">UserData=010203A0B0C0D0E0
+</pre>
+
+  <p>В этом случае при запуске программы мы получим следующий
+  результат:</p>
+  <pre class="code">state = 0
+Serial number has 8 byte(s) of data
+01 02 03 A0 B0 C0 D0 E0
+</pre><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

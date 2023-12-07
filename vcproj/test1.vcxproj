@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6217AC5C-50B4-4615-A765-01D0D27495BF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>test1</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\i386\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\amd64\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\i386\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\amd64\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_DPRINT;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/src;$(SolutionDir)/third-party/gtest;$(SolutionDir)/third-party/gtest/include;$(SolutionDir)/third-party/pcre;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_DPRINT;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/src;$(SolutionDir)/third-party/gtest;$(SolutionDir)/third-party/gtest/include;$(SolutionDir)/third-party/pcre;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CONSOLE;_CRT_SECURE_NO_DEPRECATE;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/src;$(SolutionDir)/third-party/gtest;$(SolutionDir)/third-party/gtest/include;$(SolutionDir)/third-party/pcre</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>-opt:ref %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CONSOLE;_CRT_SECURE_NO_DEPRECATE;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/src;$(SolutionDir)/third-party/gtest;$(SolutionDir)/third-party/gtest/include;$(SolutionDir)/third-party/pcre</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>-opt:ref %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\arm.cc" />
+    <ClCompile Include="..\src\core.cc" />
+    <ClCompile Include="..\src\demangle.cc" />
+    <ClCompile Include="..\src\dprint.c" />
+    <ClCompile Include="..\src\files.cc" />
+    <ClCompile Include="..\src\gcc-demangle.cc" />
+    <ClCompile Include="..\src\intel.cc" />
+    <ClCompile Include="..\src\macfile.cc" />
+    <ClCompile Include="..\src\objects.cc" />
+    <ClCompile Include="..\src\osutils.cc" />
+    <ClCompile Include="..\src\pefile.cc" />
+    <ClCompile Include="..\src\processors.cc" />
+    <ClCompile Include="..\src\streams.cc" />
+    <ClCompile Include="..\third-party\gtest\src\gtest-all.cc" />
+    <ClCompile Include="..\third-party\pcre\pcrecpp.cc" />
+    <ClCompile Include="..\third-party\pcre\pcre_chartables.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_compile.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_config.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_dfa_exec.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_exec.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_fullinfo.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_get.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_globals.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_info.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_maketables.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_newline.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_ord2utf8.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_refcount.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_scanner.cc" />
+    <ClCompile Include="..\third-party\pcre\pcre_stringpiece.cc" />
+    <ClCompile Include="..\third-party\pcre\pcre_study.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_tables.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_try_flipped.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_ucd.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_valid_utf8.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_version.c" />
+    <ClCompile Include="..\third-party\pcre\pcre_xclass.c" />
+    <ClCompile Include="..\third-party\pugixml\pugixml.cpp" />
+    <ClCompile Include="..\src\msvc-demangle.cc" />
+    <ClCompile Include="..\unit-tests\arm_tests.cpp" />
+    <ClCompile Include="..\unit-tests\files_tests.cc" />
+    <ClCompile Include="..\unit-tests\intel_tests.cc" />
+    <ClCompile Include="..\unit-tests\macfile_tests.cc" />
+    <ClCompile Include="..\unit-tests\pefile_tests.cc" />
+    <ClCompile Include="..\unit-tests\test1.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\arm.h" />
+    <ClInclude Include="..\src\core.h" />
+    <ClInclude Include="..\src\def.h" />
+    <ClInclude Include="..\src\demangle.h" />
+    <ClInclude Include="..\src\dprint.h" />
+    <ClInclude Include="..\src\files.h" />
+    <ClInclude Include="..\src\gcc-demangle.h" />
+    <ClInclude Include="..\src\intel.h" />
+    <ClInclude Include="..\src\macfile.h" />
+    <ClInclude Include="..\src\mach-o.h" />
+    <ClInclude Include="..\src\msvc-demangle.h" />
+    <ClInclude Include="..\src\objects.h" />
+    <ClInclude Include="..\src\osutils.h" />
+    <ClInclude Include="..\src\pe.h" />
+    <ClInclude Include="..\src\pefile.h" />
+    <ClInclude Include="..\src\processors.h" />
+    <ClInclude Include="..\src\streams.h" />
+    <ClInclude Include="..\third-party\pcre\config.h" />
+    <ClInclude Include="..\third-party\pcre\pcre.h" />
+    <ClInclude Include="..\third-party\pcre\pcrecpp.h" />
+    <ClInclude Include="..\third-party\pcre\pcrecpparg.h" />
+    <ClInclude Include="..\third-party\pcre\pcrecpp_internal.h" />
+    <ClInclude Include="..\third-party\pcre\pcre_internal.h" />
+    <ClInclude Include="..\third-party\pcre\pcre_scanner.h" />
+    <ClInclude Include="..\third-party\pcre\pcre_stringpiece.h" />
+    <ClInclude Include="..\third-party\pcre\ucp.h" />
+    <ClInclude Include="..\third-party\pugixml\pugixml.hpp" />
+    <ClInclude Include="..\unit-tests\testfile.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

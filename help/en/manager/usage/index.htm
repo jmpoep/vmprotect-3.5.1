@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Integrating to application</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Integrating to application</h1>
+
+  <p>In the several steps described below we will create a test application that queries the licensing system: provides serial numbers to it, receives the status of a serial number and its contents. On the first stage, we use the license system in the test mode; one the second stage we use it as it would be used in actual practice.</p><strong>Work modes of the licensing system</strong>
+
+  <p>Building protection always goes through two main steps: development and release. As for licensing, at first you create an application, integrate protection into it, then add checks and functional limitations. And only after thorough testing you can make the product available to users and begin the second stage. Testing of a protected application is a complex process, because you need to make sure all checks and conditional jumps operate correctly. Making "real" serial numbers for all possible test cases is inconvenient. That is why the licensing system offers the "developer mode" (AKA "test mode") as well. In this work mode, no protection is applied to the app, and reaction of the system to supplied serial numbers is adjusted in the configuration file. When the application is free from bugs and it correctly works with the licensing system, VMProtect replaces the "test" licensing module with the real one that do perform real serial number checking. This is done when the application is protected, so you can't avoid this step by mistake.</p><strong id="TestMode">Stage 1:
+  Test mode</strong>
+
+  <p>In the test mode, all reactions of the licensing system (statuses and data it returns) to supplied serial numbers is described in the configuration file. The file is called VMPLicense.ini and should be located in the working folder of the application. In 10 steps provided below we will go from creating the simplest application to full-featured use of the licensing system in the test mode with hardware locking and limiting the period of free upgrades.</p>
+
+  <ul>
+    <li><a href="step11_app.htm">Step 1.1: Creating a protected application</a></li>
+
+    <li><a href="step12_code.htm">Step 1.2: Adding the license checking code</a></li>
+
+    <li><a href="step13_flags.htm">Step 1.3: Retrieving serial number status flags</a></li>
+
+    <li><a href="step14_name.htm">Step 1.4: Retrieving the name and the e-mail of a user</a></li>
+
+    <li><a href="step15_exp.htm">Step 1.5: Checking the expiration date of the serial number</a></li>
+
+    <li><a href="step16_time.htm">Step 1.6: Limiting the operation time of the program</a></li>
+
+    <li><a href="step17_maxbuild.htm">Step 1.7: Limiting the free upgrades period</a></li>
+
+    <li><a href="step18_blacklist.htm">Step 1.8: Serial numbers in the black list</a></li>
+
+    <li><a href="step19_hwid.htm">Step 1.9: Hardware lock</a></li>
+
+    <li><a href="step1A_userdata.htm">Step 1.10: User data</a></li>
+  </ul><strong id="RealMode">Stage 2: Real mode</strong>
+
+  <p>In the real mode VMProtect licensing system puts a special licensing module to the protected application. This module carries out the same functions as the test one in the SDK, but works with contents of a serial number instead of the configuration ini-file. The next five steps illustrate the process of protecting a simple application with a full-featured protection based on VMProtect and the licensing system.</p>
+
+  <ul>
+    <li><a href="step21_src.htm">Step 2.1: Creating a new protected application</a></li>
+
+    <li><a href="step22_vmp.htm">Step 2.2: Creating a VMProtect protection project</a></li>
+
+    <li><a href="step23_product.htm">Step 2.3: First start of the protected product</a></li>
+
+    <li><a href="step24_test.htm">Step 2.4: Testing the results</a></li>
+
+    <li><a href="step25_codelock.htm">Step 2.5: Locking the code to a serial number</a></li>
+  </ul><strong>Additional information</strong>
+
+  <p>Values of all bit flags, structure formats and function call parameters can be found in the <a href="api.htm">Licensing system API
+  </a> section of this help file. Use this section as a reference, while Steps provided above help to easily implement a typical ready-to-use protection.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

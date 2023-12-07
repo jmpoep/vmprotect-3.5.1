@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d409be3f-17f1-45e5-8dc7-15adbf54d27a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\minidumpfixer\minidumpfixer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\minidumpfixer\precompiled.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\minidumpfixer\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\minidumpfixer\minidumpfixer.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\minidumpfixer\precompiled.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

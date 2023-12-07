@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:vscep="http://schemas.verisign.com/pkiservices/2009/07/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified" targetNamespace="http://schemas.verisign.com/pkiservices/2009/07/policy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+            XML Schema for policyService Web Services
+            version 2.0
+        </xs:documentation>
+  </xs:annotation>
+  <xs:element name="getPolicies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="version" type="vscep:VersionType" />
+        <xs:element minOccurs="0" name="clientTransactionID" type="vscep:TransactionIDType" />
+        <xs:element minOccurs="0" name="client" type="vscep:Client" />
+        <xs:element name="requestFilter" nillable="true" type="vscep:RequestFilter" />
+        <xs:element minOccurs="0" name="signResponse" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="VersionType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,3}\.\d{0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionIDType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Client">
+    <xs:sequence>
+      <xs:element name="lastUpdatetime" nillable="true" type="xs:dateTime" />
+      <xs:element name="preferredLanguage" nillable="true" type="xs:language" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestFilter">
+    <xs:sequence>
+      <xs:element name="policyIDs" nillable="true" type="vscep:FilterOIDCollection" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FilterOIDCollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="oid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPoliciesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="clientTransactionID" type="vscep:TransactionIDType" />
+        <xs:element name="serverTransactionID" type="vscep:TransactionIDType" />
+        <xs:element name="response" type="vscep:Response" />
+        <xs:element name="cAs" nillable="true" type="vscep:CACollection" />
+        <xs:element name="oIDs" nillable="true" type="vscep:OIDCollection" />
+        <xs:element minOccurs="0" name="signedEnrollmentPolicy" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element name="policyID" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="policyFriendlyName" type="xs:string" />
+      <xs:element name="nextUpdateHours" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="policiesNotChanged" type="xs:boolean" />
+      <xs:element name="policies" nillable="true" type="vscep:PolicyCollection" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CACollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="cA" type="vscep:CA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CA">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="uris" type="xs:anyURI" />
+      <xs:element name="certificate" type="xs:base64Binary" />
+      <xs:element name="cAIssuerName" nillable="true" type="xs:string" />
+      <xs:element name="cAReferenceID" type="xs:int" />
+      <xs:element name="cAType" nillable="true" type="vscep:CAType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="intermediateCACertificates" type="xs:base64Binary" />
+      <xs:element name="rootCACertificate" type="xs:base64Binary" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OIDCollection">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="oID" type="vscep:OID" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OID">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string" />
+      <xs:element name="oIDReferenceID" type="xs:int" />
+      <xs:element name="group" type="xs:unsignedInt" />
+      <xs:element name="defaultName" nillable="true" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PolicyCollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="policy" type="vscep:CertificateEnrollmentPolicy" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CertificateEnrollmentPolicy">
+    <xs:sequence>
+      <xs:element name="policyOIDReference" type="xs:int" />
+      <xs:element name="cAs" type="vscep:CAReferenceCollection" />
+      <xs:element name="attributes" type="vscep:Attributes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CAReferenceCollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="cAReference" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Attributes">
+    <xs:sequence>
+      <xs:element name="policySchema" type="xs:int" />
+      <xs:element name="certificateValidity" type="vscep:CertificateValidity" />
+      <xs:element minOccurs="0" maxOccurs="1" name="certificateOverrideValidity" type="vscep:OverrideValidity" />
+      <xs:element name="subjectNameInfo" nillable="true" type="vscep:subjectName" />
+      <xs:element name="extensions" nillable="true" type="vscep:Extensions" />
+      <xs:element name="privateKeyAttributes" type="vscep:PrivateKeyInfo" />
+      <xs:element name="clientPolicy" nillable="true" type="vscep:ClientPolicy" />
+      <xs:element minOccurs="0" maxOccurs="1" name="systemInfo" type="vscep:SystemInformation" />
+      <xs:element name="rAPolicy" nillable="true" type="vscep:RAPolicy" />
+      <xs:element minOccurs="0" name="seatIdInfo" type="vscep:SeatInfoType" />
+      <xs:element name="applicationInstructions" nillable="true" type="vscep:ApplicationInstructionsType" />
+      <xs:element name="deploymentMode" type="xs:string" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="migrationOIDs" nillable="true" type="vscep:MigrationOIDCollection" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SystemInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="searchCertificateData" type="vscep:SearchCertificateData" />
+      <xs:element minOccurs="0" maxOccurs="1" name="cACertPublish" type="vscep:PublishCert" />
+      <xs:element minOccurs="0" maxOccurs="1" name="cACertPublishNameValuePair" type="vscep:CACertPublishNameValuePair" />
+      <xs:element name="certificateDeliveryFormat" type="vscep:DeliveryFormat" />
+      <xs:element minOccurs="0" name="adminInfo" type="vscep:PersonalInfoType" />
+      <xs:element name="serviceEndpointList" nillable="true" type="vscep:ServiceEndpointListType" />
+      <xs:element name="duplicateCertPolicy" nillable="true" type="xs:string" />
+      <xs:element name="supersededPolicyOID" nillable="true" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MigrationOIDCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="migratedFromOID" type="xs:string" />
+      <xs:element name="migratedToOID" nillable="true" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonalInfoType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="email" type="xs:string" />
+      <xs:element name="phone" nillable="true" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServiceEndpointListType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="serviceEndpoint" type="vscep:ServiceEndpointType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServiceEndpointType">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string" />
+      <xs:element name="endpointURI" type="xs:anyURI" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SeatInfoType">
+    <xs:sequence>
+      <xs:element name="attributeNameValue" type="vscep:AttributeValueType" />
+      <xs:element name="attributeNameValueProperty" type="vscep:AttributeNameValuePropertyType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ApplicationInstructionsType">
+    <xs:sequence>
+      <xs:element name="fileContentType" type="xs:string" />
+      <xs:element name="url" type="xs:anyURI" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DeliveryFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" />
+      <xs:enumeration value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#PKCS7" />
+      <xs:enumeration value="http://schemas.verisign.com/pkiservices/2009/07/PKCS12" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CACertPublishNameValuePair">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="$publish_flag" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SearchCertificateData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="searchAttributeNameValuePair" type="vscep:AttributeNameValuePairType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CertificateValidity">
+    <xs:sequence>
+      <xs:element name="validityPeriodDays" type="xs:unsignedLong" />
+      <xs:element name="renewalPeriodDays" type="xs:unsignedLong" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OverrideValidity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="overrideFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="overrideNameValuePair" type="vscep:validityNameValuePairNames" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="validityNameValuePairNames">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="$overrideValidityDays" />
+      <xs:enumeration value="$overrideValidityStartDate" />
+      <xs:enumeration value="$overrideValidityEndDate" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PrivateKeyInfo">
+    <xs:sequence>
+      <xs:element name="keysize" type="xs:int" />
+      <xs:element minOccurs="0" name="keyEscrowPolicy" type="vscep:KeyEscrowPolicyType" />
+      <xs:element name="keyexportable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="keyprotect" type="xs:boolean" />
+      <xs:element name="algorithmOIDReference" nillable="true" type="xs:int" />
+      <xs:element name="cryptoProviders" nillable="true" type="vscep:CryptoProviders" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KeyEscrowPolicyType">
+    <xs:sequence>
+      <xs:element name="keyEscrowEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="keyRecoveryDualAdminApprovalRequired" type="xs:boolean" />
+      <xs:element name="keyEscrowDeploymentMode" nillable="true" type="xs:string" />
+      <xs:element name="doKeyRecoveryForAdditionalEnrollRequest" nillable="true" type="xs:boolean" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CryptoProviders">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="provider" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClientPolicy">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clientName" type="xs:string" />
+      <xs:element minOccurs="0" name="maxPinLength" type="xs:int" />
+      <xs:element minOccurs="0" name="minPinLength" type="xs:int" />
+      <xs:element minOccurs="0" name="noOfBadAttempts" type="xs:int" />
+      <xs:element minOccurs="0" name="certRenewalOverlap" type="xs:int" />
+      <xs:element minOccurs="0" name="renewExpiredCerts" type="xs:boolean" />
+      <xs:element minOccurs="0" name="certRenewalMsg" type="xs:string" />
+      <xs:element minOccurs="0" name="certCleanUp" type="xs:boolean" />
+      <xs:element name="certPublish" type="vscep:PublishCert" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PublishCert">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="yes" />
+      <xs:enumeration value="no" />
+      <xs:enumeration value="clientProvided" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RAPolicy">
+    <xs:sequence>
+      <xs:element name="registerUser" type="xs:boolean" />
+      <xs:element name="verifyUser" type="xs:boolean" />
+      <xs:element name="publishCert" type="vscep:PublishCert" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="authorizationInfo" type="vscep:AuthorizationInfoType" />
+      <xs:element name="pollingPolicy" nillable="true" type="vscep:PollingPolicyType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AuthorizationInfoType">
+    <xs:sequence>
+      <xs:element name="userAuthorizationCollection" type="vscep:UserAuthorizationCollection" />
+      <xs:element name="directoryInfo" nillable="true" type="vscep:DirectoryInfoType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DirectoryInfoType">
+    <xs:sequence>
+      <xs:element name="directoryType" type="xs:string" />
+      <xs:element name="domainName" type="xs:string" />
+      <xs:choice>
+        <xs:element name="ipAddress" type="xs:string" />
+        <xs:element name="hostName" type="xs:string" />
+      </xs:choice>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserAuthorizationCollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="authorizedGroup" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PollingPolicyType">
+    <xs:sequence>
+      <xs:element name="gatewayPollingTime" type="vscep:PollingTimeType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PollingTimeType">
+    <xs:sequence>
+      <xs:element name="nextUpdateHours" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Extensions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Extension" type="vscep:Extension" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Extension">
+    <xs:sequence>
+      <xs:element name="extensionOIDReference" type="xs:int" />
+      <xs:element name="extensionCriticalFlag" type="xs:boolean" />
+      <xs:element name="extensionSyntax" nillable="true" type="vscep:extensionSyntax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="extensionSyntax">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="extensionAttributeNameValuePair" type="vscep:AttributeNameValuePairType" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="extensionValue" type="vscep:extensionValueType" />
+      </xs:choice>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeNameValuePairType">
+    <xs:sequence>
+      <xs:element name="attributeName" type="xs:string" />
+      <xs:element name="attributeNameValue" nillable="true" type="vscep:AttributeValueType" />
+      <xs:element minOccurs="0" name="attributeNameValueProperty" type="vscep:AttributeNameValuePropertyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeValueType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="mandatory" type="xs:boolean" />
+        <xs:attribute name="type" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AttributeNameValuePropertyType">
+    <xs:sequence>
+      <xs:element name="value" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="source" type="xs:string" />
+      <xs:element minOccurs="0" name="sourceAttributeName" type="xs:string" />
+      <xs:element name="mandatory" nillable="true" type="xs:boolean" />
+      <xs:element name="overridable" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="extensionValueType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="mandatory" type="xs:boolean" />
+        <xs:attribute name="type" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="subjectName">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="subjectNameAttribute" type="vscep:subjectNameAttribute" />
+      <xs:element name="overrideSubjectNameFormat" type="xs:boolean" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subjectNameAttribute">
+    <xs:sequence>
+      <xs:element name="subjectNameAttributecount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="subjectNameAttributeNameValuePair" type="vscep:AttributeNameValuePairType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CAType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="public" />
+      <xs:enumeration value="private" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

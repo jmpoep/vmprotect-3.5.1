@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Licensing system features</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Licensing system features</h1>
+
+  <h3>Secure serial numbers</h3>
+
+  <p>The license system uses an asymmetric algorithm to encrypt serial numbers. The number is encrypted with a private key that only the developer has. The protected product uses the corresponding public key to decrypt the serial number and checks it. Due to the length of keys the system uses (1024 bit or higher for RSA) it is virtually impossible to compute the private key and make a key generator for the application.</p>
+
+  <h3 id="lock">Locking the code to a serial number</h3>
+
+  <p>VMProtect allows execution of a part of the program code on a virtual machine. The set of commands of the virtual machine changes on every build of the protected program. The licensing system allows to encrypt a part of virtual machine commands with the key stored in a serial number. Therefore, even if a hacker modifies a conditional jump in the program, the code still will not work without the correct serial number. And since code decryption is managed by the virtual machine, the decryption algorithm is hard to analyze even if the serial number is available.
+  </p>
+
+  <h3>Limiting the period of free upgrades</h3>
+
+  <p>The licensing system can write a date into the key so that all application versions after that date will not work with this key. This mechanism allows you to limit the period of free upgrades. For example, upon purchase the current date plus one year is written to the key, so a user will be able to download new versions from the website within one year. The key will work in these versions only. When the one-year period ends, a user has a choice: either use the last working version of the program or purchase an update for one more year.</p>
+
+  <h3>Key expiration date</h3>
+
+  <p>The licensing system allows you to write a date into the key, after which that key stops working. This is a convenient option for products that require systematic updates. For example, upon purchase the current date plus one year is put to the key, and the program works for the given user for one year. Unlike the period of free upgrades, the user has no choice here - he has to purchase a new license if he wants to continue using the program.</p>
+
+  <h3>Limiting the program operation time</h3>
+
+  <p>The licensing system allows you to limit the maximum operation time of a copy of the program. This proves to be useful in many demo applications. For example, a user wants to test a full-featured copy of the program. In this case you can send to him or her a serial number that limits the maximum session time of the program with say ten minutes. After that, the program stops functioning. This option is also convenient for various server applications, where a user can't easily restart the program.</p>
+
+  <h3>Hardware locking</h3>
+
+  <p>The licensing system allows the developer to receive a hardware identifier of user's PC based on information about CPU, network card and OS. The licensing system can produce a serial number that will be only valid on that hardware only. This option allows you to limit usage of the application to several computers.</p>
+
+  <h3>Black list</h3>
+
+  <p>If a serial number is compromised, the licensing system allows adding such a number into the black list. The blocked serial number will not work in all further versions of the application.</p>
+
+  <h3>Data storage</h3>
+
+  <p>The licensing system stores in a serial number and provides to the program the following data: a user name, an e-mail and up to 255 bytes of arbitrary information (the so called custom user data). You can use this capability to show additional information in the "About" window of the program, to implement additional security checks if the entered serial number, to store constants available in the registered version of the product only and so on.</p>
+
+  <h3>Time-limited demo versions</h3>
+
+  <p>With the <a href="activation.htm">activation</a> system, a software developer can automatically build time-limited serial numbers locked to user's hardware. This allows you to setup a secure trial period (demo) for an application, because VMProtect does not try to hide trial marks on user's computer, and instead generates a working, but time-limited serial number. Activation is carried out over the Internet, but the activation API also provides the offline activation mode.</p><br />
+  <hr noshade="noshade" size="1" />
+
+  <h3>What can't the system do and why</h3>
+
+  <h3>100% secure hardware lock</h3>
+
+  <p>Besides the licensing system allows locking a serial number to a hardware identifier, you should understand that most of hardware data is received using operating system means, so a hacker can intercept them and modify this information. The licensing system uses certain ways to minimize this risk, but if you need 100% secure hardware lock, we recommend to use a solution based on USB keys also supported by VMProtect.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

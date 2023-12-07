@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.8: Serial numbers in the black list</title>
+</head>
+
+<body>
+  <h1>Step 1.8: Serial numbers in the black list</h1>
+
+  <p>A serial number marked in VMProtect as "blocked" should not be accepted by the licensing system. When you will rebuild your application next time, VMProtect will add the hash of blacklisted serial numbers to the protected application. As a result, the licensing system of the application will decline these serial numbers in the future.</p>
+
+  <p>Firstly, lets minimize the contents of the <strong>main()</strong> function:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // we set the serial number directly in the code, for simplicity
+
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+
+        return 0;
+}
+</pre>
+
+  <p>Now, run the program and make sure the licensing system do accept our serial number:</p>
+  <pre class="code">state = 0
+</pre>
+
+  <p>Now, add this serial number to the black list of the licensing system. Add the following line to the ini-file:</p>
+  <pre class="code">BlackListedSerialNumber=Xserialnumber
+</pre>
+
+  <p>And run the program again:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_BLACKLISTED
+</pre>
+
+  <p>Should we inform a user that the serial number he or she enters is blacklisted? It is up to you. You can simply tell the serial number is incorrect or inform the user that the key is compromised. The licensing system simply informs the program about the fact of using the blacklisted serial number.</p><br />
+  <a href="step19_hwid.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

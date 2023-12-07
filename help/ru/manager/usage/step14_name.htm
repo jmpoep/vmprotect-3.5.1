@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.4: Получаем имя и e-mail пользователя</title>
+</head>
+
+<body>
+  <h1>Шаг 1.4: Получаем имя и e-mail пользователя</h1>
+
+  <p>Начнем с простого: получим из серийного номера имя и e-mail
+  пользователя (часто показываются в окне About). Для этого нам
+  придется прописать их в ini-файл. Добавим еще две строчки к нашим
+  двум:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber
+UserName=John Doe
+EMail=john@doe.com
+</pre>
+
+  <p>А в самой программе, в случае успешной регистрации, добавим
+  получение этих данных и вывод их на экран:</p>
+  <pre class="code">VMProtectSerialNumberData sd = {0};
+VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+printf("name = %ls,\ne-mail = %ls\n", sd.wUserName, sd.wEMail);
+</pre>
+
+  <p>Структура содержит данные в UNICODE, поэтому в
+  <strong>printf()</strong> использованы спецификаторы %ls вместо %s.
+  Программа должна вывести на экран текст:</p>
+  <pre class="code">state = 0
+We are registered.
+name = John Doe,
+e-mail = john@doe.com
+</pre><br />
+  <a href="step15_exp.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

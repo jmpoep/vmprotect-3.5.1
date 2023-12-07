@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Events</title>
+</head>
+
+<body>
+  <h1>Events</h1>
+
+  <p>The built in script language is an efficient way to automate creation of protected applications with VMProtect. Procedures and functions required at various stages of building the protected file are invoked in certain events processed by the VMProtect core. You can set your own handlers for 5 events that are called by the VMProtect core in the following order:</p>
+
+  <ul>
+    <li><a href="#OnBeforeCompilation">OnBeforeCompilation</a></li>
+    <li><a href="#OnBeforeSaveFile">OnBeforeSaveFile</a></li>
+    <li><a href="#OnBeforePackFile">OnBeforePackFile</a></li>
+    <li><a href="#OnAfterSaveFile">OnAfterSaveFile</a></li>
+    <li><a href="#OnAfterCompilation">OnAfterCompilation</a></li>
+  </ul>
+  <a name="OnBeforeCompilation" /><pre class="code">function OnBeforeCompilation()
+
+end</pre>
+
+  <p>This event is invoked when the list of protection objects is created. In the OnBeforeCompilation handler, you can add new procedures to the project, or modify or delete already existing ones.</p>
+  <a name="OnBeforeSaveFile" /><pre class="code">function OnBeforeSaveFile()
+
+end</pre>
+
+  <p>The event is invoked before all objects created during compilation are written to the output file. In the OnBeforeSaveFile event handler you can change the file and its properties (such as the list of resources, the list of exported function, section names etc.) that are automatically written to the output file.</p>
+  <a name="OnBeforePackFile" /><pre class="code">function OnBeforePackFile()
+
+end</pre>
+
+  <p>The event is invoked before packing the protected file of the application. With OnBeforePackFile you can modify a file that is to be packed. This event is only invoked is the "Pack output file" option is enabled.</p>
+  <a name="OnAfterSaveFile" /><pre class="code">function OnAfterSaveFile()
+
+end</pre>
+
+  <p>This event is invoked after writing all objects created during compilation to the output file. The event handler can add new data to the output file or change previously written ones.</p>
+  <a name="OnAfterCompilation" /><pre class="code">function OnAfterCompilation()
+
+end</pre>
+
+  <p>The even is invoked after compiling all objects of the project. At this stage a user has access to the compiled project, and can perform any actions with it, like adding a digital sign (certificate).</p><br/>
+  <p>When writing even handlers you can create your own procedures and functions. Event names are displayed with a bold font in the script editor.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

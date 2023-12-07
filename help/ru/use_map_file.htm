@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Использование MAP-файла</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Использование MAP-файла</h1>
+
+  <p>Для создания MAP-файла необходимо включить соответствующую
+  опцию в настройках компилятора.</p>
+
+  <h3>Visual Studio</h3>
+
+  <p>Если для разработки приложения используется Visual Studio, эту
+  операцию выполняют следующим образом: используя главное меню IDE
+  Visual Studio, входят в свойства проекта (Project - Properties),
+  где на вкладке "Linker - Debugging" переводят переключатель
+  "Generate MAP File" в положение "Yes (/MAP)":</p>
+  <p><img src="images/visual_studio_map.png" /></p>
+
+  <h3>Borland Delphi</h3>
+
+  <p>Если для разработки приложения используется Borland Delphi,
+  эту операцию выполняют следующим образом: используя главное меню
+  IDE Delphi, входят в свойства проекта (Project - Options), где на
+  вкладке "Linker" переводят переключатель секции "MAP file" в
+  положение "Detailed":</p>
+  <p><img src="images/delphi_map.png" /></p>
+
+  <p>После включения генерации MAP-файла необходимо полностью
+  перекомпилировать проект.</p>
+
+  <p>При загрузке MAP-файла VMProtect сравнивает дату и время
+  модификации защищаемого файла и MAP-файла, и в случае их отличия
+  MAP-файл не будет загружен.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

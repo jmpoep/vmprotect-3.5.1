@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Что такое VMProtect?</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Что такое VMProtect?</h1>
+
+  <p>Программа VMProtect относится к новому поколению средств
+  защиты программного обеспечения. VMProtect поддерживает
+  компиляторы Delphi, Borland C Builder, Visual C/C++, Visual Basic
+  (native), Virtual Pascal, XCode, при этом VMProtect содержит встроенный
+  дизассемблер, позволяющий работать с исполняемыми файлами для операционных систем Windows и Mac OS X, 
+  а также подключать MAP-файл, создаваемый компилятором,
+  для быстрого выбора участков кода, которые следует защитить. Для
+  автоматизации операций по защите приложения в VMProtect
+  реализован встроенный скриптовый язык. VMProtect обладает полной 
+  поддержкой 32/64-разрядных операционных систем семейства Windows 
+  (начиная с версии Win2k) и Mac OS X (начиная с версии 10.6),  
+  при этом независимо от платформы VMProtect поддерживает весь спектр 
+  исполняемых файлов (Windows версия может работать с файлами от Mac OS X и наоборот).</p> 
+
+  <p>Базовым принципом, на основе которого построен VMProtect,
+  является обеспечение эффективной защиты кода приложения от
+  изучения, так как именно максимальное усложнение понимания логики
+  работы внутренних механизмов защиты приложения создает
+  максимальные трудности при взломе программы. Основными методами
+  защиты программного кода, применяемыми VMProtect, являются
+  виртуализация, мутация и смешанный метод защиты, сочетающий
+  мутацию кода приложения с его последующей виртуализацией.</p>
+
+  <p>Одним из достоинств реализации метода виртуализации в
+  программе VMProtect является то, что виртуальная машина, на
+  которой выполняются виртуализированные фрагменты кода,
+  встраивается в результирующий код защищаемого приложения.
+  Следовательно, для функционирования приложения, защищенного с
+  помощью VMProtect, нет необходимости использовать какие-либо
+  дополнительные библиотеки или модули. VMProtect позволяет
+  использовать несколько отличных друг от друга виртуальных машин
+  для защиты разных участков кода одного приложения, что еще больше
+  усложняет процесс взлома защиты, так как взломщику будет
+  необходимо анализировать архитектуру уже нескольких виртуальных
+  машин.</p>
+
+  <p>Метод мутации кода приложения, реализованный в VMProtect,
+  основан на обфускации, в процессе которой в код приложения
+  добавляются "мусорные" команды, "мертвый" код, случайные условные
+  переходы, выполняется мутация оригинальных команд, а также
+  переносится в стек выполнение ряда операций.</p>
+
+  <p>Ключевым отличием программы VMProtect от других протекторов
+  является то, что с ее помощью можно защитить различные участки
+  кода разными методами: часть кода виртуализировать, часть
+  обфусцировать, а для самых критичных участков применить смешанный
+  метод защиты.</p>
+
+  <p>Для предотвращения ложных срабатываний со стороны антивирусов зарегистрированная 
+  версия VMProtect использует библиотеку <a href="http://standards.ieee.org/develop/indconn/icsg/taggant.pdf">Taggant</a>, которая подписывает 
+  защищаемый файл сертификатом владельца лицензии.</p>
+
+  <p>Еще одной уникальной возможностью программы VMProtect является
+  включение в код приложения <a href=
+  "dictionary.htm#Watermarks">водяных знаков</a>, позволяющих
+  однозначно идентифицировать официального владельца взломанного
+  экземпляра программы, а следовательно, принять к нему
+  соответствующие меры.</p>
+
+  <p>Программа VMProtect доступна в 3-х версиях:</p>
+
+  <ul>
+    <li>Lite (облегченная версия);</li>
+    <li>Professional (базовая версия);</li>
+    <li>Ultimate (максимальная версия);</li>
+  </ul>
+
+  <p>Отличия функциональных возможностей разных версий VMProtect
+  приведены в таблице:</p>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr align="center">
+      <td rowspan="2" align="center">
+      <strong>Возможности</strong></td>
+
+      <td colspan="3" align="center"><strong>Версия
+      VMProtect</strong></td>
+    </tr>
+
+    <tr align="center">
+      <td width="12%" align="center">Lite</td>
+      <td width="12%" align="center">Professional</td>
+      <td width="12%" align="center">Ultimate</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4" class="c1"><strong>Методы
+      защиты</strong></td>
+    </tr>
+
+    <tr>
+      <td>Мутация</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Виртуализация</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Ультра (мутация+виртуализация)</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Консольная версия</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4"><strong>Опции
+      защиты</strong></td>
+    </tr>
+
+    <tr>
+      <td>Защита памяти</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Защита импорта</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Защита ресурсов</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Упаковка</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Определение отладчика</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Определение средств виртуализации</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr bgcolor="#E0E0E0">
+      <td align="left" colspan="4"><strong>Сервисные
+      функции</strong></td>
+    </tr>
+
+    <tr>
+      <td>Водяные знаки</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Скриптовый язык</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Система лицензирования</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Менеджер лицензий</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+
+    <tr>
+      <td>Защита файлов</td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center">+</td>
+    </tr>
+  </table>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

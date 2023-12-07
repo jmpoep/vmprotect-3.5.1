@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.1: Создаем защищаемое приложение</title>
+</head>
+
+<body>
+  <h1>Шаг 1.1: Создаем защищаемое приложение</h1>
+
+  <p>Первым шагом будет создание приложения. Это будет простое
+  приложение, без интерфейса пользователя и каких-либо серьезных
+  возможностей. Нашей задачей будет передать системе лицензирования
+  серийный номер и получить от нее ответ.</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+
+bool is_registered(const char *serial)
+{
+        return serial &amp;&amp; serial[0] == 'X';
+}
+
+int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // зададим номер непосредственно в коде для простоты
+        if (!is_registered(serial))
+        {
+                printf("please register!\n");
+                return 0;
+        }
+        printf("We are registered.\n");
+        return 0;
+}
+</pre>
+
+  <p>Программа реализует очень простую схему проверки серийного
+  номера. Функция <strong>is_registered()</strong> сравнивает
+  первую букву номера с 'Х' и считает номер корректным в случае
+  совпадения. Для некорректного номера выдается просьба о
+  регистрации, а в случае правильного номера выводится сообщение
+  "We are registered."</p>
+
+  <p><a href="step12_code.htm">Следующим шагом</a> будет добавление
+  кода проверки серийного номера на основе системы лицензирования
+  VMProtect.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

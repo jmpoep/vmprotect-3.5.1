@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="file:///C:/Users/Youra/Documents/GitHub/my-vmprotect/tagg/CertificateManagementService.wsdl" filename="CertificateManagementService.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="file:///C:/Users/Youra/Documents/GitHub/my-vmprotect/tagg/CertificateManagementService.xsd" filename="CertificateManagementService.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>

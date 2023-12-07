@@ -1,0 +1,33 @@
+EXPORTS
+	SetupImage
+	FreeImage
+	ExportedDecryptString
+	ExportedFreeString
+	ExportedLoadResource
+	ExportedFindResourceA
+	ExportedFindResourceExA
+	ExportedFindResourceW
+	ExportedFindResourceExW
+	ExportedLoadStringA
+	ExportedLoadStringW 
+	ExportedEnumResourceNamesA
+	ExportedEnumResourceNamesW
+	ExportedEnumResourceLanguagesA
+	ExportedEnumResourceLanguagesW
+	ExportedEnumResourceTypesA
+	ExportedEnumResourceTypesW
+	ExportedSetSerialNumber
+	ExportedGetSerialNumberState
+	ExportedGetSerialNumberData
+	ExportedGetCurrentHWID
+	ExportedActivateLicense
+	ExportedDeactivateLicense
+	ExportedGetOfflineActivationString
+	ExportedGetOfflineDeactivationString
+	ExportedIsValidImageCRC
+	ExportedIsDebuggerPresent
+	ExportedIsVirtualMachinePresent
+	ExportedDecryptBuffer
+	ExportedIsProtected
+	CalcCRC
+	LoaderData = loader_data

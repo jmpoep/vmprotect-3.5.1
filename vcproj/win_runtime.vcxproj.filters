@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\third-party\lzma\LzmaDecode.cc">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\core.cc" />
+    <ClCompile Include="..\runtime\crypto.cc" />
+    <ClCompile Include="..\runtime\hook_manager.cc" />
+    <ClCompile Include="..\runtime\hwid.cc" />
+    <ClCompile Include="..\runtime\licensing_manager.cc" />
+    <ClCompile Include="..\runtime\loader.cc" />
+    <ClCompile Include="..\runtime\objects.cc" />
+    <ClCompile Include="..\runtime\precompiled.cc" />
+    <ClCompile Include="..\runtime\resource_manager.cc" />
+    <ClCompile Include="..\runtime\string_manager.cc" />
+    <ClCompile Include="..\runtime\file_manager.cc" />
+    <ClCompile Include="..\runtime\registry_manager.cc" />
+    <ClCompile Include="..\runtime\utils.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\third-party\lzma\LzmaDecode.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\core.h" />
+    <ClInclude Include="..\runtime\crypto.h" />
+    <ClInclude Include="..\runtime\common.h" />
+    <ClInclude Include="..\runtime\hook_manager.h" />
+    <ClInclude Include="..\runtime\hwid.h" />
+    <ClInclude Include="..\runtime\licensing_manager.h" />
+    <ClInclude Include="..\runtime\loader.h" />
+    <ClInclude Include="..\runtime\objects.h" />
+    <ClInclude Include="..\runtime\precompiled.h" />
+    <ClInclude Include="..\runtime\resource_manager.h" />
+    <ClInclude Include="..\runtime\string_manager.h" />
+    <ClInclude Include="..\runtime\file_manager.h" />
+    <ClInclude Include="..\runtime\registry_manager.h" />
+    <ClInclude Include="..\runtime\utils.h" />
+    <ClInclude Include="..\runtime\precommon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="lzma">
+      <UniqueIdentifier>{f6ad8da6-c2d3-4584-9b3f-fee0ca17d14c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\runtime\runtime.def" />
+  </ItemGroup>
+</Project>

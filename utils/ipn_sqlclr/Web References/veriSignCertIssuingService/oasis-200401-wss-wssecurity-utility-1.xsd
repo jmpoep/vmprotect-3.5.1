@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="tTimestampFault">
+    <xsd:annotation>
+      <xsd:documentation>
+This type defines the fault code value for Timestamp message expiration.
+          </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:QName">
+      <xsd:enumeration value="wsu:MessageExpired" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:attribute name="Id" type="xsd:ID">
+    <xsd:annotation>
+      <xsd:documentation>
+This global attribute supports annotating arbitrary elements with an ID.
+          </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attributeGroup name="commonAtts">
+    <xsd:annotation>
+      <xsd:documentation>
+Convenience attribute group used to simplify this schema.
+          </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="wsu:Id" use="optional" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:attributeGroup>
+  <xsd:complexType name="AttributedDateTime">
+    <xsd:annotation>
+      <xsd:documentation>
+This type is for elements whose [children] is a psuedo-dateTime and can have arbitrary attributes. 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attributeGroup ref="wsu:commonAtts" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="AttributedURI">
+    <xsd:annotation>
+      <xsd:documentation>
+This type is for elements whose [children] is an anyURI and can have arbitrary attributes.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:anyURI">
+        <xsd:attributeGroup ref="wsu:commonAtts" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="TimestampType">
+    <xsd:annotation>
+      <xsd:documentation>
+This complex type ties together the timestamp related elements into a composite type.
+            </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="wsu:Created" />
+      <xsd:element minOccurs="0" ref="wsu:Expires" />
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:any namespace="##other" processContents="lax" />
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attributeGroup ref="wsu:commonAtts" />
+  </xsd:complexType>
+  <xsd:element name="Timestamp" type="wsu:TimestampType">
+    <xsd:annotation>
+      <xsd:documentation>
+This element allows Timestamps to be applied anywhere element wildcards are present,
+including as a SOAP header.
+            </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Expires" type="wsu:AttributedDateTime">
+    <xsd:annotation>
+      <xsd:documentation>
+This element allows an expiration time to be applied anywhere element wildcards are present.
+            </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Created" type="wsu:AttributedDateTime">
+    <xsd:annotation>
+      <xsd:documentation>
+This element allows a creation time to be applied anywhere element wildcards are present.
+            </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

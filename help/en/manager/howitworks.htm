@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>How the licensing system works</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>How the licensing system works</h1>
+
+  <h3>Application protection</h3>
+
+  <p>To protect an application, VMProtect embeds the special code into it. This code checks serial numbers using information specified in the "Licensing" subsection of the "Project" section. A public key is embedded to the application and is used then to decrypt serial numbers. Also, the protection date and some additional information the licensing requires to work is put into the application.</p>
+
+  <h3>Creating serial numbers</h3>
+
+  <p>Serial numbers can be created in the <a href=
+  "licenses.htm">"Licensing"</a> section of the "Project" section or using third-party applications
+  - <a href="keygen/index.htm">key generators</a>. A serial number is a set of data about a customer encrypted using the asymmetric algorithm. The serial number then is passed to the customer, he or she enters it to the program, and the licensing system checks it.</p>
+
+  <h3>Checking a serial number in the program</h3>
+
+  <p>The licensing system has 
+  <a href="usage/api.htm">several functions</a> a program can use to work with serial numbers. The program sends a serial number to the licensing system and queries information about it. The licensing system returns the state of a serial number (valid/invalid and why) and also can provide detailed information about the serial numbers including a user name, an e-mail, the expiration date of this serial number and so on. The protected program analyzes serial number information and decides whether or not to continue operation and to limit the functionality.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

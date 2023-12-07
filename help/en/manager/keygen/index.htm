@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Serial number generators</title>
+</head>
+
+<body>
+  <h1>Serial number generators</h1><strong>What are they for?</strong>
+
+  <p>Apart from VMProtect, other software can generate serial numbers too. This is necessary to automate sending serial numbers. A customer purchases the product, an e-commerce agent sends an HTTP query to the website of the vendor, the generator runs on the server and produces a serial number based on customer's data. The serial number is sent to the customer and to the vendor. The vendor then adds the serial to VMProtect manually using the import license dialog.</p><strong>How it works</strong>
+
+  <p>The licensing system of VMProtect is based on asymmetric algorithms, that is why a secret product key is required to generate a serial number. You can export this key in the project properties window and pass it to the generator in any suitable way.</p>
+
+  <p>The generator is called by the e-commerce agent using an HTTP query. A PHP generator can be called directly, a DLL-based generator - indirectly, but the principle is the same:</p>
+
+  <ul>
+    <li>Receive user data from the e-commerce agent</li>
+
+    <li>Add all required information specified by the vendor</li>
+
+    <li>Generate a serial number</li>
+
+    <li>Encrypt it with one of algorithms</li>
+
+    <li>Send the result to the e-commerce agent</li>
+  </ul><strong>Are there any existing generators?</strong>
+
+  <p>The licensing system comes with three ready to use serial number generators <a href="keygen_dll.htm">as DLL</a>,
+  <a href="keygen_net.htm">for the .Net platform</a> and <a href=
+  "keygen_php.htm">on PHP</a>.</p><strong>Can I make my own generator?</strong>
+
+  <p>Yes, you can. The format of the serial number is <a href=
+  "serial_format.htm">here</a>, serial number encryption algorithms are described <a href=
+  "algorithms.htm">here</a>.</p><strong>Is it safe?</strong>
+
+  <p>Generally, yes, this is safe. However, you should follow these recommendations:</p>
+
+  <ul>
+    <li><strong>Use HTTPS</strong> - if your e-commerce provider can send HTTPS queries, and your web hosting provider can answer such requests - you should prefer this variant over the typical HTTP, because in this case all data are transmitted in the encrypted form and the generated serial number cannot be intercepted.</li>
+
+    <li><strong>"Hide" your generator</strong> - make sure no one can open the generator occasionally. The
+    www.site.com/keygen.php address is a bad idea. While
+    www.site.com/abc123.php is much better. Make sure you do not put any external links to the key generator, it isn't listed in website directories, and don't put it into any service file like robot.txt. The less is known about the location of the generator, the better. Optionally, you can even place the generator on another website.</li>
+
+    <li><strong>Make sure it is the e-commerce agent who calls the generator</strong> -
+    the program processing queries from the agent should check the IP address of the caller. E-commerce providers usually publish the IP-range the use to query serial number generators. Find that list at your agent and add a check to the program. If IP address sending a query lies beyond the specified IP range, do not produce comprehensible error messages. Either do not return anything or produce a simple 404.
+    Do not give any clues to why the query has failed.</li>
+
+    <li><strong>Check input parameters</strong> - product settings in the e-commerce agent's control panel usually allow you to specify a query string the agent should make to receive a license. For instance, you want to receive user name, e-mail address, date of purchase and the order id. So make sure all these parameters are passed and all of them have the correct format. Do not produce any response to erroneous queries. Send a message to your own e-mail whenever an erroneous query to the generator is made. This should help to investigate the issue.</li>
+
+    <li><strong>Add a "password"</strong> specify an additional parameter in the query sent by the e-commerce agent, a password. It should have an non-obvious name and value. Check this parameter from the receiving side. If the value is wrong, or the parameter is not specified - do not generate a serial number.</li>
+  </ul><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

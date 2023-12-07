@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="scintilla">
+      <UniqueIdentifier>{737cec8d-3da4-473a-8e06-51f9575fa674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{fe31d7ba-5fee-4a5c-8723-68e453682ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lzma">
+      <UniqueIdentifier>{823e363f-6af9-4c52-9db7-19be08c7cd3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="demangle">
+      <UniqueIdentifier>{f709551f-0a9c-4949-8aa7-4d1d4131a67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{cba6293d-64de-4e64-9dbf-692077ac5eb6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\third-party\scintilla\Accessor.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\AutoComplete.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CallTip.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CaseConvert.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CaseFolder.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Catalogue.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CellBuffer.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CharacterSet.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\CharClassify.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\ContractionState.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Decoration.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Document.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Editor.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\ExternalLexer.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\FontQuality.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\ILexer.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Indicator.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\KeyMap.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\LexAccessor.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\LexerBase.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\LexerModule.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\LexerSimple.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\LineMarker.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Partitioning.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\PerLine.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Platform.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\PositionCache.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\PropSetSimple.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\RESearch.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\RunStyles.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\SciLexer.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Scintilla.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\ScintillaBase.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Selection.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\SplitVector.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\Style.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\StyleContext.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\UnicodeFromUTF8.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\UniConversion.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\ViewStyle.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\WordList.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\scintilla\XPM.h">
+      <Filter>scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\tinyxml\tinystr.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\tinyxml\tinyxml.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lzma\Alloc.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lzma\LzFind.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lzma\LzFindMt.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lzma\LzmaEnc.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lzma\Threads.h">
+      <Filter>lzma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\ansidecl.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\cp-demangle.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\demangle.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\libiberty.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\undname.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\demangle\unmangle.h">
+      <Filter>demangle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lapi.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lauxlib.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lcode.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lctype.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\ldebug.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\ldo.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lfunc.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lgc.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\llex.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\llimits.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lmem.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lobject.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lopcodes.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lparser.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lstate.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lstring.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\ltable.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\ltm.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lundump.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lvm.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third-party\lua\lzio.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\invariant\precompiled.h" />
+    <ClInclude Include="..\core\invariant\precompiled_c.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\core\invariant\precompiled.cc" />
+    <ClCompile Include="..\third-party\scintilla\Accessor.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\AutoComplete.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CallTip.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CaseConvert.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CaseFolder.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Catalogue.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CellBuffer.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CharacterSet.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\CharClassify.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ContractionState.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Decoration.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Document.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Editor.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ExternalLexer.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Indicator.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\KeyMap.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\LexerBase.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\LexerModule.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\LexerSimple.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\LexLua.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\LineMarker.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\PerLine.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\PositionCache.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\PropSetSimple.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\RESearch.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\RunStyles.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ScintillaBase.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Selection.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\Style.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\StyleContext.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\UniConversion.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\ViewStyle.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\WordList.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\scintilla\XPM.cxx">
+      <Filter>scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\tinyxml\tinystr.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\tinyxml\tinyxml.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\tinyxml\tinyxmlparser.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lzma\Alloc.c">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lzma\LzFind.c">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lzma\LzFindMt.c">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lzma\LzmaEnc.c">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lzma\Threads.c">
+      <Filter>lzma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\demangle\cp-demangle.c">
+      <Filter>demangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\demangle\undname.c">
+      <Filter>demangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\demangle\unmangle.c">
+      <Filter>demangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lapi.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lauxlib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lbaselib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lbitlib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lcode.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lcorolib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lctype.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ldblib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ldebug.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ldo.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ldump.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lfunc.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lgc.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\linit.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\liolib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\llex.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lmathlib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lmem.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\loadlib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lobject.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lopcodes.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\loslib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lparser.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lstate.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lstring.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lstrlib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ltable.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ltablib.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\ltm.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lundump.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lvm.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third-party\lua\lzio.c">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\invariant\precompiled_c.c" />
+    <ClCompile Include="..\third-party\tinyxml\tinyxmlerr.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\third-party\scintilla\SciTE.properties">
+      <Filter>scintilla</Filter>
+    </None>
+  </ItemGroup>
+</Project>

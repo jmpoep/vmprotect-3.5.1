@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document>
+    <Protection InputFileName="../bin/64/Release/win_runtime.dll" Options="0" OutputFileName="win_runtime32.dll">
+        <Messages />
+        <Folders />
+        <Procedures />
+        <Objects />
+    </Protection>
+    <Script>
+        <![CDATA[function OnBeforeSaveFile()
+	local file = vmprotect.core():outputArchitecture()
+	local functions = vmprotect.core():inputArchitecture():functions()
+	local empty_byte
+	local is_dotnet
+	if (file:name() == ".NET") then
+		is_dotnet = true
+		empty_byte = 0x2a
+	else
+		is_dotnet = false
+		empty_byte = 0xcc
+	end
+	for i = 1, functions:count() do
+		local func = functions:item(i)
+		if (not func:needCompile() and func:type() ~= ObjectType.String) then
+			local block_size = 0;
+			local block_address = 0;	
+			for j = 1, func:count() do
+				command = func:item(j)
+				need_clear = bit32.btest(command:options(), CommandOption.ClearOriginalCode)
+				if (need_clear and is_dotnet and command:type() == ILCommandType.Comment) then
+					need_clear = false
+				end
+				if need_clear then
+					if (is_dotnet) then
+						-- IL
+					else
+						-- Intel
+						for k = 1, 3 do
+							operand = command:operand(k)
+							if operand:fixup() then
+								local fixup = file:fixups():itemByAddress(operand:fixup():address())
+								if fixup then
+									fixup:setDeleted(true)
+								end
+							end
+						end
+					end
+					
+					if block_address ~= 0 and (block_address + block_size) ~= command:address() then
+						if block_size > 0 then
+							if file:addressSeek(block_address) then
+								local s = string.rep(string.char(empty_byte), block_size)
+								file:write(s)
+							end
+						end
+						block_address = 0
+						block_size = 0
+					end
+					
+					if block_address == 0 then
+						block_address = command:address()
+					end
+					block_size = block_size + command:size()
+				end
+			end
+			
+			if block_size > 0 then
+				if file:addressSeek(block_address) then
+					local s = string.rep(string.char(empty_byte), block_size)
+					file:write(s)
+				end
+			end
+		end
+	end
+	
+	file:exports():clear()
+end
+
+function OnAfterCompilation()
+	local array_name = string.gsub(string.gsub(vmprotect.extractFileName(core:outputFileName()), "%.", "_"), "demo", "")
+
+	local lines = {}
+	table.insert(lines, string.format('const uint8_t %s_code[] = {', array_name))
+	local s = ""
+	for i = 1, code_data:len() do
+		s = s .. string.format("0x%.2x, ", code_data:byte(i))
+		if (s:len() > 100) then
+			table.insert(lines, s)
+			s = ""
+		end
+	end
+	if (s:len() > 0) then
+		table.insert(lines, s)
+	end
+	table.insert(lines, "};")
+
+	local stream = io.open(core:outputFileName(), "rb")
+	local file_data = stream:read("*all")
+	stream:close()
+	
+	table.insert(lines, string.format('const uint8_t %s_file[] = {', array_name))
+	local key = math.random(0x100000000);
+	local key_data = DWordToChar(key);
+	s = ""
+	for i = 1, key_data:len() do
+		s = s .. string.format("0x%.2x, ", key_data:byte(i))
+	end
+	for i = 0, file_data:len() - 1 do
+		s = s .. string.format("0x%.2x, ", bit32.bxor(file_data:byte(i + 1), (bit32.lrotate(key, i) + i) % 0x100))
+		if (s:len() > 100) then
+			table.insert(lines, s)
+			s = ""
+		end
+	end
+	if (s:len() > 0) then
+		table.insert(lines, s)
+	end
+	table.insert(lines, "};")
+	
+	local stream = io.open(core:outputFileName() .. ".inc", "w+")
+	stream:write(table.concat(lines, "\n"))
+	stream:close()
+end
+
+function ValueToChar(val, len)
+	local value = ""
+	if (type(val) == "userdata") then
+		value = tostring(val)
+	else
+		if (val < 0) then
+			val = 0x10000 + val
+		end
+		value = string.format("%x", val)
+	end
+	while (value:len() < len * 2) do
+		value = "0" .. value
+	end
+
+	local res = ""
+	for i = value:len() - 1, 1, -2 do
+		res = res .. string.char(tonumber("0x" .. value:sub(i, i + 1)))
+		len = len - 1
+		if (len == 0) then
+			break
+		end
+	end
+	return res
+end
+
+function ByteToChar(value)
+	return ValueToChar(value, 1)
+end
+
+function WordToChar(value)
+	return ValueToChar(value, 2)
+end
+
+function DWordToChar(value)
+	return ValueToChar(value, 4)
+end
+
+function QWordToChar(value)
+	return ValueToChar(value, 8)
+end
+
+function Ord(value)
+	if (value) then
+		return 1
+	end
+	return 0
+end
+
+function OnBeforeCompilation()
+	local file = core:outputArchitecture()
+	if (file:name() == ".NET") then
+		local rsrc = file:segments():itemByName(".rsrc")
+		if (rsrc) then
+			rsrc:destroy()
+		end
+	end
+end
+
+core = vmprotect.core()
+file = core:inputFile():item(core:inputFile():count())
+
+procedure_lines = {}
+--[[
+# format: procname XYZ
+#
+# X:
+#  A - All features
+#  L - Licensing system
+#  B - Bundler
+#  R - Registry
+#  E - rEsources
+#  I - Loader
+#  P - Processor
+#
+# Y:
+#  M - Mutation   
+#  F - Fast virtualization
+#  V - Virtualization (default)
+#
+# Z:
+#  N - None entry point
+#  R - Random entry point
+#
+]]--
+if (file:name() == ".NET") then
+	-- Virtual Machine
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine::.ctor( PM')
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine::Invoke( PM')
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine/Utils::Random( AVN')
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine/Utils::CalcCRC( AVN')
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine:: PM')
+	table.insert(procedure_lines, 'VMProtect.VirtualMachine/ PM')
+	-- Crypto
+	table.insert(procedure_lines, 'VMProtect.CipherRC5:: AM')
+	-- Core
+	table.insert(procedure_lines, 'VMProtect.Core::Init( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::IsProtected( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::IsDebuggerPresent( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::FindFirmwareVendor( AM')
+	table.insert(procedure_lines, 'VMProtect.Core::IsVirtualMachinePresent( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::IsValidImageCRC( AM')
+	table.insert(procedure_lines, 'VMProtect.Core::DecryptString( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::FreeString( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::AntidebugThread( AV')
+	table.insert(procedure_lines, 'VMProtect.Core::SetSerialNumber( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::GetSerialNumberState( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::GetSerialNumberData( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::GetCurrentHWID( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::ActivateLicense( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::DeactivateLicense( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::GetOfflineActivationString( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::GetOfflineDeactivationString( LV')
+	table.insert(procedure_lines, 'VMProtect.Core::DecryptBuffer( LVN')
+	-- CpuId
+	table.insert(procedure_lines, 'VMProtect.CpuId::Invoke( AV')
+	-- String Manager
+	table.insert(procedure_lines, 'VMProtect.StringManager::.ctor( AV')
+	table.insert(procedure_lines, 'VMProtect.StringManager:: AVN')
+	-- Resource Manager
+	table.insert(procedure_lines, 'VMProtect.ResourceManager::.ctor( AV')
+	table.insert(procedure_lines, 'VMProtect.ResourceManager::DecryptData( AM')
+	table.insert(procedure_lines, 'VMProtect.ResourceManager:: AV')
+	-- HardwareID
+	table.insert(procedure_lines, 'VMProtect.HardwareID::.ctor( AV')
+	table.insert(procedure_lines, 'VMProtect.HardwareID::ToString( AV')
+	table.insert(procedure_lines, 'VMProtect.HardwareID:: AVN')
+	-- Licensing Manager
+	table.insert(procedure_lines, 'VMProtect.LicensingManager::.ctor( AV')
+	table.insert(procedure_lines, 'VMProtect.LicensingManager:: LVN')
+	table.insert(procedure_lines, 'VMProtect.LicensingManager/ActivationRequest:: LV')
+	table.insert(procedure_lines, 'VMProtect.LicensingManager/DeactivationRequest:: LV')
+	table.insert(procedure_lines, 'VMProtect.LicensingManager/BaseRequest::Send( LV')
+	-- Loader
+	table.insert(procedure_lines, 'VMProtect.Loader::FindFirmwareVendor( IM')
+	table.insert(procedure_lines, 'VMProtect.Loader:: IVN')
+	table.insert(procedure_lines, 'VMProtect.GlobalData::Set IVN')
+	table.insert(procedure_lines, 'VMProtect.GlobalData:: IV')
+	table.insert(procedure_lines, 'SevenZip.Compression. IM')
+	table.insert(procedure_lines, 'VMProtect.Win32::GetProcAddress( IM')
+	table.insert(procedure_lines, 'VMProtect.Win32:: IV')
+	table.insert(procedure_lines, 'VMProtect.Win32/ IV')
+else
+	-- Crypto
+	table.insert(procedure_lines, 'RC5Key:: A')
+	table.insert(procedure_lines, 'CipherRC5::CipherRC5( A')
+	table.insert(procedure_lines, 'CipherRC5::Encrypt( AM')
+	table.insert(procedure_lines, 'CipherRC5::Decrypt( AM')
+	table.insert(procedure_lines, 'CryptoContainer:: A')
+	table.insert(procedure_lines, 'SHA1:: A')
+	table.insert(procedure_lines, 'BigNumber::internal_mul( LMR')
+	table.insert(procedure_lines, 'BigNumber::internal_mod( LMR')
+	table.insert(procedure_lines, 'BigNumber:: LVN')
+	table.insert(procedure_lines, 'CalcCRC( AM')
+	-- Strings
+	table.insert(procedure_lines, 'string "')
+	-- Core
+	table.insert(procedure_lines, 'Core:: AV')
+	table.insert(procedure_lines, 'DllMain AV')
+	table.insert(procedure_lines, '_DllMain AV')
+	table.insert(procedure_lines, 'InternalGetProcAddress( A')
+	table.insert(procedure_lines, 'ShowMessage( AV')
+	table.insert(procedure_lines, 'ExportedIsValidImageCRC AVR')
+	table.insert(procedure_lines, 'CRCData::CRCData( AVN')
+	table.insert(procedure_lines, 'InternalFindFirmwareVendor AM')
+	table.insert(procedure_lines, 'ExportedIsVirtualMachinePresent AVR')
+	table.insert(procedure_lines, 'ExportedIsDebuggerPresent AVR')
+	table.insert(procedure_lines, 'ExportedIsProtected AVR')
+	table.insert(procedure_lines, 'CoreData::CoreData( AVN')
+	table.insert(procedure_lines, 'HookedNtProtectVirtualMemory( AM')
+	table.insert(procedure_lines, 'HookedNtClose( AM')
+	table.insert(procedure_lines, 'ExAllocateNonPagedPoolNx( AM')
+	-- Loader
+	table.insert(procedure_lines, 'SetupImage IVN')
+	table.insert(procedure_lines, 'FreeImage IV')
+	table.insert(procedure_lines, 'SETUP_IMAGE_DATA:: IVN')
+	table.insert(procedure_lines, 'LoaderMessage IVN')
+	table.insert(procedure_lines, 'Loader IM')
+	table.insert(procedure_lines, 'Lzma IM')
+	table.insert(procedure_lines, '_Lzma IM')
+	-- String Manager
+	table.insert(procedure_lines, 'VirtualString::VirtualString( AM')
+	table.insert(procedure_lines, 'VirtualString:: AVN')
+	table.insert(procedure_lines, 'VirtualStringList:: AVN')
+	table.insert(procedure_lines, 'StringManager:: AVN')
+	table.insert(procedure_lines, 'ExportedDecryptString AMR')
+	table.insert(procedure_lines, 'ExportedFreeString AMR')
+	-- Resource Manager
+	table.insert(procedure_lines, 'VirtualResource::Decrypt( EM')
+	table.insert(procedure_lines, 'VirtualResource:: EVN')
+	table.insert(procedure_lines, 'VirtualResourceList:: EVN')
+	table.insert(procedure_lines, 'ResourceManager:: EVN')
+	table.insert(procedure_lines, 'HookedLdrFindResource_U( EM')
+	table.insert(procedure_lines, 'HookedLdrAccessResource( EM')
+	table.insert(procedure_lines, 'HookedLoadStringA( EM')
+	table.insert(procedure_lines, 'HookedLoadStringW( EM')
+	table.insert(procedure_lines, 'ExportedLoadResource EMR')
+	table.insert(procedure_lines, 'ExportedFindResourceA EMR')
+	table.insert(procedure_lines, 'ExportedFindResourceExA EMR')
+	table.insert(procedure_lines, 'ExportedFindResourceW EMR')
+	table.insert(procedure_lines, 'ExportedFindResourceExW EMR')
+	table.insert(procedure_lines, 'ExportedLoadStringA EMR')
+	table.insert(procedure_lines, 'ExportedLoadStringW EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceNamesA EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceNamesW EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceLanguagesA EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceLanguagesW EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceTypesA EMR')
+	table.insert(procedure_lines, 'ExportedEnumResourceTypesW EMR')
+	-- Licensing Manager
+	table.insert(procedure_lines, 'LicensingManager:: L')
+	table.insert(procedure_lines, 'ActivationRequest:: L')
+	table.insert(procedure_lines, 'DeactivationRequest:: L')
+	table.insert(procedure_lines, 'BaseRequest::Send( LVR')
+	table.insert(procedure_lines, 'ExportedSetSerialNumber LVR')
+	table.insert(procedure_lines, 'ExportedGetSerialNumberState LVR')
+	table.insert(procedure_lines, 'ExportedGetSerialNumberData LVR')
+	table.insert(procedure_lines, 'ExportedActivateLicense LVR')
+	table.insert(procedure_lines, 'ExportedDeactivateLicense LVR')
+	table.insert(procedure_lines, 'ExportedGetOfflineActivationString LVR')
+	table.insert(procedure_lines, 'ExportedGetOfflineDeactivationString LVR')
+	table.insert(procedure_lines, 'ExportedDecryptBuffer LVR')
+	-- HardwareID
+	table.insert(procedure_lines, 'HardwareID:: L')
+	table.insert(procedure_lines, 'ExportedGetCurrentHWID LVR')
+	-- File Manager
+	table.insert(procedure_lines, 'FileManager::ReadFile( BM')
+	table.insert(procedure_lines, 'FileManager::ReadImage( BM')
+	table.insert(procedure_lines, 'FileManager:: BVN')
+	table.insert(procedure_lines, 'HookedNtQueryAttributesFile( BM')
+	table.insert(procedure_lines, 'HookedNtCreateFile( BM')
+	table.insert(procedure_lines, 'HookedNtOpenFile( BM')
+	table.insert(procedure_lines, 'HookedNtReadFile( BM')
+	table.insert(procedure_lines, 'HookedNtQueryInformationFile( BM')
+	table.insert(procedure_lines, 'HookedNtQueryVolumeInformationFile( BM')
+	table.insert(procedure_lines, 'HookedNtSetInformationFile( BM')
+	table.insert(procedure_lines, 'HookedNtQueryDirectoryFile( BM')
+	table.insert(procedure_lines, 'HookedNtCreateSection( BM')
+	table.insert(procedure_lines, 'HookedNtQuerySection( BM')
+	table.insert(procedure_lines, 'HookedNtMapViewOfSection( BM')
+	table.insert(procedure_lines, 'HookedNtUnmapViewOfSection( BM')
+	table.insert(procedure_lines, 'HookedNtQueryVirtualMemory( BM')
+	-- Registry Manager
+	table.insert(procedure_lines, 'RegistryManager:: RM')
+	table.insert(procedure_lines, 'RegistryKey:: RM')
+	table.insert(procedure_lines, 'HookedNtSetValueKey( RM')
+	table.insert(procedure_lines, 'HookedNtDeleteValueKey( RM')
+	table.insert(procedure_lines, 'HookedNtCreateKey( RM')
+	table.insert(procedure_lines, 'HookedNtOpenKey( RM')
+	table.insert(procedure_lines, 'HookedNtOpenKeyEx( RM')
+	table.insert(procedure_lines, 'HookedNtQueryValueKey( RM')
+	table.insert(procedure_lines, 'HookedNtDeleteKey( RM')
+	table.insert(procedure_lines, 'HookedNtQueryKey( RM')
+	table.insert(procedure_lines, 'HookedNtEnumerateValueKey( RM')
+	table.insert(procedure_lines, 'HookedNtEnumerateKey( RM')
+	-- Hook Manager
+	table.insert(procedure_lines, 'HookManager:: AV')
+	table.insert(procedure_lines, 'HookedAPI:: AVN')
+end
+
+map_functions = file:mapFunctions()
+functions = file:functions()
+functions:clear()
+function_params = {}
+for _, line in ipairs(procedure_lines) do
+	if (line:len() == 0 or line:sub(1, 1) == "#") then
+		-- do nothing
+	else
+		i = line:find(" ")
+		params = ""
+		compilation_type = CompilationType.Virtualization
+		if (i) then
+			name = line:sub(1, i - 1)
+			params = line:sub(i + 1)
+			if (params:len() > 1) then
+				if (params:sub(2, 2) == "M") then
+					compilation_type = CompilationType.Mutation
+				end
+			end
+		else 
+			name = line
+		end
+		is_found = false
+		for i = 1, map_functions:count() do
+			map_function = map_functions:item(i)
+			if (map_function:name():sub(1, name:len()) == name) then
+				is_found = true
+				if (not functions:itemByAddress(map_function:address())) then
+					func = functions:addByAddress(map_function:address(), compilation_type, false)
+					if (func) then
+						function_params[tostring(func:address())] = params
+					end
+				end
+			end
+		end
+		if (not is_found) then
+			print(string.format("%s not found!!!", name))
+		end
+	end
+end
+
+--
+
+code_data = "" 
+
+-- process exports 
+
+export_names = {}
+if (file:name() == ".NET") then
+	table.insert(export_names, "void VMProtect.Loader::Main()")
+	table.insert(export_names, "string VMProtect.Core::DecryptString()")
+	table.insert(export_names, "string VMProtect.Core::DecryptString()")
+	table.insert(export_names, "bool VMProtect.Core::FreeString(string&)")
+	table.insert(export_names, "valuetype VMProtect.SerialState VMProtect.Core::SetSerialNumber(string)")
+	table.insert(export_names, "valuetype VMProtect.SerialState VMProtect.Core::GetSerialNumberState()")
+	table.insert(export_names, "bool VMProtect.Core::GetSerialNumberData(class VMProtect.SerialNumberData&)")
+	table.insert(export_names, "string VMProtect.Core::GetCurrentHWID()")
+	table.insert(export_names, "valuetype VMProtect.ActivationStatus VMProtect.Core::ActivateLicense(string, string&)")
+	table.insert(export_names, "valuetype VMProtect.ActivationStatus VMProtect.Core::DeactivateLicense(string)")
+	table.insert(export_names, "valuetype VMProtect.ActivationStatus VMProtect.Core::GetOfflineActivationString(string, string&)")
+	table.insert(export_names, "valuetype VMProtect.ActivationStatus VMProtect.Core::GetOfflineDeactivationString(string, string&)")
+	table.insert(export_names, "bool VMProtect.Core::IsValidImageCRC()")
+	table.insert(export_names, "bool VMProtect.Core::IsDebuggerPresent(bool)")
+	table.insert(export_names, "bool VMProtect.Core::IsVirtualMachinePresent()")
+	table.insert(export_names, "unsigned int32 VMProtect.Core::DecryptBuffer(unsigned int32, unsigned int32, unsigned int32, unsigned int32)")
+	table.insert(export_names, "bool VMProtect.Core::IsProtected()")
+	table.insert(export_names, "unsigned int32 VMProtect.GlobalData::SessionKey()")
+	table.insert(export_names, "int32 VMProtect.VirtualMachine/Utils::Random()")
+	table.insert(export_names, "int32 VMProtect.VirtualMachine/Utils::CalcCRC(unsigned int32, unsigned int32)")
+	table.insert(export_names, "object VMProtect.VirtualMachine/Utils::BoxPointer(void*)")
+	table.insert(export_names, "void* VMProtect.VirtualMachine/Utils::UnboxPointer(object)")
+else
+	table.insert(export_names, "SetupImage")
+	table.insert(export_names, "FreeImage")
+	table.insert(export_names, "ExportedDecryptString")
+	table.insert(export_names, "ExportedDecryptString")
+	table.insert(export_names, "ExportedFreeString")
+	table.insert(export_names, "ExportedSetSerialNumber")
+	table.insert(export_names, "ExportedGetSerialNumberState")
+	table.insert(export_names, "ExportedGetSerialNumberData")
+	table.insert(export_names, "ExportedGetCurrentHWID")
+	table.insert(export_names, "ExportedActivateLicense")
+	table.insert(export_names, "ExportedDeactivateLicense")
+	table.insert(export_names, "ExportedGetOfflineActivationString")
+	table.insert(export_names, "ExportedGetOfflineDeactivationString")
+	table.insert(export_names, "ExportedIsValidImageCRC")
+	table.insert(export_names, "ExportedIsDebuggerPresent")
+	table.insert(export_names, "ExportedIsVirtualMachinePresent")
+	table.insert(export_names, "ExportedDecryptBuffer")
+	table.insert(export_names, "ExportedIsProtected")
+	table.insert(export_names, "CalcCRC")
+
+	if file:file():format() == "PE" then
+		table.insert(export_names, "LoaderData")
+		table.insert(export_names, "ExportedLoadResource")
+		table.insert(export_names, "ExportedFindResourceA")
+		table.insert(export_names, "ExportedFindResourceExA")
+		table.insert(export_names, "ExportedFindResourceW")
+		table.insert(export_names, "ExportedFindResourceExW")
+		table.insert(export_names, "ExportedLoadStringA")
+		table.insert(export_names, "ExportedLoadStringW")
+		table.insert(export_names, "ExportedEnumResourceNamesA")
+		table.insert(export_names, "ExportedEnumResourceNamesW")
+		table.insert(export_names, "ExportedEnumResourceLanguagesA")
+		table.insert(export_names, "ExportedEnumResourceLanguagesW")
+		table.insert(export_names, "ExportedEnumResourceTypesA")
+		table.insert(export_names, "ExportedEnumResourceTypesW")
+	elseif file:file():format() == "Mach-O" then
+		table.insert(export_names, "_loader_data")
+		table.insert(export_names, "DllMain")
+	else
+		table.insert(export_names, "loader_data")
+		table.insert(export_names, "DllMain")
+	end
+end
+
+count = 0
+data = ""
+for _, line in ipairs(export_names) do
+	export = file:exports():itemByName(line)
+	if (export) then
+		data = data .. DWordToChar(export:address() - file:imageBase())
+		count = count + 1
+	else
+		print(line .. " not found!!!")
+	end
+end
+code_data = code_data .. DWordToChar(count) .. data
+
+-- process SDK
+
+imports = file:imports()
+
+sdk_indexes = {}
+count = 0
+data = ""
+for i = 1, imports:count() do
+	import = imports:item(i)
+	if (import:isSDK()) then
+		table.insert(sdk_indexes, i)
+		for j = 1, import:count() do
+			import_function = import:item(j)
+			map_function = map_functions:itemByAddress(import_function:address())
+			if (map_function) then
+				data = data .. ByteToChar(import_function:type())
+				data = data .. DWordToChar(import_function:address() - file:imageBase())
+				count = count + 1
+				
+				references = map_function:references()
+				data = data .. DWordToChar(references:count())
+				for k = 1, references:count() do
+					reference = references:item(k)
+					data = data .. DWordToChar(reference:address() - file:imageBase())
+					data = data .. DWordToChar(reference:operandAddress() - file:imageBase())
+				end
+				
+				references:clear()
+			end
+		end
+	end
+end
+code_data = code_data .. DWordToChar(count) .. data
+
+-- process import references
+
+count = 0
+data = ""
+for i = 1, imports:count() do
+	import = imports:item(i)
+	for j = 1, import:count() do
+		import_function = import:item(j)
+		map_function = map_functions:itemByAddress(import_function:address())
+		if (map_function) then
+			references = map_function:references()
+			for k = references:count(), 1, -1 do
+				reference = references:item(k)
+				is_found = false
+				for p = 1, functions:count() do
+					if (functions:item(p):itemByAddress(reference:address(), true)) then
+						is_found = true
+						break
+					end
+				end
+				if (is_found) then
+					sdk_count = 0;
+					for _, sdk_index in ipairs(sdk_indexes) do
+						if (i > sdk_index) then
+							sdk_count = sdk_count + 1				
+						end		
+					end
+					data = data .. DWordToChar(i - sdk_count) .. DWordToChar(j)
+					data = data .. DWordToChar(reference:address() - file:imageBase())
+					data = data .. DWordToChar(reference:operandAddress() - file:imageBase())
+					count = count + 1
+					
+					references:delete(k)
+				end
+			end
+		end
+	end
+end
+code_data = code_data .. DWordToChar(count) .. data
+
+-- process strings
+
+count = 0
+data = ""
+for i = 1, map_functions:count() do
+	map_function = map_functions:item(i)
+	if (map_function:type() == ObjectType.String) then
+		data = data .. DWordToChar(map_function:address() - file:imageBase())
+		data = data .. DWordToChar(map_function:address() + map_function:size() - file:imageBase())
+		count = count + 1
+	
+		references = map_function:references()
+		data = data .. DWordToChar(references:count())
+		for k = 1, references:count() do
+			reference = references:item(k)
+			data = data .. DWordToChar(reference:address() - file:imageBase())
+			data = data .. DWordToChar(reference:operandAddress() - file:imageBase())
+			data = data .. ByteToChar(reference:tag())
+		end	
+	end
+end
+code_data = code_data .. DWordToChar(count) .. data
+
+-- process functions
+
+count = 0
+data = ""
+for k = 1, functions:count() do
+	func = functions:item(k)
+	if (not func:needCompile()) then
+		count = count + 1
+		
+		params = function_params[tostring(func:address())]
+		if (not params) then
+			params = ""
+		end
+		
+		t = 0
+		if (params:len() > 0) then
+			if (params:sub(1, 1) == "L") then
+				t = 1
+			elseif (params:sub(1, 1) == "B") then
+				t = 2
+			elseif (params:sub(1, 1) == "R") then
+				t = 3
+			elseif (params:sub(1, 1) == "E") then
+				t = 4
+			elseif (params:sub(1, 1) == "I") then
+				t = 5
+			elseif (params:sub(1, 1) == "P") then
+				t = 6
+			end
+		end
+		
+		e = 0
+		if (params:len() > 2) then
+			if (params:sub(3, 3) == "N") then
+				e = 1
+			elseif (params:sub(3, 3) == "R") then
+				e = 2
+			end
+		end
+		
+		data = data .. ByteToChar(t)
+					.. ByteToChar(func:compilationType()
+								+ Ord(e == 1) * 0x10
+								+ Ord(e == 2) * 0x20
+								+ 0x80)
+					.. ByteToChar(func:type())
+					.. ByteToChar(file:cpuAddressSize())
+					.. DWordToChar(func:address() - file:imageBase())
+
+		data = data .. DWordToChar(func:count())
+		for i = 1, func:count() do
+			command = func:item(i)
+			if (file:name() == ".NET") then
+				-- IL
+				p = 0;
+				if (command:operandValue() > 0) then
+					p = 1
+				end
+				data = data .. ByteToChar(p
+										+ Ord(command:tokenReference()) * 0x08
+										+ Ord(command:size() > 255) * 0x10
+										+ Ord(command:link()) * 0x20)
+							.. DWordToChar(command:address() - file:imageBase()) 
+							.. WordToChar(command:type())
+							.. DWordToChar(command:options())
+							.. ByteToChar(command:alignment())
+										
+				if (command:size() > 255) then
+					data = data .. WordToChar(command:size())
+				else
+					data = data .. ByteToChar(command:size())
+				end
+				
+				if (command:type() == ILCommandType.Comment or command:type() == ILCommandType.Data) then
+					for j = 1, command:size() do
+						data = data .. ByteToChar(command:dump(j))
+					end
+				end
+
+				if (p > 0) then
+					data = data .. QWordToChar(command:operandValue())
+				end
+			else
+				-- Intel
+				if (command:type() == IntelCommandType.Lods or 
+					command:type() == IntelCommandType.Stos or
+					command:type() == IntelCommandType.Scas or
+					command:type() == IntelCommandType.Movs or
+					command:type() == IntelCommandType.Cmps or
+					command:type() == IntelCommandType.Ins or
+					command:type() == IntelCommandType.Outs) then
+					p = 2
+				elseif (command:type() == IntelCommandType.Pusha or 
+					command:type() == IntelCommandType.Popa or
+					command:type() == IntelCommandType.Pushf or
+					command:type() == IntelCommandType.Popf) then
+					p = 1
+				else
+					p = 0
+					for j = 1, 3 do
+						operand = command:operand(j)
+						if (operand:type() == OperandType.None) then
+							break
+						end
+						p = p + 1
+					end
+				end
+				
+				data = data .. ByteToChar(p
+										+ Ord(command:preffix() ~= 0) * 0x8
+										+ Ord(command:size() > 255) * 0x10
+										+ Ord(command:link()) * 0x20
+										+ Ord(command:baseSegment() ~= IntelSegment.Default) * 0x40
+										+ Ord(command:flags() ~= 0) * 0x80)
+							.. DWordToChar(command:address() - file:imageBase()) 
+							.. WordToChar(command:type())
+							.. DWordToChar(command:options())
+							.. ByteToChar(command:alignment())
+										
+				if (command:preffix() ~= 0) then
+					data = data .. WordToChar(command:preffix())
+				end
+				if (command:size() > 255) then
+					data = data .. WordToChar(command:size())
+				else
+					data = data .. ByteToChar(command:size())
+				end
+				if (command:baseSegment() ~= IntelSegment.Default) then
+					data = data .. ByteToChar(command:baseSegment())
+				end
+				if (command:flags() ~= 0) then
+					data = data .. WordToChar(command:flags())
+				end
+				
+				if (command:type() == IntelCommandType.Db) then
+					for j = 1, command:size() do
+						data = data .. ByteToChar(command:dump(j))
+					end
+				else
+					r = 0
+					if (command:type() == IntelCommandType.Jmp or 
+						command:type() == IntelCommandType.Call or
+						command:type() == IntelCommandType.Loop or
+						command:type() == IntelCommandType.Loope or
+						command:type() == IntelCommandType.Loopne or
+						command:type() == IntelCommandType.Jxx or
+						command:type() == IntelCommandType.Jcxz) then
+						operand = command:operand(1)
+						if (operand:type() == OperandType.Value) then
+							r = 1
+						end
+					end
+				
+					for j = 1, p do
+						operand = command:operand(j)
+						address_size = operand:addressSize()
+						if bit32.btest(operand:type(), OperandType.Memory) then
+							address_size = operand:addressSize()
+						else
+							address_size = 0
+						end
+						
+						if operand:fixup() then
+							fixup = 1
+						elseif operand:isLargeValue() then
+							fixup = 2
+						else
+							fixup = 0
+						end
+					
+						data = data .. ByteToChar(operand:size())
+									.. WordToChar(operand:type()
+												+ Ord(j == r) * 0x1000
+												+ Ord(address_size ~= file:cpuAddressSize()) * 0x2000
+												+ Ord(operand:scale() > 0) * 0x4000
+												+ Ord(fixup > 0) * 0x8000)
+						
+						if (bit32.btest(operand:type(), OperandType.Registr 
+														+ OperandType.SegmentRegistr 
+														+ OperandType.ControlRegistr 
+														+ OperandType.DebugRegistr 
+														+ OperandType.FPURegistr 
+														+ OperandType.HiPartRegistr
+														+ OperandType.MMXRegistr
+														+ OperandType.XMMRegistr)) then
+							data = data .. ByteToChar(operand:registr())
+						end
+						
+						if (bit32.btest(operand:type(), OperandType.BaseRegistr)) then
+							data = data .. ByteToChar(operand:baseRegistr())
+						end				
+						if (bit32.btest(operand:type(), OperandType.Value)) then
+							data = data .. ByteToChar(operand:valueSize())
+							if (j == r or fixup > 0) then
+								data = data .. DWordToChar(operand:value() - file:imageBase())
+							else
+								value_size = operand:valueSize()
+								if (value_size == OperandSize.Byte) then
+									data = data .. ByteToChar(operand:value())
+								elseif (value_size == OperandSize.Word) then
+									data = data .. WordToChar(operand:value())
+								elseif (value_size == OperandSize.DWord) then
+									data = data .. DWordToChar(operand:value())
+								elseif (value_size == OperandSize.QWord) then
+									data = data .. QWordToChar(operand:value())
+								end
+							end
+							if (fixup > 0) then
+								data = data .. ByteToChar(fixup)
+							end
+						end
+						if (bit32.btest(operand:type(), OperandType.Memory)) then
+							if (operand:scale() ~= 0) then
+								data = data .. ByteToChar(operand:scale())
+							end
+							if (operand:addressSize() ~= file:cpuAddressSize()) then
+								data = data .. ByteToChar(operand:addressSize())
+							end
+						end
+					end
+				end
+			end
+		end
+
+		data = data .. DWordToChar(func:info():count())
+		for i = 1, func:info():count() do
+			info = func:info():item(i)
+			if (info:entry()) then
+				entry_index = func:indexOf(info:entry())
+			else 
+				entry_index = 0
+			end
+
+			if (info:dataEntry()) then
+				data_entry_index = func:indexOf(info:dataEntry())
+			else 
+				data_entry_index = 0
+			end
+
+			data = data .. DWordToChar(info:beginAddress() - file:imageBase())
+						.. DWordToChar(info:endAddress() - file:imageBase())
+						.. ByteToChar(info:baseType())
+			if (info:baseType() == 0) then
+				data = data .. DWordToChar(info:baseValue())
+			end
+			data = data .. DWordToChar(info:prologSize())
+						.. ByteToChar(info:frameRegistr())
+						.. DWordToChar(entry_index)
+						.. DWordToChar(data_entry_index)
+						.. DWordToChar(info:unwindOpcodes():count())	
+			for j = 1, info:unwindOpcodes():count() do
+				data = data .. DWordToChar(func:indexOf(info:unwindOpcodes():item(j)))
+			end
+		end
+						
+		data = data .. DWordToChar(func:ranges():count())
+		for i = 1, func:ranges():count() do
+			range = func:ranges():item(i)
+			if (range:beginEntry()) then
+				begin_index = func:indexOf(range:beginEntry())
+			else
+				begin_index = 0
+			end
+			if (range:endEntry()) then
+				end_index = func:indexOf(range:endEntry())
+			else
+				end_index = 0
+			end
+			if (range:sizeEntry()) then
+				size_index = func:indexOf(range:sizeEntry())
+			else
+				size_index = 0
+			end
+		
+			data = data .. DWordToChar(range:beginAddress() - file:imageBase())
+						.. DWordToChar(range:endAddress() - file:imageBase())
+						.. DWordToChar(begin_index)
+						.. DWordToChar(end_index)
+						.. DWordToChar(size_index)
+		end
+
+		data = data .. DWordToChar(func:links():count())
+		for i = 1, func:links():count() do
+			link = func:links():item(i)
+			data = data .. DWordToChar(func:indexOf(link:from()))
+						.. ByteToChar(link:type())
+						.. ByteToChar(link:operand())
+						.. ByteToChar(Ord(link:toAddress() > 0)
+								+ Ord(link:subValue() > 0) * 0x2
+								+ Ord(link:parent()) * 0x4
+								+ Ord(link:baseInfo()) * 0x8)
+							
+			if (link:toAddress() > 0) then
+				data = data .. DWordToChar(link:toAddress() - file:imageBase())
+			end
+			if (link:subValue() > 0) then
+				data = data .. DWordToChar(link:subValue() - file:imageBase())
+			end				
+			if (link:parent()) then
+				data = data .. DWordToChar(func:indexOf(link:parent()))
+			end
+			if (link:baseInfo()) then
+				data = data .. DWordToChar(func:info():indexOf(link:baseInfo()))
+			end
+		end
+	end
+end
+code_data = code_data .. DWordToChar(count) .. data
+
+if (file:file():format() == "PE") then
+	-- process CFG addresses
+
+	count = 0
+	data = ""
+	if (file:name() ~= ".NET") then
+		cfg_names = {}
+		table.insert(cfg_names, "_freefls")
+		table.insert(cfg_names, "__freefls@4")
+		for _, line in ipairs(cfg_names) do
+			map_function = map_functions:itemByName(line)
+			if (map_function) then
+				data = data .. DWordToChar(map_function:address() - file:imageBase())
+				count = count + 1
+			else
+				print(line .. " not found!!!")
+			end
+		end
+	end
+	code_data = code_data .. DWordToChar(count) .. data
+end]]>
+</Script>
+    <DLLBox />
+    <LicenseManager ProductCode="" />
+</Document>

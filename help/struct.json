@@ -1,0 +1,89 @@
+{"root_title": "User Manual", "children": [
+	{"file": "terms.htm", "title": "introduction", "children": [
+		{"file": "dictionary.htm", "title": "glossary"},
+		{"file": "software_protection.htm", "title": "analyzing-cracking-and-protecting-software"},
+		{"file": "about_vmprotect.htm", "title": "what-is-vmprotect"},
+		{"file": "recommendations.htm", "title": "protection-recommendations"},
+		{"file": "history.htm", "title": "version-history"}
+	]},
+	{"file": "work.htm", "title": "working-with-vmprotect", "children": [
+		{"file": "create_project.htm", "title": "preparing-a-project", "children": [
+			{"file": "use_map_file.htm", "title": "using-a-map-file"},
+			{"file": "use_markers.htm", "title": "using-markers"},
+			{"file": "sdk_functions.htm", "title": "sdk-functions"}
+		]},
+		{"file": "main_window.htm", "title": "main-window", "children": [
+		 {"file": "main_menu.htm", "title": "main-menu", "children": [
+		  {"file": "menu_file.htm", "title": "file"},
+		  {"file": "menu_edit.htm", "title": "edit"},
+		  {"file": "menu_project.htm", "title": "project"},
+		  {"file": "menu_tools.htm", "title": "tools"},
+		  {"file": "menu_help.htm", "title": "help"}
+		 ]},
+		 {"file": "toolbar.htm", "title": "toolbar"},
+		 {"file": "project.htm", "title": "project", "children": [
+		  {"file": "project_functions.htm", "title": "procedures-for-protection"},
+		  {"file": "manager/licenses.htm", "title": "license-management"},
+		  {"file": "project_files.htm", "title": "files"},
+		  {"file": "project_script.htm", "title": "script"},
+		  {"file": "project_options.htm", "title": "options", "children": [
+		   {"file": "project_options_external_addresses.htm", "title": "external-addresses"}
+		  ]}
+		 ]},
+		 {"file": "functions.htm", "title": "functions"},
+		 {"file": "info.htm", "title": "info", "children": [
+		  {"file": "info_directories.htm", "title": "directories"},
+		  {"file": "info_segments.htm", "title": "segments"},
+		  {"file": "info_imports.htm", "title": "imports"},
+		  {"file": "info_exports.htm", "title": "exports"},
+		  {"file": "info_resources.htm", "title": "resources"},
+		  {"file": "info_dump.htm", "title": "dump"}
+		 ]}
+		]},
+		{"file": "mode_console.htm", "title": "command-line-version"}
+	]},
+	{"file": "manager/index.htm", "title": "software-licensing-system", "children": [
+	 {"file": "manager/features.htm", "title": "licensing-system-features"},
+	 {"file": "manager/howitworks.htm", "title": "how-does-licensing-system-work"},
+	 {"file": "manager/usage/index.htm", "title": "example-of-usage", "children": [
+		 {"file": "manager/usage/step11_app.htm", "title": "step-1-create-test-application"},
+		 {"file": "manager/usage/step12_code.htm", "title": "step-2-add-license-checking-code"},
+		 {"file": "manager/usage/step13_flags.htm", "title": "step-3-get-state-of-serial-number"},
+		 {"file": "manager/usage/step14_name.htm", "title": "step-4-get-user-name-and-e-mail"},
+		 {"file": "manager/usage/step15_exp.htm", "title": "step-5-check-serial-number-expiration-date"},
+		 {"file": "manager/usage/step16_time.htm", "title": "step-6-limit-application-running-time"},
+		 {"file": "manager/usage/step17_maxbuild.htm", "title": "step-7-limit-period-of-free-updates"},
+		 {"file": "manager/usage/step18_blacklist.htm", "title": "step-8-put-serial-number-to-black-list"},
+		 {"file": "manager/usage/step19_hwid.htm", "title": "step-9-lock-serial-number-to-hardware"},
+		 {"file": "manager/usage/step1A_userdata.htm", "title": "step-10-read-user-data-from-serial-number"},
+		 {"file": "manager/usage/step21_src.htm", "title": "step-1-create-new-test-application"},
+		 {"file": "manager/usage/step22_vmp.htm", "title": "step-2-create-vmprotect-project"},
+		 {"file": "manager/usage/step23_product.htm", "title": "step-3-first-run-of-protected-application"},
+		 {"file": "manager/usage/step24_test.htm", "title": "step-4-test-results"},
+		 {"file": "manager/usage/step25_codelock.htm", "title": "step-5-lock-code-to-serial-number"},
+		 {"file": "manager/usage/api.htm", "title": "licensing-module-api"}
+	 ]},
+	 {"file": "manager/keygen/index.htm", "title": "serial-number-generators", "children": [
+		 {"file": "manager/keygen/keygen_dll.htm", "title": "dll-based-serial-number-generator"},
+		 {"file": "manager/keygen/keygen_net.htm", "title": "serial-number-generator-for-net-platform"},
+		 {"file": "manager/keygen/keygen_php.htm", "title": "php-based-serial-number-generator"},
+		 {"file": "manager/keygen/serial_format.htm", "title": "serial-number-format"},
+		 {"file": "manager/keygen/algorithms.htm", "title": "serial-number-encryption-algorithms"}
+		 ]},
+	 {"file": "manager/activation.htm", "title": "activation-system", "children": [
+		 {"file": "manager/activation/vmprotect.htm", "title": "activation-support-in-vmprotect"},
+		 {"file": "manager/activation/weblm.htm", "title": "activation-support-in-web-license-manager"},
+		 {"file": "manager/activation/api.htm", "title": "activation-api"}
+	 ]}
+	]},
+	{"file": "script.htm", "title": "using-scripts", "children": [
+	 {"file": "script_classes.htm", "title": "classes"},
+		{"file": "script_functions.htm", "title": "built-in-functions"},
+	 {"file": "script_events.htm", "title": "events"}
+	]},
+	{"file": "watermarks.htm", "title": "watermarks", "children": [
+		{"file": "watermarks_setup.htm", "title": "setup-tab"},
+		{"file": "watermarks_search.htm", "title": "search-tab"}
+	]},
+	{"file": "faq.htm", "title": "frequently-asked-questions"}
+]}

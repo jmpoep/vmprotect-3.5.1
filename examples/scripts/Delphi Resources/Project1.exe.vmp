@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document>
+    <Protection InputFileName="Project1.exe" Options="32768" RunParameters="">
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress='VMProtectMarker &quot;Test marker&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Correct password&quot;' Options="1" />
+            <Procedure MapAddress='string &quot;Incorrect password&quot;' Options="1" />
+        </Procedures>
+        <Messages />
+    </Protection>
+    <DLLBox />
+    <Script>
+        <![CDATA[function OnBeforeSaveFile()
+	local file = vmprotect:core():outputArchitecture()
+	local rc_data = file:resources():itemByType(PE.RT_RCDATA)
+	if (rc_data) then
+		local names = {}
+		table.insert(names, "PACKAGEINFO")
+		table.insert(names, "DVCLAL")
+		for _, line in ipairs(names) do
+			local resource = rc_data:itemByName(line)
+			if (resource) then
+				print(string.format("Resource \"%s\" is deleted", line))
+				resource:destroy()
+			end
+		end
+	end
+end]]>
+</Script>
+</Document>

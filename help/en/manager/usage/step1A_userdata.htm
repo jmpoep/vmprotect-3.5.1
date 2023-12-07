@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.10: User data</title>
+</head>
+
+<body>
+  <h1>Step 1.10: User data</h1>
+
+  <p>A serial number can hold up to 255 bytes of arbitrary data that the licensing system passes to the program as they are. The data can hold any additional information about the sale, data required for operation of the full version or something else. Let's modify our 
+  <strong>main()</strong> function so that it would read data from a serial number and display them on the screen:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber";
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        if (res) return 0;
+
+        VMProtectSerialNumberData sd = {0};
+        VMProtectGetSerialNumberData(&amp;sd, sizeof(sd));
+        printf("Serial number has %d byte(s) of data\n", sd.nUserDataLength);
+        for (int i = 0; i &lt; sd.nUserDataLength; i++)
+                printf("%02X ", sd.bUserData[i]);
+        printf("\n");
+        return 0;
+}
+</pre>
+
+  <p>We also reduce the Ini-file to this:</p>
+  <pre class="code">[TestLicense]
+AcceptedSerialNumber=Xserialnumber 
+</pre>
+
+  <p>Now, we run the program and make sure our serial number works well, but doesn't contain any data:</p>
+  <pre class="code">state = 0
+Serial number has 0 byte(s) of data
+</pre>
+
+  <p>To add new user data into the serial number, we need to create the UserData variable in the ini-file and assign data to it in the HEX format. Symbols must go in pairs, that is the length of a line must be a multiple of 2. Like this:</p>
+  <pre class="code">UserData=010203A0B0C0D0E0
+</pre>
+
+  <p>In this case, if we runthe program we will receive the following result:</p>
+  <pre class="code">state = 0
+Serial number has 8 byte(s) of data
+01 02 03 A0 B0 C0 D0 E0
+</pre><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

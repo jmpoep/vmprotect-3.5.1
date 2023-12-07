@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.xmlsoap.org/ws/2006/12/authorization" elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/ws/2006/12/authorization" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AdditionalContext" type="tns:AdditionalContextType" />
+  <xs:complexType name="AdditionalContextType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ContextItem" type="tns:ContextItemType" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:complexType name="ContextItemType">
+    <xs:choice minOccurs="0">
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:string" />
+      <xs:any minOccurs="1" maxOccurs="1" namespace="##other" processContents="lax" />
+    </xs:choice>
+    <xs:attribute name="Name" type="xs:anyURI" use="required" />
+    <xs:attribute name="Scope" type="xs:anyURI" use="optional" />
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:element name="ClaimType" type="tns:ClaimType" />
+  <xs:complexType name="ClaimType">
+    <xs:choice minOccurs="0">
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:string" />
+      <xs:any minOccurs="1" maxOccurs="1" namespace="##other" processContents="lax" />
+    </xs:choice>
+    <xs:attribute name="Uri" type="xs:anyURI" use="required" />
+    <xs:attribute name="Optional" type="xs:boolean" use="optional" />
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+</xs:schema>

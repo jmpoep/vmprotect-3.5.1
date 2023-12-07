@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.9: Привязка к оборудованию</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    div.c2 {text-align: center}
+    p.c1 {color:red;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Шаг 1.9: Привязка к оборудованию</h1><strong>Получение
+  идентификатора оборудования</strong>
+
+  <p>Прежде чем привязываться к оборудованию, необходимо получить
+  идентификатор оборудования. Идентификатор помещается в серийный
+  номер и при передаче этого номера системе лицензирования
+  происходит проверка соответствия идентификаторов. Поэтому для
+  начала получим идентификатор нашего оборудования. Сократим
+  <strong>main()</strong> до самого короткого варианта:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        int nSize = VMProtectGetCurrentHWID(NULL, 0);
+        char *buf = new char[nSize];
+        VMProtectGetCurrentHWID(buf, nSize);
+        printf("HWID: %s\n", buf);
+        delete [] buf;
+        return 0;
+}
+</pre>
+
+  <p>Запустив эту программу, мы получим тестовый идентификатор
+  оборудования, используемый по умолчанию:</p>
+  <pre class="code">HWID: myhwid
+</pre>
+
+  <p>Чтобы изменить идентификатор, используемый по умолчанию,
+  добавьте в ini-файл строку:</p>
+  <pre class="code">MyHWID=test
+</pre>
+
+  <p>Запустив программу после этого, мы увидим, что система
+  лицензирования теперь считает "test" идентификатором
+  оборудования:</p>
+  <pre class="code">HWID: test
+</pre>
+
+  <p class="c1"><strong>Внимание!</strong> реальный идентификатор
+  оборудования программа будет выдавать только после ее обработки в
+  VMProtect.</p><br />
+  <strong>Серийный номер с привязкой к оборудованию</strong>
+
+  <p>Чтобы наш тестовый серийный номер был привязан к оборудованию,
+  добавим в ini-файл еще одну строчку, на этот раз с
+  идентификатором, "записанным" в номер:</p>
+  <pre class="code">KeyHWID=test
+</pre>
+
+  <p>А функцию <strong>main()</strong> слегка усложним, она снова
+  будет подавать серийный номер и анализировать получаемый
+  результат:</p>
+  <pre>
+int main(int argc, char **argv)
+{
+        int nSize = VMProtectGetCurrentHWID(NULL, 0);
+        char *buf = new char[nSize];
+        VMProtectGetCurrentHWID(buf, nSize);
+        printf("HWID: %s\n", buf);
+        delete [] buf;
+        
+        char *serial = "Xserialnumber";
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        return 0;
+}
+</pre>
+
+  <p>Запустив код, получим следующий результат:</p>
+  <pre class="code">HWID: test
+state = 0
+</pre>
+
+  <p>Система лицензирования сравнила текущий идентификатор
+  оборудования и тот, который был запиан в серийном номере.
+  Идентификаторы совпали и функция
+  <strong>VMProtectSetSerialNumber()</strong> вернула 0 - серийный
+  номер подходит.</p>
+
+  <p>Попробуем теперь "запустить" нашу программу на другом
+  оборудовании. Для этого поменяем значение "test" параметра MyHWID
+  в ini-файле на "new test". И снова запустим программу:</p>
+  <pre class="code">HWID: new test
+state = SERIAL_STATE_FLAG_BAD_HWID
+</pre>
+
+  <p>На этот раз система лицензирования вернула флаг
+  SERIAL_STATE_FLAG_BAD_HWID, означающий несовпадение реально
+  идентификатора оборудования с тем, что хранится в серийном
+  номере. Текущий идентификатор оборудования, выведенный на экран -
+  "new test", а в серийном номере хранится "test". Поменяв в
+  ini-файле значение параметра KeyHWID на "new test" можно добиться
+  работы серийного номера и на этом "оборудовании".</p><br />
+  <a href="step1A_userdata.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\VMProtectCon\console.cc" />
+    <ClCompile Include="..\VMProtectCon\precompiled.cc" />
+    <ClCompile Include="..\VMProtectCon\main.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\VMProtectCon\precompiled.h" />
+    <ClInclude Include="..\VMProtectCon\main.h" />
+    <ClInclude Include="..\VMProtectCon\console.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\core\vmprotect.rc" />
+  </ItemGroup>
+</Project>

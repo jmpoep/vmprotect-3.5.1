@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+	<Protection
+		InputFileName="win32-app-test1-i386"
+		Options="4296"
+		CompressionMode="1"
+		VMCodeSectionName=".test"
+		OutputFileName="win32-app-test1-i386.exe"
+		>
+		<Messages
+		/>
+		<Folders>
+			<Folder
+				Name="Folder1"
+			/>
+			<Folder
+				Name="Folder2"
+				Position="1"
+			/>
+			<Folder
+				Name="Strings"
+				Parent="1"
+			/>
+		</Folders>
+		<Procedures>
+			<Procedure
+				MapAddress="EntryPoint"
+				Folder="0"
+				>
+				<ExtOffset>7</ExtOffset>
+				<ExtOffset>17</ExtOffset>
+			</Procedure>
+			<Procedure
+				MapAddress="string &quot;Correct password&quot;"
+				Folder="2"
+			/>
+			<Procedure
+				MapAddress="string &quot;Incorrect password&quot;"
+				Folder="2"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;Test marker&quot;"
+			/>
+		</Procedures>
+	</Protection>
+	<DLLBox
+	/>
+	<Script
+	/>
+</Document>

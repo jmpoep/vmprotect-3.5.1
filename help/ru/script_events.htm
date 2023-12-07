@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>События</title>
+</head>
+
+<body>
+  <h1>События</h1>
+
+  <p>Встроенный скриптовый язык является эффективным инструментом
+  автоматизации создания защищенных приложений с помощью VMProtect.
+  Вызов процедур и функций, необходимых на разных этапах создания
+  защищаемого файла, осуществляется через события, обрабатываемые
+  ядром VMProtect. При создании скриптов можно установить
+  собственные обработчики для 5-ти событий, которые вызываются
+  ядром протектора в следующем порядке:</p>
+
+  <ul>
+    <li><a href="#OnBeforeCompilation">OnBeforeCompilation</a></li>
+    <li><a href="#OnBeforeSaveFile">OnBeforeSaveFile</a></li>
+    <li><a href="#OnBeforePackFile">OnBeforePackFile</a></li>
+    <li><a href="#OnAfterSaveFile">OnAfterSaveFile</a></li>
+    <li><a href="#OnAfterCompilation">OnAfterCompilation</a></li>
+  </ul>
+  <a name="OnBeforeCompilation"/><pre class="code">function OnBeforeCompilation()
+
+end</pre>
+
+  <p>Событие вызывается на этапе формирования списка защищаемых
+  объектов. В обработчике OnBeforeCompilation можно добавить в
+  проект новые процедуры, а также изменить или удалить уже
+  существующие.</p>
+  <a name="OnBeforeSaveFile"/><pre class="code">function OnBeforeSaveFile()
+
+end</pre>
+
+  <p>Событие вызывается перед записью в выходной файл всех объектов, созданных в
+  результате компиляции. В обработчике события
+  OnBeforeSaveFile можно изменить как сам файл, так и некоторые его
+  свойства (например, список ресурсов, список экспортируемых
+  функций, имена секций и т.д.), которые впоследствии будут
+  автоматически записаны в выходной файл.</p>
+
+  <a name="OnBeforePackFile"/><pre class="code">function OnBeforePackFile()
+
+end</pre>
+
+  <p>Событие вызывается перед упаковкой защищенного файла
+  приложения. Используя OnBeforePackFile можно внести изменения в
+  файл, который будет упакован. Данное событие вызывается только
+  при использовании опции "Упаковать выходной файл".</p>
+
+  <a name="OnAfterSaveFile"/><pre class="code">function OnAfterSaveFile()
+
+end</pre>
+
+  <p>Событие вызывается после записи всех объектов, созданных в
+  результате компиляции, в выходной файл. В обработчике события
+  можно добавить в выходной файл новые данные или изменить ранее
+  записанные.</p>
+
+  <a name="OnAfterCompilation"/><pre class="code">function OnAfterCompilation()
+
+end</pre>
+
+  <p>Событие вызывается после компиляции всех объектов, входящих в
+  проект. На данном этапе пользователю доступен откомпилированный
+  файл, над которым могут быть выполнены любые необходимые
+  действия, например добавление электронной подписи
+  (сертификата).</p><br/>
+
+  <p>При написании обработчиков событий можно создавать собственные
+  процедуры и функции. Имена событий отображаются в редакторе
+  скрипта жирным шрифтом.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

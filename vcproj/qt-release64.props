@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <QTDIR>C:\Qt\Qt5.6.0\5.6</QTDIR>
+    <PATH>%PATH%;C:\Qt\Qt5.6.0\5.6\msvc2015_static64\bin</PATH>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CustomBuildBeforeTargets>
+    </CustomBuildBeforeTargets>
+    <_PropertySheetDisplayName>qt-release64</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(QTDIR)\msvc2015_static64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%QTDIR%\msvc2015_static64\lib;$(QTDIR)\msvc2015_static64\plugins\platforms;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QtMain.lib;Qt5Gui.lib;Qt5Core.lib;Qt5Concurrent.lib;Qt5Widgets.lib;Qt5WinExtras.lib;Qt5Help.lib;Qt5Sql.lib;Qt5Network.lib;Qt5CLucene.lib;qwindows.lib;Qt5PlatformSupport.lib;qtfreetype.lib;qtpcre.lib;qtharfbuzzng.lib;winmm.lib;imm32.lib;Opengl32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+      <Outputs>
+      </Outputs>
+      <Inputs>
+      </Inputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="QTDIR">
+      <Value>$(QTDIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="PATH">
+      <Value>$(PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

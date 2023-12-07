@@ -1,0 +1,1188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Классы</title>
+</head>
+
+<body>
+  <h1>Классы</h1>
+
+  <p>Встроенный скриптовый язык <a href="http://www.lua.org/about.html">LUA</a> программы VMProtect является
+  объектно-ориентированным: по синтаксису, идеалогии и реализации он во многом похож на JavaScript.
+  В состав скриптового языка входят как стандартные классы,
+  обеспечивающие базовую функциональность, так и специализированные
+  классы, предоставляющие доступ к функционалу защиты приложения.
+  </p>
+
+<h3>Иерархия классов</h3>
+<ul>
+<li><a href="#Core">Core</a><ul>
+	<li><a href="#Watermarks">Watermarks</a><ul>
+		<li><a href="#Watermark">Watermark</a></li>
+	</ul></li>
+	<li><a href="#Licenses">Licenses</a><ul>
+		<li><a href="#License">License</a></li>
+	</ul></li>
+	<li><a href="#Files">Files</a><ul>
+		<li><a href="#File">File</a></li>
+	</ul></li>
+	<li><a href="#Folders">Folders</a><ul>
+		<li><a href="#Folder">Folder</a></li>
+	</ul></li>
+
+	<li><a href="#PEFile">PEFile</a><ul>
+		<li><a href="#PEFormat">PEFormat</a><ul>
+		</ul></li>
+		<li><a href="#PEArchitecture">PEArchitecture</a><ul>
+	    		<li><a href="#PESegments">PESegments</a><ul>
+				<li><a href="#PESegment">PESegment</a></li>
+			</ul></li>
+			<li><a href="#PESections">PESections</a><ul>
+				<li><a href="#PESection">PESection</a></li>
+			</ul></li>
+			<li><a href="#PEDirectories">PEDirectories</a><ul>
+				<li><a href="#PEDirectory">PEDirectory</a></li>
+			</ul></li>
+			<li><a href="#PEImports">PEImports</a><ul>
+				<li><a href="#PEImport">PEImport</a></li>
+			</ul></li>
+			<li><a href="#PEExports">PEExports</a><ul>
+				<li><a href="#PEExport">PEExport</a></li>
+			</ul></li>
+			<li><a href="#PEResources">PEResources</a><ul>
+				<li><a href="#PEResource">PEResource</a></li>
+			</ul></li>
+			<li><a href="#PEFixups">PEFixups</a><ul>
+				<li><a href="#PEFixup">PEFixup</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#MacFile">MacFile</a><ul>
+		<li><a href="#MacFormat">MacFormat</a><ul>
+		</ul></li>
+		<li><a href="#MacArchitecture">MacArchitecture</a><ul>
+			<li><a href="#MacSegments">MacSegments</a><ul>
+				<li><a href="#MacSegment">MacSegment</a></li>
+			</ul></li>
+			<li><a href="#MacSections">MacSections</a><ul>
+				<li><a href="#MacSection">MacSection</a></li>
+			</ul></li>
+			<li><a href="#MacCommands">MacCommands</a><ul>
+				<li><a href="#MacCommand">MacCommand</a></li>
+			</ul></li>
+			<li><a href="#MacSymbols">MacSymbols</a><ul>
+				<li><a href="#MacSymbol">MacSymbol</a></li>
+			</ul></li>
+			<li><a href="#MacImports">MacImports</a><ul>
+				<li><a href="#MacImport">MacImport</a></li>
+			</ul></li>
+			<li><a href="#MacExports">MacExports</a><ul>
+				<li><a href="#MacExport">MacExport</a></li>
+			</ul></li>
+			<li><a href="#MacFixups">MacFixups</a><ul>
+				<li><a href="#MacFixup">MacFixup</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#MapFunctions">MapFunctions</a><ul>
+		<li><a href="#MapFunction">MapFunction</a><ul>
+			<li><a href="#References">References</a><ul>
+				<li><a href="#Reference">Reference</a></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+	<li><a href="#IntelFunctions">IntelFunctions</a><ul>
+		<li><a href="#IntelFunction">IntelFunction</a><ul>
+			<li><a href="#IntelSegment">IntelSegment</a><ul>
+				<li><a href="#IntelRegistr">IntelRegistr</a></li>
+				<li><a href="#IntelCommandType">IntelCommandType</a></li>
+				<li><a href="#IntelFlag">IntelFlag</a></li>
+				<li><a href="#IntelCommand">IntelCommand</a><ul>
+					<li><a href="#OperandType">OperandType</a><ul>
+						<li><a href="#IntelOperand">IntelOperand</a></li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li><a href="#CommandLinks">CommandLinks</a><ul>
+				<li><a href="#LinkType">LinkType</a><ul>
+					<li><a href="#CommandLink">CommandLink</a></li>
+				</ul></li>
+			</ul></li>
+		</ul></li> 
+	</ul></li> 
+</ul></li>
+<li><a href="#FFILibrary">FFILibrary</a><ul>
+	<li><a href="#FFIFunction">FFIFunction</a></li>
+</ul></li>
+</ul>
+
+<h3>Ядро</h3>
+
+<p id="ProjectOption">Опции проекта:</p>
+<pre class="code">
+enum ProjectOption {
+	None,
+	Pack,
+	ImportProtection,
+	MemoryProtection,
+	ResourceProtection,
+	CheckDebugger,
+	CheckKernelDebugger,
+	CheckVirtualMachine,
+	StripFixups,
+	StripDebugInfo,
+	DebugMode
+}
+</pre>
+
+<p id="Core">Класс для работы с ядром VMProtect:</p>
+<pre class="code" id="Core">
+class Core {
+public:
+	string projectFileName(); // возращает имя проекта
+	void saveProject(); // сохраняет проект
+	string inputFileName(); // возвращает имя исходного файла для текущего проекта
+	string outputFileName(); // возращает имя выходного файла для текущего проекта
+	void setOutputFileName(string name); // устанавливает имя выходного файла для текущего проекта
+	string watermarkName(); // возвращает имя водяного знака из текущего проекта
+	void setWatermarkName(string name); // устанавливает имя водяного знака для текущего проекта
+	int options(); // возвращает <a href="#ProjectOption">опции</a> для текущего проекта
+	void setOptions(int options); // устанавливает опции для текущего проекта
+	string vmSectionName(); // возвращает имя сегмента ВМ для текущего проекта
+	void setVMSectionName(); // устанавливает имя сегмента ВМ для текущего проекта
+	<a href="#Licenses">Licenses</a> licenses(); // возвращает список лицензий для текущего проекта
+	<a href="#Files">Files</a> files(); // возвращает список файлов для текущего проекта
+	<a href="#Watermarks">Watermarks</a> watermarks(); // возвращает список водяных знаков 
+	<a href="#PEFile">PEFile</a>/<a href="#MacFile">MacFile</a> inputFile(); // возвращает исходный файл
+	<a href="#PEFile">PEFile</a>/<a href="#MacFile">MacFile</a> outputFile(); // возвращает выходной файл
+	<a href="#PEArchitecture">PEArchitecture</a>/<a href="#MacArchitecture">MacArchitecture</a> inputArchitecture(); // возвращает исходную архитектуру
+	<a href="#PEArchitecture">PEArchitecture</a>/<a href="#MacArchitecture">MacArchitecture</a> outputArchitecture(); // возвращает выходную архитектуру
+};
+</pre>
+
+<h3>Водяные знаки</h3>
+
+<p id="Watermarks">Класс для работы со списком <a href="watermarks.htm">водяных знаков</a>:</p>
+<pre class="code">
+class Watermarks {
+public:
+	<a href="#Watermark">Watermark</a> item(int index); // возвращает водяной знак с индексом index
+	int count(); // возвращает количество водяных знаков в списке
+	<a href="#Watermark">Watermark</a> itemByName(string name); // возвращает водяной знак с именем name
+	<a href="#Watermark">Watermark</a> add(string name, string value); // добавляет водяной знак с именем name и значением value
+}
+</pre>
+
+<p id="Watermark">Класс для работы с водяным знаком:</p>
+<pre class="code">
+class Watermark {
+public:
+	string name(); // возвращает имя водяного знака
+	string value(); // возвращает значение водяного знака 
+	bool blocked(); // возвращает признак "Заблокирован"
+	void setBlocked(bool value); // устанавливает признак "Заблокирован"
+}
+</pre>
+
+<h3>Лицензии</h3>
+
+<p id="Licenses">Класс для работы со списком <a href="manager/licenses.htm">лицензий</a>:</p>
+<pre class="code">
+class Licenses {
+public:
+	int keyLength(); // возвращает размер ключа
+	string publicExp(); // возвращает публичную экспоненту
+	string privateExp(); // возвращает приватную экспоненту
+	string modulus(); // возвращает модулус
+	<a href="#License">License</a> item(int index); // возвращает лицензию с индексом index
+	int count(); // возвращает количество лицензий в списке
+}
+</pre>
+
+<p id="License">Класс для работы с лицензией:</p>
+<pre class="code">
+class License {
+public:
+	string date(string format = "%c"); // возвращает дату лицензии
+	string customerName(); // возвращает имя владельца лицензии
+	string customerEmail(); // возвращает адрес электронной почты владельца лицензии
+	string orderRef(); // возвращает номер заказа, по которому приобретена лицензия
+	string comments(); // возвращает комментарии к лицензии
+	string serialNumber(); // возвращает серийный номер лицензии
+	bool blocked(); // возвращает признак "Заблокирован"
+	void setBlocked(bool value); // устанавливает признак "Заблокирован"
+}
+</pre>
+
+<h3>Файлы</h3>
+
+<p id="Files">Класс для работы со списком <a href="project_files.htm">файлов</a>:</p>
+<pre class="code">
+class Files {
+public:
+	<a href="#File">File</a> item(int index); // возвращает файл с индексом index
+	int count(); // возвращает количество файлов в списке
+}
+</pre>
+
+<p id="File">Класс для работы с <a href="project_files.htm">файлом</a>:</p>
+<pre class="code">
+class File {
+public:
+	string name(); // возвращает название файла
+	string fileName(); // возвращает имя файла
+	int options(); // возвращает опции
+	void setName(string name); // устанавливает название файла
+	void setFileName(string name); // устанавливает имя файла
+	void setOptions(); // устанавлиает опции
+}
+</pre>
+
+<h3>Папки</h3>
+
+<p id="Folders">Класс для работы с пользовательскими папками:</p>
+<pre class="code">
+class Folders {
+public:
+	int count(); // возвращает количество папок в списке
+	<a href="#Folder">Folder</a> item(int index); // возвращает папку с индексом index
+	<a href="#Folder">Folder</a> add(string name); // добавляет новую папку
+	void clear(); // очищает список
+};
+</pre>
+
+<p id="Folder">Класс для работы с пользовательской папкой:</p>
+<pre class="code" id="Folder">
+class Folder {
+public:
+	int count(); // возвращает количество подпапок
+	<a href="#Folder">Folder</a> item(int index); // возвращает подпапку с индексом index
+	<a href="#Folder">Folder</a> add(string name); // добавляет новую подпапку
+	string name(); // возвращает имя папки
+	void clear(); // очищает список подпапок
+	void destroy(); // уничтожает папку и все дочерние подпапки
+};
+</pre>
+
+<h3>PE файлы</h3>
+
+<p id="PEFormat">Константы для работы с PE форматом:</p>
+<pre class="code">
+enum PEFormat {
+	// Directory Entries
+	IMAGE_DIRECTORY_ENTRY_EXPORT,
+	IMAGE_DIRECTORY_ENTRY_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_RESOURCE,
+	IMAGE_DIRECTORY_ENTRY_EXCEPTION,
+	IMAGE_DIRECTORY_ENTRY_SECURITY,
+	IMAGE_DIRECTORY_ENTRY_BASERELOC,
+	IMAGE_DIRECTORY_ENTRY_DEBUG,
+	IMAGE_DIRECTORY_ENTRY_ARCHITECTURE,
+	IMAGE_DIRECTORY_ENTRY_TLS,
+	IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG,
+	IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_IAT,
+	IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT,
+	IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR,
+	// Section characteristics
+	IMAGE_SCN_CNT_CODE,
+	IMAGE_SCN_CNT_INITIALIZED_DATA,
+	IMAGE_SCN_CNT_UNINITIALIZED_DATA,
+	IMAGE_SCN_MEM_DISCARDABLE,
+	IMAGE_SCN_MEM_NOT_CACHED,
+	IMAGE_SCN_MEM_NOT_PAGED,
+	IMAGE_SCN_MEM_SHARED,
+	IMAGE_SCN_MEM_EXECUTE,
+	IMAGE_SCN_MEM_READ,
+	IMAGE_SCN_MEM_WRITE,
+	// Resource types
+	RT_CURSOR,
+	RT_BITMAP,
+	RT_ICON,
+	RT_MENU,
+	RT_DIALOG,
+	RT_STRING,
+	RT_FONTDIR,
+	RT_FONT,
+	RT_ACCELERATOR,
+	RT_RCDATA,
+	RT_MESSAGETABLE,
+	RT_GROUP_CURSOR,
+	RT_GROUP_ICON,
+	RT_VERSION,
+	RT_DLGINCLUDE,
+	RT_PLUGPLAY,
+	RT_VXD,
+	RT_ANICURSOR,
+	RT_ANIICON,
+	RT_HTML,
+	RT_MANIFEST,
+	RT_DLGINIT,
+	RT_TOOLBAR
+};
+</pre>
+
+<p id="PEFile">Класс для работы с PE файлом:</p>
+<pre class="code">
+class PEFile {
+public:
+	string name(); // возвращает имя файла
+	string format(); // возвращает имя формата "PE"
+	uint64 size(); // возвращает размер файла
+	int count(); // возвращает количество архитектур в списке
+	<a href="#PEArchitecture">PEArchitecture</a> item(int index); // возвращает архитектуру с индексом index
+	uint64 seek(uint64 offset); // устанавливает файловую позицию
+	uint64 tell(); // возвращает файловую позицию
+	int write(string buffer); // записывает буфер в файл
+};
+</pre>
+
+<p id="PEArchitecture">Класс для работы с PE архитектурой:</p>
+<pre class="code">
+class PEArchitecture {
+public:
+	string name(); // возвращает имя архитектуры
+	<a href="#PEFile">PEFile</a> file(); // возвращает родительский файл
+	uint64 entryPoint(); // возвращает стартовый адрес
+	uint64 imageBase(); // возвращает стартовый адрес
+	<a href="#OperandSize">OperandSize</a> cpuAddressSize(); // возвращает битность архитектуры
+	uint64 size(); // возвращает размер архитектуры
+	<a href="#PESegments">PESegments</a> segments(); // возвращает список сегментов
+	<a href="#PESections">PESections</a> sections(); // возвращает список секций
+	<a href="#PEDirectories">PEDirectories</a> directories(); // возвращает список директорий
+	<a href="#PEImports">PEImports</a> imports(); // возвращает список импортируемых библиотек
+	<a href="#PEExports">PEExports</a> exports(); // возвращает список экспортируемых функций
+	<a href="#PEResources">PEResources</a> resources(); // возвращает список ресурсов
+	<a href="#PEFixups">PEFixups</a> fixups(); // возвращает список настраиваемых элементов
+	<a href="#MapFunctions">MapFunctions</a> mapFunctions(); // возвращает список доступных для защиты функций
+	<a href="#IntelFunctions">IntelFunctions</a> functions(); // возвращает список защищаемых функций
+	bool addressSeek(uint64 address); // устанавливает файловую позицию
+	uint64 seek(uint64 offset); // устанавливает файловую позицию
+	uint64 tell(); // возвращает файловую позицию
+	int write(string buffer); // записывает буфер в файл
+};
+</pre>
+
+<p id="PESegments">Класс для работы cо списком сегментов для PE архитектуры:</p>
+<pre class="code">
+class PESegments {
+public:
+	<a href="#PESegment">PESegment</a> item(int index); // возвращает сегмент с индексом index
+	int count(); // возвращает количество сегментов в списке
+	<a href="#PESegment">PESegment</a> itemByAddress(uint64 address); // возвращает сегмент с адресом address
+};
+</pre>
+
+<p id="PESegment">Класс для работы c сегментом для PE архитектуры:</p>
+<pre class="code">
+class PESegment {
+public:
+	uint64 address(); // возвращает адрес сегмента
+	string name(); // возвращает имя сегмента
+	uint64 size(); // возвращает размер сегмента
+	int physicalOffset(); // возвращает файловую позицию сегмента
+	int physicalSize(); // возвращает файловый размер сегмента
+	int flags(); // возвращает флаги сегмента
+	bool excludedFromPacking(); // возвращает признак "Исключен из упаковки"
+	void setName(string name); // устанавливает имя сегмента
+};
+</pre>
+
+<p id="PESections">Класс для работы cо списком секций для PE архитектуры:</p>
+<pre class="code">
+class PESections {
+public:
+	<a href="#PESection">PESection</a> item(int index); // возвращает секцию с индексом index
+	int count(); // возвращает количество секций в списке
+	<a href="#PESection">PESection</a> itemByAddress(uint64 address); // возвращает секцию с адресом address
+};
+</pre>
+
+<p id="PESection">Класс для работы с секцией для PE архитектуры:</p>
+<pre class="code">
+class PESection {
+public:
+	uint64 address(); // возвращает адрес секции
+	string name(); // возвращает имя секции
+	uint64 size(); // возвращает размер секции
+	int offset(); // возвращает файловую позицию секции
+	<a href="#PESegment">PESegment</a> segment(); // возвращает родительский сегмент
+};
+</pre>
+
+<p id="PEDirectories">Класс для работы с директориями для PE архитектуры:</p>
+<pre class="code">
+class PEDirectories {
+public:
+	<a href="#PEDirectory">PEDirectory</a> item(int index); // возвращает директорию с индексом index
+	int count(); // возвращает количество директорий в списке
+	<a href="#PEDirectory">PEDirectory</a> itemByType(int type); // возвращает директорию с типом type
+};
+</pre>
+
+<p id="PEDirectory">Класс для работы с директорией для PE архитектуры:</p>
+<pre class="code">
+class PEDirectory {
+public:
+	uint64 address(); // возвращает адрес директории
+	string name(); // возвращает имя директории
+	uint64 size(); // возвращает размер директории
+	int type(); // возвращает тип директории
+	void setAddress(uint64 address); // устанавливает адрес директории
+	void setSize(int size); // устанавливает размер директории 
+	void clear(); // очищает адрес и размер директории
+};
+</pre>
+
+<p id="PEImports">Класс для работы со списком импортируемых библиотек для PE архитектуры:</p>
+<pre class="code">
+class PEImports {
+public:
+	<a href="#PEImport">PEImport</a> item(int index); // возвращает библиотеку с индексом index
+	int count(); // возвращает количество библиотек в списке
+	<a href="#PEImport">PEImport</a> itemByName(string name); // возвращает библиотеку с именем name
+};
+</pre>
+
+<p id="PEImport">Класс для работы с импортируемой библиотекой для PE архитектуры:</p>
+<pre class="code">
+class PEImport {
+public:
+	string name(); // возвращает имя библиотеки
+	<a href="#PEImportFunction">PEImportFunction</a> item(int index); // возвращает импортируемую функцию с индексом index
+	int count(); // возвращает количество импортируемых функций
+	void setName(string name); // устанавливает имя библиотеки
+};
+</pre>
+
+<p id="PEImportFunction">Класс для работы с импортируемой функцией для PE архитектуры:</p>
+<pre class="code">
+class PEImportFunction {
+public:
+	uint64 address(); // возвращает адрес ячейки, в которую записывается адрес импортируемой функции
+	string name();  // возвращает имя импортируемой функции
+};
+</pre>
+
+<p id="PEExports">Класс для работы со списком экспортируемых функций для PE архитектуры:</p>
+<pre class="code">
+class PEExports {
+public:
+	string name(); // возвращает имя библиотеки
+	void setName(string name); // устанавливает имя библиотеки
+	<a href="#PEExport">PEExport</a> item(int index); // возвращает экспортируемую функцию с индексом index
+	int count(); // возвращает количество экспортируемых функций в списке
+	void clear(); // очищает список
+	<a href="#PEExport">PEExport</a> itemByAddress(uint64 address); // возвращает экспортируемую функцию с адресом address
+	<a href="#PEExport">PEExport</a> itemByName(string name); // возвращает экспортируемую функцию с именем name
+};
+</pre>
+
+<p id="PEExport">Класс для работы с экспортируемой функцией для PE архитектуры:</p>
+<pre class="code">
+class PEExport {
+public:
+	uint64 address(); // возвращает адрес экспортируемой функции
+	string name(); // возвращает имя экспортируемой функции
+	void setName(string name); // устанавливает имя экспортируемой функции
+	int ordinal();  // возвращает ординал экспортируемой функции
+	string forwardedName(); // возвращает имя функции, на которую перенаправлена экспортируемая функция
+	void destroy(); // уничтожает экспортируемую функцию
+};
+</pre>
+
+<p id="PEResources">Класс для работы со списком ресурсов для PE архитектуры:</p>
+<pre class="code">
+class PEResources {
+public:
+	<a href="#PEResource">PEResource</a> item(int index); // возвращает ресурс с индексом index
+	int count(); // возвращает количество ресурсов в списке
+	void clear(); // очищает список
+	<a href="#PEResource">PEResource</a> itemByType(int type); // возвращает ресурс с типом type
+	<a href="#PEResource">PEResource</a> itemByName(string name); // возвращает ресурс с именем name
+};
+</pre>
+
+<p id="PEResource">Класс для работы с ресурсом для PE архитектуры:</p>
+<pre class="code">
+class PEResource {
+public:
+	<a href="#PEResource">PEResource</a> item(int index); // возвращает ресурс с индексом index
+	int count(); // возвращает количество ресурсов в списке
+	void clear(); // очищает список
+	uint64 address(); // возвращает адрес ресурса
+	int size(); // возвращает размер ресурса
+	string name(); // возвращает имя ресурса
+	int type(); // возвращает тип ресурса
+	bool isDirectory(); // возвращает признак "Директория"
+	void destroy(); // уничтожает ресурс
+	<a href="#PEResource">PEResource</a> itemByName(string name); // возвращает ресурс с именем name
+	bool excludedFromPacking(); // возвращает признак "Исключен из упаковки"
+};
+</pre>
+
+<p id="PEFixups">Класс для работы со списком настраиваемых элементов для PE архитектуры:</p>
+<pre class="code">
+class PEFixups {
+public:
+	<a href="#PEFixup">PEFixup</a> item(int index); // возвращает элемент с индексом index
+	int count(); // возвращает количество элементов в списке
+	<a href="#PEFixup">PEFixup</a> itemByAddress(uint64 address); // возвращает элемент с адресом address
+};
+</pre>
+
+<p id="PEFixup">Класс для работы с настраиваемым элементом для PE архитектуры:</p>
+<pre class="code">
+class PEFixup {
+public:
+	uint64 address(); // возвращает адрес элемента
+};
+</pre>
+
+<h3>Mach-O файлы</h3>
+
+<p id="MacFormat">Константы для работы с Mach-O форматом:</p>
+<pre class="code">
+enum MacFormat {
+	// Load Command Types
+	LC_SEGMENT,
+	LC_SYMTAB,
+	LC_SYMSEG,
+	LC_THREAD,
+	LC_UNIXTHREAD,
+	LC_LOADFVMLIB,
+	LC_IDFVMLIB,
+	LC_IDENT,
+	LC_FVMFILE,
+	LC_PREPAGE,
+	LC_DYSYMTAB,
+	LC_LOAD_DYLIB,
+	LC_ID_DYLIB,
+	LC_LOAD_DYLINKER,
+	LC_PREBOUND_DYLIB,
+	LC_ROUTINES,
+	LC_SUB_FRAMEWORK,
+	LC_SUB_UMBRELLA,
+	LC_SUB_CLIENT,
+	LC_SUB_LIBRARY,
+	LC_TWOLEVEL_HINTS,
+	LC_PREBIND_CKSUM,
+	LC_LOAD_WEAK_DYLIB,
+	LC_SEGMENT_64,
+	LC_ROUTINES_64,
+	LC_UUID,
+	LC_RPATH,
+	LC_CODE_SIGNATURE,
+	LC_SEGMENT_SPLIT_INFO,
+	LC_REEXPORT_DYLIB,
+	LC_LAZY_LOAD_DYLIB,
+	LC_ENCRYPTION_INFO,
+	LC_DYLD_INFO,
+	LC_DYLD_INFO_ONLY,
+	LC_LOAD_UPWARD_DYLIB,
+	LC_VERSION_MIN_MACOSX,
+	// Section Types	
+	SECTION_TYPE,
+	SECTION_ATTRIBUTES,
+	S_REGULAR,
+	S_ZEROFILL,
+	S_CSTRING_LITERALS,
+	S_4BYTE_LITERALS,
+	S_8BYTE_LITERALS,
+	S_LITERAL_POINTERS,
+	S_NON_LAZY_SYMBOL_POINTERS,
+	S_LAZY_SYMBOL_POINTERS,
+	S_SYMBOL_STUBS,
+	S_MOD_INIT_FUNC_POINTERS,
+	S_MOD_TERM_FUNC_POINTERS,
+	S_COALESCED,
+	S_GB_ZEROFILL,
+	S_INTERPOSING,
+	S_16BYTE_LITERALS,
+	S_DTRACE_DOF,
+	S_LAZY_DYLIB_SYMBOL_POINTERS,
+	SECTION_ATTRIBUTES_USR,
+	S_ATTR_PURE_INSTRUCTIONS,
+	S_ATTR_NO_TOC,
+	S_ATTR_STRIP_STATIC_SYMS,
+	S_ATTR_NO_DEAD_STRIP,
+	S_ATTR_LIVE_SUPPORT,
+	S_ATTR_SELF_MODIFYING_CODE,
+	S_ATTR_DEBUG,
+	SECTION_ATTRIBUTES_SYS,
+	S_ATTR_SOME_INSTRUCTIONS,
+	S_ATTR_EXT_RELOC,
+	S_ATTR_LOC_RELOC
+};
+</pre>
+
+<p id="MacFile">Класс для работы с Mach-O файлом:</p>
+<pre class="code">
+class MacFile {
+public:
+	string name(); // возвращает имя файла
+	string format(); // возвращает имя формата "Mach-O"
+	uint64 size(); // возвращает размер файла
+	int count(); // возвращает количество архитектур в списке
+	<a href="#MacArchitecture">MacArchitecture</a> item(int index); // возвращает архитектуру с индексом index
+	uint64 seek(uint64 offset); // устанавливает файловую позицию
+	uint64 tell(); // возвращает файловую позицию
+	int write(string buffer); // записывает буфер в файл
+};
+</pre>
+
+<p id="MacArchitecture">Класс для работы с Mach-O архитектурой:</p>
+<pre class="code">
+class MacArchitecture {
+public:
+	string name(); // возвращает имя архитектуры
+	<a href="#MacFile">MacFile</a> file(); // возвращает родительский файл
+	uint64 entryPoint(); // возвращает стартовый адрес
+	<a href="#OperandSize">OperandSize</a> cpuAddressSize(); // возвращает битность архитектуры
+	uint64 size(); // возвращает размер архитектуры
+	<a href="#MacSegments">MacSegments</a> segments(); // возвращает список сегментов
+	<a href="#MacSections">MacSections</a> sections(); // возвращает список секций
+	<a href="#MacCommands">MacCommands</a> commands(); // возвращает список загрузочных команд
+	<a href="#MacSymbols">MacSymbols</a> symbols(); // возвращает список символов
+	<a href="#MacImports">MacImports</a> imports(); // возвращает список импортируемых библиотек
+	<a href="#MacExports">MacExports</a> exports(); // возвращает список экспортируемых функций
+	<a href="#MacFixups">MacFixups</a> fixups(); // возвращает список настраиваемых элементов
+	<a href="#MapFunctions">MapFunctions</a> mapFunctions(); // возвращает список доступных для защиты функций
+	<a href="#IntelFunctions">IntelFunctions</a> functions(); // возвращает список защищаемых функций
+	bool addressSeek(uint64 address); // устанавливает файловую позицию
+	uint64 seek(uint64 offset); // устанавливает файловую позицию
+	uint64 tell(); // возвращает файловую позицию
+	int write(string buffer); // записывает буфер в файл
+};
+</pre>
+
+<p id="MacSegments">Класс для работы cо списком сегментов для Mach-O архитектуры:</p>
+<pre class="code">
+class MacSegments {
+public:
+	<a href="#MacSegment">MacSegment</a> item(int index); // возвращает сегмент с индексом index
+	int count(); // возвращает количество сегментов в списке
+	<a href="#MacSegment">MacSegment</a> itemByAddress(); // возвращает сегмент с адресом address
+};
+</pre>
+
+<p id="MacSegment">Класс для работы c сегментом для Mach-O архитектуры:</p>
+<pre class="code" id="MacSegment">
+class MacSegment {
+public:
+	uint64 address(); // возвращает адрес сегмента
+	string name(); // возвращает имя сегмента
+	uint64 size(); // возвращает размер сегмента
+	int physicalOffset(); // возвращает файловую позицию сегмента
+	int physicalSize(); // возвращает файловый размер сегмента
+	int flags(); // возвращает флаги сегмента
+	bool excludedFromPacking(); // возвращает признак "Исключен из упаковки"
+};
+</pre>
+
+<p id="MacSections">Класс для работы cо списком секций для Mach-O архитектуры:</p>
+<pre class="code">
+class MacSections {
+public:
+	<a href="#MacSection">MacSection</a> item(int index); // возвращает секцию с индексом index
+	int count(); // возвращает количество секций в списке
+	<a href="#MacSection">MacSection</a> itemByAddress(uint64 address); // возвращает секцию с адресом address
+};
+</pre>
+
+<p id="MacSection">Класс для работы c секцией для Mach-O архитектуры:</p>
+<pre class="code">
+class MacSection {
+public:
+	uint64 address(); // возвращает адрес секции
+	string name(); // возвращает имя секции
+	uint64 size(); // возвращает размер секции
+	int offset(); // возвращает файловую позицию секции
+	<a href="#MacSegment">MacSegment</a> segment(); // возвращает родительский сегмент
+};
+</pre>
+
+<p id="MacCommands">Класс для работы cо списком загрузочных команд для Mach-O архитектуры:</p>
+<pre class="code">
+class MacCommands {
+public:
+	<a href="#MacCommand">MacCommand</a> item(int index); // возвращает команду с индексом index
+	int count(); // возвращает количество команд в списке
+	<a href="#MacCommand">MacCommand</a> itemByType(int type); // возвращает команду с типом type
+};
+</pre>
+
+<p id="MacCommand">Класс для работы c загрузочной командой для Mach-O архитектуры:</p>
+<pre class="code">
+class MacCommand {
+public:
+	uint64 address(); // возвращает адрес команды
+	int type(); // возвращает тип команды
+	string name(); // возвращает имя команды
+	int size(); // возвращает размер команды
+};
+</pre>
+
+<p id="MacSymbols">Класс для работы cо списком символов для Mach-O архитектуры:</p>
+<pre class="code">
+class MacSymbols {
+public:
+	<a href="#MacSymbol">MacSymbol</a> item(int index); // возвращает символ с индексом index
+	int count(); // возвращает количество символов в списке
+};
+</pre>
+
+<p id="MacSymbol">Класс для работы c символом для Mach-O архитектуры:</p>
+<pre class="code">
+class MacSymbol {
+public:
+	uint64 value(); // возвращает значение символа
+	string name(); // возвращает имя символа
+};
+</pre>
+
+<p id="MacImports">Класс для работы со списком импортируемых библиотек для Mach-O архитектуры:</p>
+<pre class="code">
+class MacImports {
+public:
+	<a href="#MacImport">MacImport</a> item(int index); // возвращает импортируемую библиотеку с индексом index
+	int count(); // возвращает количество импортируемых библиотек в списке
+	<a href="#MacImport">MacImport</a> itemByName(string name); // возвращает импортируемую библиотеку с именем name
+};
+</pre>
+
+<p id="MacImport">Класс для работы с импортируемой библиотекой для Mach-O архитектуры:</p>
+<pre class="code">
+class MacImport {
+public:
+	string name(); // возвращает имя импортируемой библиотеки
+	<a href="#MacImportFunction">MacImportFunction</a> item(int index); // возвращает импортируемую функцию с индексом index
+	int count(); // возвращает количество импортируемых функций в списке
+	void setName(string name); // устанавливает имя импортируемой библиотеки
+};
+</pre>
+
+<p id="MacImportFunction">Класс для работы с импортируемой функцией для Mach-O архитектуры:</p>
+<pre class="code">
+class MacImportFunction {
+public:
+	uint64 address(); // возвращает адрес ячейки, в которую записывается адрес импортируемой функции
+	string name(); // возвращает имя импортируемой функции
+};
+</pre>
+
+<p id="MacExports">Класс для работы со списком экспортируемых функций для Mach-O архитектуры:</p>
+<pre class="code">
+class MacExports {
+public:
+	string name(); // возвращает имя библиотеки
+	<a href="#MacExport">MacExport</a> item(); // возвращает экспортируемую функцию с индексом index
+	int count(); // возвращает количество экспортируемых функций в списке
+	void clear(); // очищает список
+	<a href="#MacExport">MacExport</a> itemByAddress(uint64 address); // возвращает экспортируемую функцию с адресом address
+	<a href="#MacExport">MacExport</a> itemByName(string name); // возвращает экспортируемую функцию с именем name
+};
+</pre>
+
+<p id="MacExport">Класс для работы с экспортируемой функцией для Mach-O архитектуры:</p>
+<pre class="code">
+class MacExport {
+public:
+	uint64 address(); // возвращает адрес экспортируемой функции
+	string name(); // возвращает имя экспортируемой функции
+	string forwardedName(); // возвращает имя функции, на которую перенаправлена экспортируемая функция
+	void destroy(); // уничтожает экспортируемую функцию
+};
+</pre>
+
+<p id="MacFixups">Класс для работы со списком настраиваемых элементов для Mach-O архитектуры:</p>
+<pre class="code">
+class MacFixups {
+public:
+	<a href="#MacFixup">MacFixup</a> item(int index); // возвращает элемент с индексом index
+	int count(); // возвращает количество элементов в списке
+	<a href="#MacFixup">MacFixup</a> itemByAddress(uint64 address); // возвращает элемент с адресом address
+};
+</pre>
+
+<p id="MacFixup">Класс для работы с настраиваемым элементом для Mach-O архитектуры:</p>
+<pre class="code">
+class MacFixup {
+public:
+	uint64 address(); // возвращает адрес элемента
+};
+</pre>
+
+<h3>Функции</h3>
+
+<p id="MapFunctions">Класс для работы со списком функций:</p>
+<pre class="code">
+class MapFunctions {
+public:
+	<a href="#MapFunction">MapFunction</a> item(int index); // возвращает функцию с индексом index
+	int count(); // возвращает количество функций в списке
+	<a href="#MapFunction">MapFunction</a> itemByAddress(uint64 address); // возвращает функцию с адресом address
+	<a href="#MapFunction">MapFunction</a> itemByName(string name); // возвращает функцию с именем name
+};
+</pre>
+
+<p id="ObjectType">Типы функций:</p>
+<pre class="code">
+enum ObjectType {
+	Unknown,
+	Code,
+	Data,
+	Export,
+	Marker,
+	APIMarker,
+	Import,
+	String
+};
+</pre>
+
+<p id="MapFunction">Класс для работы с функцией:</p>
+<pre class="code">
+class MapFunction {
+public:
+	uint64 address(); // возвращает адрес функции
+	string name(); // возвращает имя функции
+	<a href="#ObjectType">ObjectType</a> type(); // возвращает тип функции
+	<a href="#References">References</a> references(); // возвращает список ссылок
+};
+</pre>
+
+<p id="References">Класс для работы со списком ссылок:</p>
+<pre class="code">
+class References {
+public:
+	<a href="#Reference">Reference</a> item(int index); // возвращает ссылку с индексом index
+	int count(); // возвращает количество ссылок в списке
+};
+</pre>
+
+<p id="Reference">Класс для работы с ссылкой:</p>
+<pre class="code">
+class Reference {
+public:
+	uint64 address(); // возвращает адрес команды
+	uint64 operandAddress(); // возвращает адрес ссылки
+};
+</pre>
+
+<h3>Функции Intel</h3>
+
+<p id="IntelFunctions">Класс для работы со списком функций Intel:</p>
+<pre class="code">
+class IntelFunctions {
+public:
+	<a href="#IntelFunction">IntelFunction</a> item(int index); // возвращает функцию с индексом index
+	int count(); // возвращает количество функций в списке
+	void clear(); // очищает список
+	<a href="#IntelFunction">IntelFunction</a> itemByAddress(uint64 address); // возвращает функцию с адресом address
+	<a href="#IntelFunction">IntelFunction</a> itemByName(string name); // возвращает функцию с именем name
+	<a href="#IntelFunction">IntelFunction</a> addByAddress(uint64 address, <a href="#CompilationType">CompilationType</a> type = ctVirtualization); 
+		// добавляет новую функцию с адресом address и типом компиляции type
+};
+</pre>
+
+<p id="CompilationType">Типы компиляции:</p>
+<pre class="code">
+enum CompilationType {
+	None,
+	Virtualization,
+	Mutation,
+	Ultra
+};
+</pre>
+
+<p id="IntelFunction">Класс для работы с функцией Intel:</p>
+<pre class="code">
+class IntelFunction {
+public:
+	uint64 address(); // возвращает адрес функции
+	string name(); // возвращает имя функции
+	<a href="#ObjectType">ObjectType</a> type(); // возвращает тип функции
+	<a href="#IntelCommand">IntelCommand</a> item(int index); // возвращает команду с индексом index
+	int count(); // возвращает количество команд в списке
+	<a href="#CompilationType">CompilationType</a> compilationType(); // возвращает тип компиляции
+	void setCompilationType(<a href="#CompilationType">CompilationType</a> value); // устанавливает тип компиляции
+	<a href="#CommandLinks">CommandLinks</a> links(); // возвращает список связей
+	<a href="#IntelCommand">IntelCommand</a> itemByAddress(uint64 address); // возвращает команду с адресом address
+	void destroy(); // уничтожает функцию
+	<a href="#Folder">Folder</a> folder(); // возвращает пользовательскую папку
+	void setFolder(<a href="#Folder">Folder</a> folder); // устанавливает пользовательскую папку
+};
+</pre>
+
+<p id="IntelCommandType">Типы команд Intel:</p>
+<pre class="code">
+enum IntelCommandType {
+	Unknown, Push, Pop, Mov, Add, Xor, Test, Lea, Ud0, Ret, Ssh, Crc, Call, Jmp, 
+	Fstsw, Fsqrt, Fchs, Fstcw, Fldcw, Fild, Fist, Fistp, Fld, Fstp, Fst, Fadd, 
+	Fsub, Fsubr, Fisub, Fisubr, Fdiv, Fcomp, Fmul, Repe, Repne, Rep, DB, DW, DD, DQ,
+	Movs, Cmps, Scas, Movzx, Movsx, Inc, Dec, Les, Lds, Lfs, Lgs, Lss, Xadd, Bswap,
+	Jxx, And, Sub, Stos, Lods, Nop, Xchg, Pushf, Popf, Sahf, Lahf, Shl, Shr, Sal, 
+	Sar, Rcl, Rcr, Rol, Ror, Shld, Shrd, Loope, Loopne, Loop, Jcxz, In, Ins, Out, 
+	Outs, Wait, Cbw, Cwde, Cdqe, Cwd, Cdq, Cqo, Clc, Stc, Cli, Sti, Cld, Std, Not,
+	Neg, Div, Imul, Idiv, Mul, Or, Adc, Cmp, Sbb, Pusha, Popa, Clflush, Pause, 
+	Bound, Arpl, Daa, Das, Aaa, Aam, Aad, Aas, Enter, Leave, Int, Into, Iret, Set, 
+	Cmov, Addpd, Addps, Addsd, Addss, Andpd, Andps, Andnpd, Andnps, Cmppd, Cmpps, 
+	Cmpsd, Cmpss, Comisd, Comiss, Cvtdq2ps, Cvtpd2dq, Cvtdq2pd, Cvtpd2pi, Cvtps2pi,
+	Cvtpd2ps, Cvtps2pd, Cvtpi2pd, Cvtpi2ps, Cvtps2dq, Cvtsd2si, Cvtss2si, Cvtsd2ss,
+	Cvtss2sd, Cvttpd2pi, Cvttps2pi, Cvttpd2dq, Cvttps2dq, Cvttsd2si, Cvttss2si, 
+	Divpd, Divps, Divsd, Divss, Maxpd, Maxps, Maxsd, Maxss, Minpd, Minps, Minsd, 
+	Minss, Mulpd, Mulps, Mulsd, Mulss, Orpd, Orps, Movd, Movq, Movntq, Movapd, Movaps,
+	Movdqa, Movdqu, Movdq2q, Movq2dq, Movhlps, Movhpd, Movhps, Movlhps, Movlpd, 
+	Movlps, Movmskpd, Movmskps, Movnti, Movntpd, Movntps, Movsd, Movss, Movupd, 
+	Movups, Pmovmskb, Psadbw, Pshufw, Pshufd, Pshuflw, Pshufhw, Psubb, Psubw, Psubd, 
+	Psubq, Psubsb, Psubsw, Psubusb, Psubusw, Paddb, Paddw, Paddd, Paddq, Paddsb, 
+	Paddsw, Paddusb, Paddusw, Pavgb, Pavgw, Pinsrw, Pextrw, Pmaxsw, Pmaxub, Pminsw, 
+	Pminub, Pmulhuw, Pmulhw, Pmullw, Pmuludq, Psllw, Pslld, Psllq, Pslldq, Psraw, 
+	Psrad, Psrlw, Psrld, Psrlq, Psrldq, Punpcklbw, Punpcklwd, Punpckldq, Punpcklqdq, 
+	Punpckhqdq, Packusdw, Pcmpgtb, Pcmpgtw, Pcmpgtd, Pcmpeqb, Pcmpeqw, Pcmpeqd, 
+	Emms, Packsswb, Packuswb, Punpckhbw, Punpckhwd, Punpckhdq, Packssdw, Pand, 
+	Pandn, Por, Pxor, Pmaddwd, Rcpps, Rcpss, Rsqrtss, Movsxd, Shufps, Shufpd, Sqrtpd, 
+	Sqrtps, Sqrtsd, Sqrtss, Subpd, Subps, Subsd, Subss, Ucomisd, Ucomiss, Unpckhpd, 
+	Unpckhps, Unpcklpd, Unpcklps, Xorpd, Xorps, Bt, Bts, Btr, Btc, Xlat, Cpuid, 
+	Rsm, Bsf, Bsr, Cmpxchg, Cmpxchg8b, Hlt, Cmc, Lgdt, Sgdt, Lidt, Sidt, Smsw, Lmsw, 
+	Invlpg, Lar, Lsl, Clts, Invd, Wbinvd, Ud2, Wrmsr, Rdtsc, Rdmsr, Rdpmc, Fcom, 
+	Fdivr, Fiadd, Fimul, Ficom, Ficomp, Fidiv, Fidivr, Faddp, Fmulp, Fsubp, Fsubrp, 
+	Fdivp, Fdivrp, Fbld, Fbstp, Ffree, Frstor, Fsave, Fucom, Fucomp, Fldenv, Fstenvm,
+	Fxch, Fabs, Fxam, Fld1, Fldl2t, Fldl2e, Fldpi, Fldlg2, Fldln2, Fldz, Fyl2x, 
+	Fptan, Fpatan, Fxtract, Fprem1, Fdecstp, Fincstp, Fprem, Fyl2xp1, Fsincos, Frndint, 
+	Fscale, Fsin, Fcos, Ftst, Fstenv, F2xm1, Fnop, Finit, Fclex, Fcompp, Sysenter, 
+	Sysexit, Sldt, Str, Lldt, Ltr, Verr, Verw, Sfence, Lfence, Mfence, Prefetchnta, 
+	Prefetcht0, Prefetcht1, Prefetcht2, Prefetch, Prefetchw, Fxrstor, Fxsave, Ldmxcsr, 
+	Stmxcsr, Fcmovb, Fcmove, Fcmovbe, Fcmovu, Fcmovnb, Fcmovne, Fcmovnbe, Fcmovnu,
+	Fucomi, Fcomi, Fucomip, Fcomip, Fucompp, Vmcall, Vmlaunch, Vmresume, Vmxoff, 
+	Monitor, Mwait, Xgetbv, Xsetbv, Vmrun, Vmmcall, Vmload, Vmsave, Stgi, Clgi, 
+	Skinit, Invlpga, Swapgs, Rdtscp, Syscall, Sysret, Femms, Getsec, Pshufb, Phaddw, 
+	Phaddd, Phaddsw, Pmaddubsw, Phsubw, Phsubd, Phsubsw, Psignb, Psignw, Psignd, 
+	Pmulhrsw, Pabsb, Pabsw, Pabsd, Movbe, Palignr, Rsqrtps, Vmread, Vmwrite, Svldt, 
+	Rsldt, Svts, Rsts, Xsave, Xrstor, Vmptrld, Vmptrst, Maskmovq, Fnstenv, Fnstcw, 
+	Fstp1, Fneni, Fndisi, Fnclex, Fninit, Fsetpm, Fisttp, Fnsave, Fnstsw, Fxch4, 
+	Fcomp5, Ffreep, Fxch7, Fstp8, Fstp9, Haddpd, Hsubpd, Addsubpd, Addsubps, Movntdq, 
+	Fcom2, Fcomp3, Haddps, Hsubps, Movddup, Movsldup, Cvtsi2sd, Cvtsi2ss, Movntsd, 
+	Movntss, Lddqu, Movshdup, Popcnt, Tzcnt, Lzcnt, Pblendvb, Pblendps, Pblendpd, 
+	Ptest, Movsxbw, Movsxbd, Movsxbq, Movsxwd, Movsxwq, Movsxdq, Muldq, Pcmpeqq, 
+	Movntdqa, Xsaveopt, Maskmovdqu, Ud1, Pcmpgtq, Movzxbw, Movzxbd, Movzxbq, Movzxwd, 
+	Movzxwq, Movzxdq
+};
+</pre>
+
+<p id="IntelSegment">Сегменты Intel:</p>
+<pre class="code">
+enum IntelSegment {
+	None,
+	es,
+	cs,
+	ss,
+	ds,
+	fs,
+	gs
+};
+</pre>
+
+<p id="IntelFlag">Флаги Intel:</p>
+<pre class="code">
+enum IntelFlag {
+	C,
+	P,
+	A,
+	Z,
+	S,
+	T,
+	I,
+	D,
+	O
+};
+</pre>
+
+<p id="IntelRegistr">Регистры Intel:</p>
+<pre class="code">
+enum IntelRegistr {
+	eax,
+	ecx,
+	edx,
+	ebx,
+	esp,
+	ebp,
+	esi,
+	edi,
+	r8,
+	r9,
+	r10,
+	r11,
+	r12,
+	r13,
+	r14,
+	r15
+};
+</pre>
+
+<p id="IntelCommand">Класс для работы с командой Intel:</p>
+<pre class="code">
+class IntelCommand {
+public:
+	uint64 address(); // возвращает адрес команды
+	<a href="#IntelCommandType">IntelCommandType</a> type(); // возвращает тип команды
+	string text(); // возвращает текстовое представление
+	int size(); // возвращает размер команды
+	int dump(int index); // возвращает данные команды по индексу index
+	<a href="#CommandLink">CommandLink</a> link(); // возвращает связь команды
+	int flags(); // возвращает флаги команды
+	<a href="#IntelSegment">IntelSegment</a> baseSegment(); // возвращает базовый сегмент
+	<a href="#IntelCommandType">IntelCommandType</a> preffix(); // возвращает тип преффиксной команды
+	<a href="#IntelOperand">IntelOperand</a> operand(int index); // возвращает операнд с индексом index
+};
+</pre>
+
+<p id="OperandType">Типы операндов:</p>
+<pre class="code">
+enum OperandType {
+	None,
+	Value,
+	Registr,
+	Memory,
+	SegmentRegistr,
+	ControlRegistr,
+	DebugRegistr,
+	FPURegistr,
+	HiPartRegistr,
+	BaseRegistr,
+	MMXRegistr,
+	XMMRegistr
+};
+</pre>
+
+<p id="OperandSize">Размеры операндов:</p>
+<pre class="code">
+enum OperandSize {
+	Byte,
+	Word,
+	DWord,
+	QWord,
+	TByte,
+	OWord,
+	FWord
+};
+</pre>
+
+<p id="IntelOperand">Класс для работы с операндом команды Intel:</p>
+<pre class="code">
+class IntelOperand {
+public:
+	int type(); // возвращает тип операнда
+	<a href="#OperandSize">OperandSize</a> size(); // возвращает размер операнда
+	int registr(); // возвращает регистр
+	int baseRegistr(); // возвращает базовый регистр
+	int scale(); // возвращает коэффициент
+	uint64 value(); // возвращает значение
+};
+</pre>
+
+<p id="CommandLinks">Класс для работы со списком связей:</p>
+<pre class="code" id="CommandLinks">
+class CommandLinks {
+public:
+	<a href="#CommandLink">CommandLink</a> item(int index); // возвращает связь с индексом index
+	int count(); // возвращает количество связей в списке
+};
+</pre>
+
+<p id="LinkType">Типы связей:</p>
+<pre class="code">
+enum LinkType {
+	None,
+	SEHBlock,
+	FinallyBlock,
+	DualSEHBlock,
+	FilterSEHBlock,
+	Jmp,
+	JmpWithFlag,
+	JmpWithFlagNSFS,
+	JmpWithFlagNSNA,
+	JmpWithFlagNSNS,
+	Call,
+	Case,
+	Switch,
+	Native,
+	Offset,
+	GateOffset,
+	ExtSEHBlock,
+	MemSEHBlock,
+	ExtSEHHandler,
+	VBMemSEHBlock
+};
+</pre>
+
+<p id="CommandLink">Класс для работы со связью команды:</p>
+<pre class="code">
+class CommandLink {
+public:
+	uint64 toAddress(); // возвращает адрес, на который ссылается связь
+	<a href="#LinkType">LinkType</a> type(); // возвращает тип связи
+	<a href="#IntelCommand">IntelCommand</a> from(); // возвращает родительскую команду
+};
+</pre>
+
+<p id="FFILibrary">Класс для работы с библиотекой:</p>
+<pre class="code">
+enum ParamType {
+	"void",
+	"byte",
+	"char",
+	"short",
+	"ushort",
+	"int",
+	"uint",
+	"long",
+	"ulong",
+	"size_t",
+	"float",
+	"double",
+	"string",
+	"pointer"
+};
+
+enum CallType {
+	"default", 
+	"cdecl", 
+	"stdcall"
+};
+
+class FFILibrary {
+public:
+	string name(); // возвращает имя
+	uint64 address(); // возвращает адрес в памяти
+	void close(); 
+	FFIFunction getFunction(string name, ParamType ret, ParamType param1, ...); // возвращает функцию
+	FFIFunction getFunction(string name, table (ParamType ret, CallType abi, ParamType, ...)); // возвращает функцию
+};
+</pre>
+
+<p id="FFIFunction">Класс для работы с внешней функцией:</p>
+<pre class="code">
+class FFIFunction {
+	string name(); // возвращает имя
+	uint64 address(); // возвращает адрес в памяти
+};
+</pre>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

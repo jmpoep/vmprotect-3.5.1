@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.9: Hardware lock</title>
+  <style type="text/css">
+/*<![CDATA[*/
+    div.c2 {text-align: center}
+    p.c1 {color:red;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Step 1.9: Hardware lock</h1><strong>Receiving a hardware identifier</strong>
+
+  <p>Before we lock to hardware, we must receive a hardware identifier. The identifier is put into a serial number, and when the number is passed to the licensing system, it checks if identifiers match. So, first we need to receive the identifier of our hardware. Let's reduce the 
+  <strong>main()</strong> function to the bare minimum:</p>
+  <pre class="code">int main(int argc, char **argv)
+{
+        int nSize = VMProtectGetCurrentHWID(NULL, 0);
+        char *buf = new char[nSize];
+        VMProtectGetCurrentHWID(buf, nSize);
+        printf("HWID: %s\n", buf);
+        delete [] buf;
+        return 0;
+}
+</pre>
+
+  <p>By running the program, we receive a default test hardware identifier:</p>
+  <pre class="code">HWID: myhwid
+</pre>
+
+  <p>To change the identifier, add the following line to the ini-file:</p>
+  <pre class="code">MyHWID=test
+</pre>
+
+  <p>If we run the program afterwards, we can see the system thinks "test" is a hardware identifier of our PC:</p>
+  <pre class="code">HWID: test
+</pre>
+
+  <p class="c1"><strong>Important!</strong> The program will display the real hardware identifier only after it is processed with VMProtect.</p><br />
+  <strong>Hardware-locked serial number</strong>
+
+  <p>To lock our test serial number to hardware, we should add one more line to the ini-file. This time we define the identifier that is "put into" the serial number:</p>
+  <pre class="code">KeyHWID=test
+</pre>
+
+  <p>Then we complicate <strong>main()</strong> back a bit. Now it will pass a serial number and analyze the result it gets:</p>
+  <pre>
+int main(int argc, char **argv)
+{
+        int nSize = VMProtectGetCurrentHWID(NULL, 0);
+        char *buf = new char[nSize];
+        VMProtectGetCurrentHWID(buf, nSize);
+        printf("HWID: %s\n", buf);
+        delete [] buf;
+        
+        char *serial = "Xserialnumber";
+        int res = VMProtectSetSerialNumber(serial);
+        print_state(res);
+        return 0;
+}
+</pre>
+
+  <p>After running the code we will see the following result:</p>
+  <pre class="code">HWID: test
+state = 0
+</pre>
+
+  <p>The licensing system has compared the current hardware identifier with the one written in the serial number. Identifiers are equal, so the 
+  <strong>VMProtectSetSerialNumber()</strong> function returned 0 - the serial number matches.</p>
+
+  <p>Now let's try to "run" our program on another hardware. We simply change the value of the MyHWID parameter in the ini-file from "test" to "new test". Run the program again:</p>
+  <pre class="code">HWID: new test
+state = SERIAL_STATE_FLAG_BAD_HWID
+</pre>
+
+  <p>This time the licensing system returned the
+  SERIAL_STATE_FLAG_BAD_HWID flag, which means the real hardware identifier and the one stored in the serial number are not matching. The current identifier we see on the screen is "new test", while the serial number holds "test". If we change the KeyHWID parameter in the ini-file to "new test" we can make our serial number work on this "hardware" too.</p><br />
+  <a href="step1A_userdata.htm">Next step</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

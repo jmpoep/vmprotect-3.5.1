@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" targetNamespace="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema>
+      <xs:import schemaLocation="ws-trust-1.3-verisign.xsd" namespace="http://docs.oasis-open.org/ws-sx/ws-trust/200512/" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestSecurityTokenMsg">
+    <wsdl:part name="request" element="tns:RequestSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="RequestSecurityTokenCollectionMsg">
+    <wsdl:part name="request" element="tns:RequestSecurityTokenCollection" />
+  </wsdl:message>
+  <wsdl:message name="RequestSecurityTokenResponseMsg">
+    <wsdl:part name="response" element="tns:RequestSecurityTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestSecurityTokenResponseCollectionMsg">
+    <wsdl:part name="responseCollection" element="tns:RequestSecurityTokenResponseCollection" />
+  </wsdl:message>
+  <wsdl:portType name="WSSecurityRequestor">
+    <wsdl:operation name="SecurityTokenResponse">
+      <wsdl:input message="tns:RequestSecurityTokenResponseMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="SecurityTokenResponse2">
+      <wsdl:input message="tns:RequestSecurityTokenResponseCollectionMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="Challenge">
+      <wsdl:input message="tns:RequestSecurityTokenResponseMsg" />
+      <wsdl:output message="tns:RequestSecurityTokenResponseMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="Challenge2">
+      <wsdl:input message="tns:RequestSecurityTokenResponseMsg" />
+      <wsdl:output message="tns:RequestSecurityTokenResponseCollectionMsg" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SecurityTokenRequestService">
+    <wsdl:operation name="RequestSecurityToken">
+      <wsdl:input message="tns:RequestSecurityTokenMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestSecurityTokenCollection">
+      <wsdl:input message="tns:RequestSecurityTokenCollectionMsg" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SecurityTokenService">
+    <wsdl:operation name="RequestSecurityToken">
+      <wsdl:input message="tns:RequestSecurityTokenMsg" />
+      <wsdl:output message="tns:RequestSecurityTokenResponseMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestSecurityToken2">
+      <wsdl:input message="tns:RequestSecurityTokenMsg" />
+      <wsdl:output message="tns:RequestSecurityTokenResponseCollectionMsg" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

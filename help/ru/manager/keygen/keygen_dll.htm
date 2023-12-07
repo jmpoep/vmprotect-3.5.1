@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Генератор ключей: Windows-версия</title>
+</head>
+
+<body>
+  <h1>Генераторы ключей: Windows-версия</h1>
+
+  <h3>Описание</h3>
+
+  <p>Генератор для Windows представляет собой DLL-файлы для
+  платформ x86 и x64, заголовочный файл языка C и lib-файл,
+  совместимый с MSVC. Таким образом, библиотека может быть как слинкована статически, так
+  и загружаться динамически.</p>
+
+  <p>Все файлы генератора находятся в каталоге
+  <strong>Keygen\DLL</strong>, там же находится тестовое
+  приложение, которое генерирует серийные номера.</p>
+
+  <h3>API генератора</h3>
+
+  <p>Генератор экспортирует всего две функции: одна непосредственно
+  генерирует серийный номер, вторая - освобождает память,
+  выделенную первой. Начнем с первой и основной функции:</p>
+  <pre class="code"><strong>VMProtectErrors</strong> __stdcall <strong>VMProtectGenerateSerialNumber</strong>(
+                                <strong>VMProtectProductInfo *</strong> pProductInfo, 
+                                <strong>VMProtectSerialNumberInfo *</strong> pSerialInfo, 
+                                <strong>char **</strong> pSerialNumber
+                        );
+</pre>
+
+  <p>Первый параметр - указатель на структуру
+  <strong>VMProtectProductInfo</strong>, содержимое которой
+  выгружается в VMProtect (см. <a href=
+  "../licenses.htm#export">Экспорт параметров продукта</a>).
+  Структура содержит приватный ключ продукта, используемый алгоритм
+  и количество бит, а также идентификатор продукта. Подробнее о
+  заполнении этой структуры написано ниже.</p>
+
+  <p>Второй параметр - указатель на структуру
+  <strong>VMProtectSerialNumberInfo</strong>, содержимое которой
+  переносится в генерируемый серийный номер. Структура содержит все
+  поля серийного номера, а также битовую маску, определяющую какие
+  именно поля должны быть записаны в серийный номер.</p>
+  <pre class="code">struct <strong>VMProtectSerialNumberInfo</strong>
+{
+        <strong>INT</strong>              flags;
+        <strong>wchar_t *</strong>        pUserName;
+        <strong>wchar_t *</strong>        pEMail;
+        <strong>DWORD</strong>            dwExpDate;
+        <strong>DWORD</strong>            dwMaxBuildDate;
+        <strong>BYTE</strong>             nRunningTimeLimit;
+        <strong>char *</strong>           pHardwareID;
+        <strong>size_t</strong>           nUserDataLength;
+        <strong>BYTE *</strong>           pUserData;
+}; 
+</pre>
+
+  <p>Поле <strong>flags</strong> содержит битовые флаги из набора
+  <strong>VMProtectSerialNumberFlags</strong>, описанного перед
+  структурой:</p>
+
+  <ul>
+    <li><strong>HAS_USER_NAME</strong> - поместить в серийный номер
+    имя пользователя, находящееся в переменной
+    <strong>pUserName</strong>.</li>
+
+    <li><strong>HAS_EMAIL</strong> - поместить в серийный номер
+    e-mail пользователя, находящийся в переменной
+    <strong>pEMail</strong>.</li>
+
+    <li><strong>HAS_EXP_DATE</strong> - серийный номер перестанет
+    действовать поле окончания дня, указанного в переменной
+    <strong>dwExpDate</strong>.</li>
+
+    <li><strong>HAS_MAX_BUILD_DATE</strong> - серийный номер будет
+    подходить только к версиям продукта, созданным до даты,
+    указанной в переменной <strong>dwMaxBuildDate</strong>.</li>
+
+    <li><strong>HAS_TIME_LIMIT</strong> - программа перестанет
+    работать по истечении времени, указанного в переменной
+    <strong>nRunningTimeLimit</strong> (время указывается в минутах
+    и не может превышать 255).</li>
+
+    <li><strong>HAS_HARDWARE_ID</strong> - программа будет работать
+    только на оборудовании с идентификатором, указанным в
+    переменной <strong>pHardwareID</strong>.</li>
+
+    <li><strong>HAS_USER_DATA</strong> - поместить в серийный номер
+    пользовательские данные длинной
+    <strong>nUserDataLength</strong>, расположенные по адресу,
+    указанному в переменной <strong>pUserData</strong>.</li>
+  </ul>
+
+  <p>Третий параметр - указатель на указатель. Туда будет записан
+  адрес сгенерированного серийного номера. После генерации номер
+  необходимо скопировать, а адрес передать во вторую функцию API
+  генератора, которая освободит занимаемую серийным номером
+  память.</p>
+  <pre class="code"><strong>void</strong> __stdcall <strong>VMProtectFreeSerialNumberMemory</strong>(<strong>char *</strong> pSerialNumber);
+</pre>
+
+  <p>Функция <strong>VMProtectGenerateSerialNumber</strong>
+  возвращает значение типа <strong>VMProtectErrors</strong>,
+  содержащее 0 в случае успешной генерации номера или код ошибки в
+  противном случае. Возможны следующие коды ошибок:</p>
+
+  <ul>
+    <li><strong>ALL_RIGHT</strong> - ошибок нет, номер сгенерирован
+    успешно.</li>
+
+    <li><strong>UNSUPPORTED_ALGORITHM</strong> - в первом параметре
+    функции передан некорректный алгоритм шифрования ключа.</li>
+
+    <li><strong>UNSUPPORTED_NUMBER_OF_BITS</strong> - в первом
+    параметре функции передано некорректное количество бит в
+    ключе.</li>
+
+    <li><strong>USER_NAME_IS_TOO_LONG</strong> - длина имени
+    пользователя в кодировке UTF-8 превысила 255 байт.</li>
+
+    <li><strong>EMAIL_IS_TOO_LONG</strong> - длина e-mail
+    пользователя в кодировке UTF-8 превысила 255 байт.</li>
+
+    <li><strong>USER_DATA_IS_TOO_LONG</strong> - длина
+    пользовательских данных превышает 255 байт.</li>
+
+    <li><strong>HWID_HAS_BAD_SIZE</strong> - идентификатор
+    оборудования имеет некорректный размер.</li>
+
+    <li><strong>PRODUCT_CODE_HAS_BAD_SIZE</strong> - идентификатор
+    продукта, переданный в первом параметре функции, имеет неверный
+    размер.</li>
+
+    <li><strong>SERIAL_NUMBER_TOO_LONG</strong> - серийный номер
+    слишком длинный и не помещается в указанное в алгоритме количество
+    бит.</li>
+
+    <li><strong>BAD_PRODUCT_INFO</strong> - первый параметр функции
+    некорректен или NULL.</li>
+
+    <li><strong>BAD_SERIAL_NUMBER_INFO</strong> - второй параметр
+    функции некорректен или NULL.</li>
+
+    <li><strong>BAD_SERIAL_NUMBER_CONTAINER</strong> - третий
+    параметр функции не указывает на ячейку памяти для записи
+    адреса серийного номера.</li>
+
+    <li><strong>NOT_EMPTY_SERIAL_NUMBER_CONTAINER</strong> - третий
+    параметр функции не указывает на пустую ячейку, в ячейке должно
+    быть значение NULL.</li>
+
+    <li><strong>BAD_PRIVATE_EXPONENT</strong> - значение приватной
+    экспоненты в первом параметре функции некорректно.</li>
+
+    <li><strong>BAD_MODULUS</strong> - значение модуля в первом
+    параметре функции некорректно.</li>
+  </ul>
+
+  <p>Ошибки делятся на две категории: те, что связаны с
+  некорректными параметрами или с содержимым первого параметра
+  функции, и все остальные. Ошибки первой категории редки и
+  являются признаком некорректной настройки структуры. Имеет смысл
+  выгрузить информацию о продукте повторно и убедиться, что
+  структура заполняется правильно. Пример правильного заполнения
+  приведен ниже.</p>
+
+  <p>Ошибки второй категории связаны с попыткой вместить в ключ
+  больше данных, чем это возможно ввиду его размера. В таком случае
+  разумно будет отправить регистратору вместо ключа текст "Ключ
+  будет выслан в течение суток", а всю необходимую информацию
+  отправить себе по почте. Ключ в таком случае генерируется в
+  VMProtect в ручном режиме, какие-то данные обрезаются, чтобы
+  уместить все необходимое в максимальный размер
+  ключа.</p>
+
+  <h3>Пример использования</h3>
+
+  <p>Ниже приведен пример кода, который вызывает две вышеописанные
+  функции и генерирует серийный номер. Обратите внимание на блок
+  кода, расположенный в самом начале. Пример не будет работать пока
+  вы не замените его на блок, выгруженный для продукта из
+  VMProtect:</p>
+  <pre class="code">//////////////////////////////////////////////////////////////////////////
+// !!! this block should be generated by VMProtect !!!                 ///
+//////////////////////////////////////////////////////////////////////////
+
+<strong>VMProtectAlgorithms</strong> g_Algorithm = ALGORITHM_RSA;
+<strong>size_t</strong> g_nBits = 0;
+<strong>byte</strong> g_vModulus[1];
+<strong>byte</strong> g_vPrivate[1];
+<strong>byte</strong> g_vProductCode[1];
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+<strong>int</strong> _tmain(<strong>int</strong> argc, <strong>_TCHAR*</strong> argv[])
+{
+        <strong>VMProtectProductInfo</strong>     pi;
+        pi.algorithm = g_Algorithm;
+        pi.nBits = g_nBits;
+        pi.nModulusSize = sizeof(g_vModulus);
+        pi.pModulus = g_vModulus;
+        pi.nPrivateSize = sizeof(g_vPrivate);
+        pi.pPrivate = g_vPrivate;
+        pi.nProductCodeSize = sizeof(g_vProductCode);
+        pi.pProductCode = g_vProductCode;
+
+        <strong>VMProtectSerialNumberInfo</strong> si = {0};
+        si.flags = HAS_USER_NAME | HAS_EMAIL;
+        si.pUserName = L"John Doe";
+        si.pEMail = L"john@doe.com";
+        <strong>char *</strong> pBuf = NULL;
+        <strong>VMProtectErrors</strong> res = <strong>VMProtectGenerateSerialNumber</strong>(&amp;pi, &amp;si, &amp;pBuf);
+        <strong>if</strong> (res == ALL_RIGHT)
+        {
+                <strong>printf</strong>("Serial number:\n%s\n", pBuf);
+                <strong>VMProtectFreeSerialNumberMemory</strong>(pBuf);
+        }
+        else
+        {
+                <strong>printf</strong>("Error: %d\n", res);
+        }
+
+        <strong>return</strong> 0;
+} 
+</pre>
+
+  <p>Этот пример с проектом для Microsoft Visual Studio находится в
+  каталоге <strong>Keygen\DLL\Example</strong>, ниже будут описаны
+  наиболее интересные места кода.</p>
+
+  <p>Первые строчки функции <strong>main</strong> заполняют
+  структуру <strong>VMProtectProductInfo</strong> данными,
+  выгруженными из VMProtect. Этот код стандартен, его не следует
+  менять во избежание появления ошибок. Далее создается структура
+  <strong>VMProtectSerialNumberInfo</strong>, в поле флагов
+  выставляется комбинация из битов имени пользователя и e-mail.
+  Строчкой ниже в соответствующие поля структуры заносятся значения
+  имени пользователя и пароля. Обратите внимание, что значения
+  принимаются в кодировке UNICODE. Генератор ключей внутри
+  преобразует их в кодировку UTF-8.</p>
+
+  <p>Далее описывается переменная-указатель, куда будет записан
+  адрес сгенерированного ключа, и вызывается функция
+  <strong>VMProtectGenerateSerialNumber</strong>, после чего
+  анализируется код возврата. Если ошибок нет, то сгенерированный
+  номер печатается на консоль и вызывается функция осовобождения
+  памяти.</p>
+
+  <h3>Остальные поля структуры VMprotectSerialNumberInfo</h3>
+
+  <p>Некоторые поля структуры требуют дополнительных поясненений. К
+  примеру, поля <strong>dwExpDate</strong> и
+  <strong>dwMaxBuildDate</strong> содержат даты в определенном
+  формате: <strong>0xYYYYMMDD</strong>, т.е. год хранится в старшем
+  слове, а месяц и день в старшем и младшем байтах младшего слова.
+  Для формирования такого числа описан макрос <strong>MAKEDATE(y,
+  m, d)</strong>, который можно вызвать так: <strong>MAKEDATE(2010,
+  05, 12)</strong>.</p>
+
+  <p>В поле <strong>pHardwareID</strong> должен быть записан
+  указатель на строку, которую вернул метод
+  <strong>VMProtectGetCurrentHWID</strong> из SDK
+  лицензирования.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

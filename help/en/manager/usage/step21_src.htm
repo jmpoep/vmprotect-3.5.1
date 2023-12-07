@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 2.1: Creating a new protected application</title>
+</head>
+
+<body>
+  <h1>Step 2.1: Creating a new protected application</h1>
+
+  <p>At the first stage we made several simple apps to test the API of the licensing system. Now, on the second stage we'll create just one application. It will also be a console app with the <strong>foo()</strong> function working only in the registered version. Here is the code of our test application:</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include "VMProtectSDK.h"
+
+#define PRINT_HELPER(state, flag) if (state &amp; flag) printf("%s ", #flag)
+void print_state(INT state)
+{
+        if (state == 0)
+        {
+                printf("state = 0\n");
+                return;
+        }
+
+        printf("state = ");
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_CORRUPTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_INVALID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BLACKLISTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_DATE_EXPIRED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_RUNNING_TIME_OVER);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BAD_HWID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED);
+        printf("\n");
+}
+
+char *read_serial(const char *fname)
+{
+        FILE *f;
+        if (0 != fopen_s(&amp;f, fname, "rb")) return NULL;
+        fseek(f, 0, SEEK_END);
+        int s = ftell(f);
+        fseek(f, 0, SEEK_SET);
+        char *buf = new char[s + 1];
+        fread(buf, s, 1, f);
+        buf[s] = 0;
+        fclose(f);
+        return buf;
+}
+
+// The foo() method is very short, but we need it to be an individual function
+// so we asked the compiler to not compile it inline
+__declspec(noinline) void foo()
+{
+        printf("I'm foo!\n");
+}
+
+int main(int argc, char **argv)
+{
+        char *serial = read_serial("serial.txt");
+        int res = VMProtectSetSerialNumber(serial);
+        delete [] serial;
+        if (res)
+        {
+                printf("serial number is bad\n");
+                print_state(res);
+                return 0;
+        }
+        printf("serial number is correct, calling foo()\n");
+        foo();
+        printf("done\n");
+        return 0;
+}
+</pre>
+
+  <p>Compile the program without the debug information, but in the linker settings we enable creating of the MAP-file - we will need it to work with VMProtect. After we run the program, we should see the following text:</p>
+  <pre class="code">serial number is bad
+state = SERIAL_STATE_FLAG_INVALID
+</pre>
+
+  <p>Currently, the licensing system still works in the test mode, because the file wasn't processed by VMProtect and doesn't contain a licensing module in it. On the <a href=
+  "step22_vmp.htm">next step</a> we will create a VMProtect project and will try to protect our application.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

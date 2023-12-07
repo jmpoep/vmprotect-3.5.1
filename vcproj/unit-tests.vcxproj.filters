@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\unit-tests\files_tests.cc" />
+    <ClCompile Include="..\unit-tests\intel_tests.cc" />
+    <ClCompile Include="..\unit-tests\macfile_tests.cc" />
+    <ClCompile Include="..\unit-tests\pefile_tests.cc" />
+    <ClCompile Include="..\unit-tests\test1.cc" />
+    <ClCompile Include="..\unit-tests\precompiled.cc" />
+    <ClCompile Include="..\unit-tests\core_tests.cc" />
+    <ClCompile Include="..\third-party\lzma\LzmaDecode.cc" />
+    <ClCompile Include="..\unit-tests\il_tests.cc" />
+    <ClCompile Include="..\unit-tests\elffile_tests.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\unit-tests\testfile.h" />
+    <ClInclude Include="..\unit-tests\precompiled.h" />
+    <ClInclude Include="..\unit-tests\testfileil.h" />
+    <ClInclude Include="..\unit-tests\testfileintel.h" />
+  </ItemGroup>
+</Project>

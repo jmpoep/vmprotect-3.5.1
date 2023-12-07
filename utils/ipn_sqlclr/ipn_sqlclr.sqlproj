@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ipn_sqlclr</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{046364af-635b-4f62-9c8c-d3866b8f622f}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>ipn_sqlclr</RootNamespace>
+    <AssemblyName>ipn_sqlclr</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <PermissionSet>UNSAFE</PermissionSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Web References\" />
+    <Folder Include="Web References\certificateManagementService\" />
+    <Folder Include="Web References\policyService\" />
+    <Folder Include="Web References\signDataService\" />
+    <Folder Include="Web References\veriSignCertIssuingService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="VmpLicenseKey.cs" />
+    <Compile Include="keygen.cs" />
+    <Compile Include="Taggant.cs" />
+    <Compile Include="Web References\certificateManagementService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\policyService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\signDataService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\veriSignCertIssuingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="TaggantWebService.cs" />
+    <Compile Include="LogItem.cs" />
+    <Compile Include="XmlReaderSpy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\CertificateEnrollmentPolicy.wsdl">
+      <Link>Web References\CertificateEnrollmentPolicy.wsdl</Link>
+    </None>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\CertificateManagementService.wsdl">
+      <Link>Web References\CertificateManagementService.wsdl</Link>
+    </None>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\SignerAPI.wsdl">
+      <Link>Web References\SignerAPI.wsdl</Link>
+    </None>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\UserManagementService.wsdl">
+      <Link>Web References\UserManagementService.wsdl</Link>
+    </None>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\VS_WSTEP.wsdl">
+      <Link>Web References\VS_WSTEP.wsdl</Link>
+    </None>
+    <None Include="C:\Users\Youra\Documents\GitHub\my-vmprotect\tagg\ws-trust-1.3-verisign.wsdl">
+      <Link>Web References\ws-trust-1.3-verisign.wsdl</Link>
+    </None>
+    <None Include="ipn_sqlclr.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bc\crypto\crypto.csproj">
+      <Name>crypto</Name>
+      <Project>{38872a5f-e87e-4fad-b109-8eb7b2e6a4a0}</Project>
+      <Private>True</Private>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>True</GenerateSqlClrDdl>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

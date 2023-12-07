@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 2.3: Первый запуск защищенного продукта</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Шаг 2.3: Первый запуск защищенного продукта</h1>
+
+  <p>Система лицензирования инициализирована, так что мы можем
+  попробовать скомпилировать проект VMPrtoect и запустить
+  защищенный файл. Запустив его из командной строки мы получим
+  следующее сообщение:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is bad
+state = SERIAL_STATE_FLAG_INVALID
+</pre>
+
+  <p>Запустив программу depends.exe, мы можем убедиться, что наш
+  защищенный файл более не связан с библиотекой VMProtectSDK.dll, а
+  значит модуль лицензирования встроен в приложение. Список
+  используемых DLL можно посмотреть и в VMProtect, открыв
+  защищенный файл и выбрав из раздела "Свойства" секцию "Импорты".</p>
+
+  <p><img src="../../images/depends.png" /></p>
+
+  <p>Наша защищаемая программа читает серийный номер из файла
+  serial.txt. Поскольку этого файла сейчас нет, то модулю лицензирования
+  подается пустой номер, который также не считается корректным.
+  Перейдем на закладку "лицензии" и сгенерируем серийный номер.
+  Подробно эта процедура описана <a href=
+  "../licenses.htm">здесь</a>, мы создадим самый простой серийный
+  номер без каких-либо ограничений.</p>
+
+  <p><img src="../../images/project_add_license.png" /></p>
+
+  <p>Затем скопируем серийный номер (в свойствах лицензии выделим поле
+  "Серийный номер" и нажмем Ctrl+C), создадим рядом с
+  защищенным приложением файл serial.txt и вставим туда серийный
+  номер. После запуска программы мы увидим следующее:</p>
+  <pre class="code">C:\test&gt;dummy_app.vmp.exe
+serial number is correct, calling foo()
+I'm foo
+done
+</pre>
+
+  <p>Система лицензирования проверила серийный номер и посчитала
+  его корректным. На <a href="step24_test.htm">следующем шаге</a> мы
+  попробуем применить некоторые ограничения и посмотрим что из
+  этого выйдет.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

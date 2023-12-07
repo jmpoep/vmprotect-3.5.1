@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Serial number format</title>
+  <style type="text/css">
+/*<![CDATA[*/
+                th {text-align:left;}
+                table {border-collapse:collapse; margin-top: 4px;}
+                td,th {border: 1px solid #B0B0B0; padding-left:10;padding-right:10;}
+    /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Serial number format</h1>
+
+  <h3>Serial number structure</h3>
+
+  <p>The serial number consists of blocks. Each block starts from an identifier byte that indicates contents of the block and possibly its length. The last block always has the 255 identifier that contains a checksum of the serial number except the last block.</p>
+
+  <p>Depending on the type of the block, it can have constant or variable length. In the latter case, the length is specified in the byte following the block identifier. The exact format of each block is described below.</p>
+
+  <h3>Block format</h3>
+
+  <table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+      <th>ID</th>
+
+      <th>Name</th>
+
+      <th>Size (byte)</th>
+
+      <th>Description</th>
+
+      <th>Example</th>
+    </tr>
+
+    <tr>
+      <td>0x01</td>
+
+      <td>Version</td>
+
+      <td>1</td>
+
+      <td>The block contains a version of the serial number, 1-byte sized.
+      The version must be 1.</td>
+
+      <td>01 01</td>
+    </tr>
+
+    <tr>
+      <td>0x02</td>
+
+      <td>User name</td>
+
+      <td>1 + N</td>
+
+      <td>The block contains a UTF-8 encoded user name. Before the user name, there is 1 byte holding the length of the name. Therefore, the total length of a user name must not exceed 255 bytes. No trailing 0 is required.</td>
+
+      <td>02 04 4A 5F 48 4E</td>
+    </tr>
+
+    <tr>
+      <td>0x03</td>
+
+      <td>E-Mail</td>
+
+      <td>1 + N</td>
+
+      <td>The block contains a UTF-8 encoded e-mail of the user.
+      Before the e-mail there is 1 byte holding the length. Therefore, the total length of an e-mail must not exceed 255 bytes. No trailing 0 is required.</td>
+
+      <td>03 07 61 40 62 2E 63 6F 6D</td>
+    </tr>
+
+    <tr>
+      <td>0x04</td>
+
+      <td>Hardware identifier</td>
+
+      <td>1 + N</td>
+
+      <td>The block contains hardware identifier as returned by the <strong>VMProtectGetCurrentHWID()</strong> function. The function returns a base-64 string. A decoded version of the string is put to the serial number. The length of the data block must be a multiple of 4. There is a length byte before the data block. The maximum block length is 32 bytes.</td>
+
+      <td>04 08 E1 E2 E3 E4 A1 A2 A3 A4</td>
+    </tr>
+
+    <tr>
+      <td>0x05</td>
+
+      <td>License expiration date</td>
+
+      <td>4</td>
+
+      <td>The block contains serial number expiration date
+      Date format is described below.</td>
+
+      <td>05 01 0A 07 DA</td>
+    </tr>
+
+    <tr>
+      <td>0x06</td>
+
+      <td>Maximum operation time</td>
+
+      <td>1</td>
+
+      <td>the block contains 1 byte holding the time in minutes the program can operate. Therefore, the maximum time can be 255 minutes.</td>
+
+      <td>06 05</td>
+    </tr>
+
+    <tr>
+      <td>0x07</td>
+
+      <td>Product code</td>
+
+      <td>8</td>
+
+      <td>The block contains a product code - 8 bytes created by VMProtect and exported with product parameters.
+      These data are exported in the base-64 encoding and must be decoded to a byte array before putting to a serial number.
+      The size of the array must be exactly 8 bytes.
+      <strong>This block is obligatory! Without it, the protected program will not work correctly.</strong></td>
+
+      <td>07 01 02 03 04 05 06 07 08</td>
+    </tr>
+
+    <tr>
+      <td>0x08</td>
+
+      <td>User data</td>
+
+      <td>1 + N</td>
+
+      <td>The block contains up to 255 bytes of custom user data.
+      The license system doesn't analyze these data and will return them when the
+      <strong>VMProtectGetSerialNumberData()</strong> function is called. Before the data block, there is a byte holding the size of the user data.</td>
+
+      <td>08 05 01 02 03 04 05</td>
+    </tr>
+
+    <tr>
+      <td>0x09</td>
+
+      <td>Maximum build date</td>
+
+      <td>4</td>
+
+      <td>The block contains the maximum build date of the application. The format is described below.</td>
+
+      <td>09 01 0A 07 DA</td>
+    </tr>
+
+    <tr>
+      <td>0xFF</td>
+
+      <td>Checksum</td>
+
+      <td>4</td>
+
+      <td>The block contains the serial number checksum. The block is located before the last one, and the checksum is calculated for all previous blocks. The checksum calculation mechanism is described below.</td>
+
+      <td>FF 01 02 03 04</td>
+    </tr>
+  </table>
+
+  <h3>Date storage format</h3>
+
+  <p>Dates are stored in a serial number as a double word -
+  0xYYYYMMDD. The high order word contains the year, and the lower order word holds the day and the month.
+  Bytes follow the Little Endian representation - from lower to higher. If there is a pointer to the first byte of the record, the date can be read or written with the following code:</p>
+  <pre class="code"><strong>byte *</strong>pDate = 0xNNNNNN; // date address
+<strong>*</strong>(<strong>DWORD *</strong>)pDate = (2010 &lt;&lt; 16) | (10 &lt;&lt; 8) | 1; // October 1, 2010
+<strong>DWORD</strong> dwExp = *(<strong>DWORD *</strong>)pDate;
+</pre>
+
+  <h3>Checksum calculation</h3>
+
+  <p>The checksum of the serial number is calculated using the SHA-1 hashing algorithm. The result is five 32-bit words. The first word is used as a checksum for the serial number. <strong>Please note:</strong> the word is Little Endian (from lower to higher). The string representation of SHA-1 hash the Big Endian is used - numbers go from the higher byte to the lower one, so if the SHA-1 hash is generated by a string function (like in PHP), the first four bytes of the hash must be reversed.</p>
+
+  <h3>Additional information</h3>
+
+  <p>Block with numbers other than those specified above are ignored by the licensing system. New blocks may be added in newer versions. <strong>We do not recommend creating your own blocks using non-occupied identifiers!</strong> Firstly, this could render the key non-functional with newer version of the licensing system. Secondly, the protected program cannot read the values of theses blocks anyway. To store additional information in a key, use the <strong>User
+  Data</strong> field instead. It was meant exactly for this purpose.</p>
+
+  <p>A serial number doesn't have SALT, a random information intended to provide variability of keys based on the same input data. This task is imposed to the encryption algorithm. If you need differences on the serial number level, for example, when selling a series of keys to an organization, you can add individual indices to the user name field ("Company" LLC,
+  key 1 of 10) or insert this information to the <strong>User
+  Data</strong> field in any appropriate format.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Шаг 1.3: Получаем флаги состояния серийного номера</title>
+</head>
+
+<body>
+  <h1>Шаг 1.3: Получаем флаги состояния серийного
+  номера</h1><strong>Удобная функция для печати флагов</strong>
+
+  <p>Первым делом добавим в наш файл одну удобную функцию, которая
+  будет печатать в человеческом виде значения флагов состояния
+  серийного номера. Код функции приведен ниже:</p>
+  <pre class="code">#define PRINT_HELPER(state, flag) if (state &amp; flag) printf("%s ", #flag)
+void print_state(INT state)
+{
+        if (state == 0)
+        {
+                printf("state = 0\n");
+                return;
+        }
+
+        printf("state = ");
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_CORRUPTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_INVALID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BLACKLISTED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_DATE_EXPIRED);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_RUNNING_TIME_OVER);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_BAD_HWID);
+        PRINT_HELPER(state, SERIAL_STATE_FLAG_MAX_BUILD_EXPIRED);
+        printf("\n");
+}
+</pre>
+
+  <p>Несмотря на свой размер, функция очень простая - она
+  последовательно проверяет все битовые флаги и печатает те, что
+  присутствуют в переменной состояния. Заменим
+  <strong>printf</strong> после проверки номера на вызов
+  <strong>print_state</strong>, заодно временно поправим серийный
+  номер, который подается в систему лицензирования:</p>
+  <pre class="code">char *serial = "Xserialnumber1"; // зададим номер непосредственно в коде для простоты
+int res = VMProtectSetSerialNumber(serial);
+print_state(res);
+</pre>
+
+  <p>Если запустить эту программу, то на консоль выведется
+  следующее:</p>
+  <pre class="code">state = SERIAL_STATE_FLAG_INVALID
+please register!
+</pre>
+
+  <p>Вернем теперь старый серийный номер, убрав "1", и запустим
+  программу еще раз:</p>
+  <pre class="code">state = 0
+We are registered.
+</pre>
+
+  <p>Теперь, когда мы можем видеть флаги состояние серийного
+  номера, перейдем к получению флагов и данных из серийного
+  номера.</p><strong>Получение состояния номера</strong>
+
+  <p>Состояние номера можно получить тремя способами: вызвав
+  <strong>VMProtectSetSerialNumber()</strong>, вызвав
+  <strong>VMProtectGetSerialNumberState()</strong> и вызвав
+  <strong>VMProtectGetSerialNumberData()</strong> - флаги состояния
+  будут помещены в одно из полей структуры. Каждый из методов
+  предназначен для использования в разное время. Первая проверка
+  серийного номера происходит непосредственно при его установке. В
+  этот момент нужно отсекать некорректные номера, номера с истекшим
+  сроком действия, номера из черного списка и т.п. Некоторые
+  ограничения - скажем, максимальное время работы продукта или срок
+  действия номера, имеет смысл проверять и в процессе работы
+  программы. Тут оптимально воспользоваться простым и быстрым
+  методом <strong>VMProtectGetSerialNumberState()</strong>, а в
+  случае, если нужно получить подробную информацию о данных в
+  серийном номере, можно использовать более мощную функцию
+  <strong>VMProtectGetSerialNumberData()</strong>.</p><br />
+  <a href="step14_name.htm">Следующий шаг</a>
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{ea5615d1-b664-4354-ada0-c0033e26207c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{cb40700d-7f2b-496b-b4ea-fca91daa3209}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\core\core.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\files.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\intel.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\macfile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\objects.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\pefile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\processors.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\streams.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\osutils.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\packer.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\inifile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\script.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\crypto.cc">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\lang.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\precompiled.cc">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\dotnetfile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\il.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\elffile.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\objc.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\dwarf.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\core\core.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\intel.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\macfile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\pefile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\osutils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\resources.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\packer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\files.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\processors.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\objects.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\streams.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\inifile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\script.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\crypto.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\common.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\lang.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\precompiled.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\pe.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\mach-o.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\dotnet.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\dotnetfile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\il.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\elf.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\elffile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\objc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\dwarf.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\pdb.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href=
+  "../../default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Step 1.1: Creating a protected application</title>
+</head>
+
+<body>
+  <h1>Step 1.1: Creating a protected application</h1>
+
+  <p>The first step is to create an application. This would be a simple app without any user interface and with no serious capabilities. Our goal is to pass a serial number to the licensing system and receive its answer..</p>
+  <pre class="code">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+
+bool is_registered(const char *serial)
+{
+        return serial &amp;&amp; serial[0] == 'X';
+}
+
+int main(int argc, char **argv)
+{
+        char *serial = "Xserialnumber"; // we set the serial number directly in the code, for simplicity
+        if (!is_registered(serial))
+        {
+                printf("please register!\n");
+                return 0;
+        }
+        printf("We are registered.\n");
+        return 0;
+}
+</pre>
+
+  <p>The program uses a very simple way to check the serial number. The <strong>is_registered()</strong> function compares the first symbol of the serial number with 'X' and thinks the number is correct if this they match. For an incorrect serial number, a registration message is displayed, while if a user enter the correct key, "We are registered." is shown instead</p>
+
+  <p>The <a href="step12_code.htm">next step</a> is to add the code to check the serial number using the licensing system of 
+  VMProtect.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>

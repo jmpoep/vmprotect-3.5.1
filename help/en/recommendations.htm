@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="Stylesheet" type="text/css" href="default.css" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+
+  <title>Recommendations on protecting your application</title>
+</head>
+
+<body>
+  <h1>Recommendations on protecting your application</h1>
+
+  <p>VMProtect is a reliable tool to protect the application code from analysis and cracking, yet the most efficient use is only possible if the in-app protection mechanisms are built properly, without typical mistakes that could ruin the whole protection. Let's review crucial elements of developing a good protection of your program.</p>
+
+  <h3>Registration procedure</h3>
+
+  <p>A typical mistake many developers make when they design their own application registration procedure is enveloping the entire registration key check to an individual function that also returns an easy-to-comprehend value:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber='123' then
+   Result:=True
+  else
+   Result:=False;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not CheckRegistration(RegNumber) then
+   exit;
+  Application.CreateForm(TForm2, Form2);
+  Form2.ShowModal;
+  ...
+end;
+</pre>
+
+  <p>With such an approach, an intruder doesn't even need to understand the key check algorithm. He may simply modify the code in the beginning of the check procedure so that it always returned a correct registration key value:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  Result:=True;
+  exit;
+  ...
+end;
+</pre>
+
+  <p>A much more effective way to check the key is to embed the check for correctness to the main operation logic of the program, so that the algorithm of registration key check could not be separated from the algorithm of the calling procedure. We also recommend to "blend" the operation logic with the registration key check procedure to make the program fail if the check was bypassed. For the above example this can be done as follows:</p>
+  <pre class="indent code">function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber='123' then
+   begin
+    Application.CreateForm(TForm2, Form2);
+    Result:=True
+   end
+  else
+    Result:=False;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  Form2:=nil;
+  if not CheckRegistration(RegNumber) then
+   exit;
+  Form2.ShowModal;
+  ...
+end;
+</pre>
+
+  <p>If the CheckRegistration function is implemented like that, an intruder will have to analyze the code of registration key check in all details in order to bypass it. If this application is protected by VMProtect, virtualization of both the CheckRegistration function and TForm1.Button1Click procedure is recommended. To make the hacking even more complex, you can turn on the <a href="project_functions.htm#CompilationTypes">"Ultra" protection mode</a> to combine mutation of the code and subsequent virtualization.</p>
+
+  <h3>Checking registration keys</h3>
+
+  <p>Another critical mistake developers make is wrong implementation of registration key checks. Often the entered key is simply compared with the correct value. A cracker can easily match the correct value of the key by tracing arguments of the string comparison function:</p>
+  <pre class="indent code">var ValidRegNumber: String;
+...
+function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if RegNumber=ValidRegNumber then
+   Result:=True
+  else
+   Result:=False;
+end;
+</pre>
+
+  <p>To avoid such situation we recommend comparing hashes of keys, instead of their actual values. The hash function is irreversible, so a cracker is unable to retrieve a real key value from the hash and has to spend a lot more time to study the program, because more code fragments need to be analyzed now, not just the registration key check procedure:</p>
+  <pre class="indent code">var
+  HashOfValidRegNumber: Longint;
+...
+// Peter Weinberger's PJW hashing algorithm example of use
+function HashPJW(const Value: String): Longint;
+var I:Integer;
+    G:Longint;
+begin
+  Result:=0;
+  for I:=1 to Length(Value) do
+   begin
+    Result:=(Result shl 4)+Ord(Value[I]);
+    G:=Result and $F0000000;
+    if G&lt;&amp;gt0 then
+     Result:=(Result xor (G shr 24)) xor G;
+   end;
+end;
+
+function CheckRegistration(const RegNumber: String): Boolean;
+begin
+  if HashPJW(RegNumber)=HashOfValidRegNumber then
+   Result:=True
+  else
+   Result:=False;
+end;
+...
+initialization
+  HashOfValidRegNumber:=HashPJW(ValidRegNumber);
+
+end.
+</pre>
+
+  <p>When protecting the application with VMProtect, HashPJW and CheckRegistration function should be processed to complicate hacker's life.</p>
+
+  <h3>Saving check results</h3>
+
+  <p>Usually, even developers who spent a lot of time on registration procedure do not give due attention to protecting the result of the registration procedure. The below example uses a global variable to store and control the registration state of the application before invoking the serial number check procedure. For an intruder, finding a global variable is a piece of cake - he simply compares data segments BEFORE and AFTER registration. By the way, the popular ArtMoney program uses the same principle.</p>
+  <pre class="indent code">var IsRegistered: Boolean;
+...
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not IsRegistered then
+   IsRegistered:=CheckRegistration(RegNumber);
+  if  not IsRegistered then
+   exit;
+  ...
+end;
+</pre>
+
+  <p>To avoid such a situation, we recommend to store results of all checks related to registration of the program in dynamic memory. In this case scanning data segments for modified memory blocks BEFORE and AFTER registration turns useless. Here is a very simple example demonstrating how to store the result in dynamically allocated memory:</p>
+  <pre class="indent code">type PBoolean = ^Boolean;
+
+var IsRegistered: PBoolean;
+...
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ...
+  if not IsRegistered^ then
+   IsRegistered^:=CheckRegistration(RegNumber);
+  if  not IsRegistered^ then
+   exit;
+  ...
+end;
+...
+initialization
+  New(IsRegistered);
+</pre>
+
+  <p>These are the simplest ways to utilize the built-in protection mechanisms. Real-world implementations of registration procedures, registration key checks and storing the result are only limited to creativity of a developer. Anyway, you should know about these potential mistakes to avoid them while developing your own protection mechanism.</p><br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <hr noshade="noshade" size="1" />
+
+  <div align="center">
+    © 2006-2015 Copyright VMProtect Software
+  </div>
+</body>
+</html>
