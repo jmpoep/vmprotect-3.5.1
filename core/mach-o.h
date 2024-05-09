@@ -536,7 +536,7 @@ struct mach_header_64 {
 					   incremental link against a base file
 					   and can't be link edited again */
 #define MH_DYLDLINK	0x4		/* the object file is input for the
-					   dynamic linker and can't be staticly
+					   dynamic linker and can't be statically
 					   link edited again */
 #define MH_BINDATLOAD	0x8		/* the object file's undefined
 					   references are bound by the dynamic
@@ -1540,7 +1540,7 @@ struct dysymtab_command {
     /*
      * All the local relocation entries are grouped together (they are not
      * grouped by their module since they are only used if the object is moved
-     * from it staticly link edited address).
+     * from it statically link edited address).
      */
     uint32_t locreloff;	/* offset to local relocation entries */
     uint32_t nlocrel;	/* number of local relocation entries */
