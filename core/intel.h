@@ -782,7 +782,7 @@ private:
 	uint64_t GetRegistrValue(uint8_t reg, size_t end_index);
 	uint64_t GetRegistrMaxValue(uint8_t reg, size_t end_index, IArchitecture &file);
 	void GetFreeRegisters(size_t index, CommandInfoList &command_info_list) const;
-	void Mutate(const CompileContext &ctx, bool for_virtualization, int index = 0);
+	void Mutate(const CompileContext &ctx, bool for_virtualization/*, int index = 0*/);
 
 	SectionCryptorList *section_cryptor_list_;
 	std::set<uint64_t> break_case_list_;
@@ -873,7 +873,7 @@ class IntelObfuscation : public IObject
 {
 public:
 	explicit IntelObfuscation();
-	void Compile(IntelFunction *func, size_t index, size_t end_index = -1, bool for_virtualization = false);
+	void Compile(IntelFunction *func, size_t index/*, size_t end_index = -1, bool for_virtualization = false*/);
 private:
 	IntelCommand *AddCommand(IntelCommandType type, IntelOperand operand1 = IntelOperand(), IntelOperand operand2 = IntelOperand(), IntelOperand operand3 = IntelOperand());
 	void AddRandomCommands();
